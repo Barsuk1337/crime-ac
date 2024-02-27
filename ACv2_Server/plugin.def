@@ -1,0 +1,11 @@
+EXPORTS
+	Supports
+	ProcessTick
+	Load
+	Unload
+	AmxLoad
+	AmxUnload
+	OnPlayerConnect
+	OnPlayerDisconnect
+	OnGameModeInit
+	OnPlayerCommandText

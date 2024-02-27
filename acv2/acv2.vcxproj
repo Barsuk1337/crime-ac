@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{08AD4F09-B5D6-4E3F-88A6-1653EAF01CDB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>acv2</RootNamespace>
+    <ProjectName>cs_ac</ProjectName>
+    <WindowsTargetPlatformVersion>7.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141_xp</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141_xp</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetExt>.asi</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.asi</TargetExt>
+    <IncludePath>$(ProjectDir)DirectX;$(ProjectDir);$(SolutionDir)Shared;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)acv2\libs\;$(SolutionDir)Shared\Boost\libs\;$(LibraryPath)</LibraryPath>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;ACV2_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;ACV2_EXPORTS;_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;DATE_TIME_INLINE;_REMOVE_FPOS_SEEKPOS;CURL_STATICLIB;DIRECTINPUT_VERSION#0x0900;_WIN32_WINNT#0x0500;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>crypt32.lib;BugSplat.lib;ws2_32.lib;psapi.lib;wldap32.lib;Wininet.lib;Urlmon.lib;$(ProjectDir)libs\detours.lib;$(ProjectDir)libs\enigma_ide.lib;$(ProjectDir)libs\d3d9.lib;$(ProjectDir)libs\d3dx9.lib;$(SolutionDir)\Shared\libs\libcurl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <EnableUAC>false</EnableUAC>
+      <UACUIAccess>true</UACUIAccess>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapFileName>ACv2_Client.map</MapFileName>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+      <Version>2.3</Version>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)ACv2_Client.map" "$(SolutionDir)Release\ACv2_Client.map"
+copy /Y "$(SolutionDir)Release\cs_ac.asi" "$(SolutionDir)Release\ACv2_Client_unencrypted.asi"
+cd $(TargetDir)
+sendPdbs.exe /u whitetigerswt@gmail.com /p j#HRRfA1AjK2RG*u /a SAMP_AC_v2 /v 2.8 /f "ACv2_Client.pdb;cs_ac.asi"
+"$(MSBuildProgramFiles32)\The Enigma Protector\enigma32.exe" "$(SolutionDir)Release\ACv2_Client.enigma"
+"$(MSBuildProgramFiles32)\NSIS\makensis.exe" "$(TargetDir)sampac.nsi"</Command>
+      <Message>
+      </Message>
+    </PostBuildEvent>
+    <PreLinkEvent>
+      <Command>cd $(TargetDir)
+del $(TargetFileName)</Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Shared\MD5_Info\Cmd5Info.cpp" />
+    <ClCompile Include="..\Shared\Network\ACVerifiedPacket.cpp" />
+    <ClCompile Include="..\Shared\Network\BitStream.cpp" />
+    <ClCompile Include="..\Shared\Network\CRPC.cpp" />
+    <ClCompile Include="..\Shared\SelfUpdater\CSelfUpdater.cpp" />
+    <ClCompile Include="CFileCheck.cpp" />
+    <ClCompile Include="CHookManager.cpp" />
+    <ClCompile Include="CDirectoryScanner.cpp" />
+    <ClCompile Include="CDirectX.cpp" />
+    <ClCompile Include="CInjectedLibraries.cpp" />
+    <ClCompile Include="CLoader.cpp" />
+    <ClCompile Include="CLog.cpp" />
+    <ClCompile Include="CMem.cpp" />
+    <ClCompile Include="CMemProtect.cpp" />
+    <ClCompile Include="CModuleSecurity.cpp" />
+    <ClCompile Include="CPacketIntegrity.cpp" />
+    <ClCompile Include="CParseCommandLine.cpp" />
+    <ClCompile Include="CProcessList.cpp" />
+    <ClCompile Include="DirectX Hooks\CD3D9DeviceProxy.cpp" />
+    <ClCompile Include="DirectX Hooks\CD3D9Proxy.cpp" />
+    <ClCompile Include="DirectX Hooks\CMessageProxy.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="GTASA_CRC32.cpp" />
+    <ClCompile Include="IMG.cpp" />
+    <ClCompile Include="ManualInjection.cpp" />
+    <ClCompile Include="Misc.cpp" />
+    <ClCompile Include="Network\CPacketQueue.cpp" />
+    <ClCompile Include="Network\CRakClientHandler.cpp" />
+    <ClCompile Include="Network\CRPCCallback.cpp" />
+    <ClCompile Include="Network\HookedRakClient.cpp" />
+    <ClCompile Include="Network\RakClient.cpp" />
+    <ClCompile Include="PatternScan.cpp" />
+    <ClCompile Include="s0beit\samp.cpp" />
+    <ClCompile Include="VersionHelper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Shared\Boost\aligned_storage.hpp" />
+    <ClInclude Include="..\Shared\Boost\any.hpp" />
+    <ClInclude Include="..\Shared\Boost\array.hpp" />
+    <ClInclude Include="..\Shared\Boost\asio.hpp" />
+    <ClInclude Include="..\Shared\Boost\assert.hpp" />
+    <ClInclude Include="..\Shared\Boost\assign.hpp" />
+    <ClInclude Include="..\Shared\Boost\atomic.hpp" />
+    <ClInclude Include="..\Shared\Boost\bimap.hpp" />
+    <ClInclude Include="..\Shared\Boost\bind.hpp" />
+    <ClInclude Include="..\Shared\Boost\blank.hpp" />
+    <ClInclude Include="..\Shared\Boost\blank_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\call_traits.hpp" />
+    <ClInclude Include="..\Shared\Boost\cast.hpp" />
+    <ClInclude Include="..\Shared\Boost\cerrno.hpp" />
+    <ClInclude Include="..\Shared\Boost\checked_delete.hpp" />
+    <ClInclude Include="..\Shared\Boost\chrono.hpp" />
+    <ClInclude Include="..\Shared\Boost\circular_buffer.hpp" />
+    <ClInclude Include="..\Shared\Boost\circular_buffer_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\compressed_pair.hpp" />
+    <ClInclude Include="..\Shared\Boost\concept_archetype.hpp" />
+    <ClInclude Include="..\Shared\Boost\concept_check.hpp" />
+    <ClInclude Include="..\Shared\Boost\config.hpp" />
+    <ClInclude Include="..\Shared\Boost\crc.hpp" />
+    <ClInclude Include="..\Shared\Boost\cregex.hpp" />
+    <ClInclude Include="..\Shared\Boost\cstdint.hpp" />
+    <ClInclude Include="..\Shared\Boost\cstdlib.hpp" />
+    <ClInclude Include="..\Shared\Boost\current_function.hpp" />
+    <ClInclude Include="..\Shared\Boost\date_time.hpp" />
+    <ClInclude Include="..\Shared\Boost\dynamic_bitset.hpp" />
+    <ClInclude Include="..\Shared\Boost\dynamic_bitset_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\enable_shared_from_this.hpp" />
+    <ClInclude Include="..\Shared\Boost\exception.hpp" />
+    <ClInclude Include="..\Shared\Boost\exception_ptr.hpp" />
+    <ClInclude Include="..\Shared\Boost\filesystem.hpp" />
+    <ClInclude Include="..\Shared\Boost\flyweight.hpp" />
+    <ClInclude Include="..\Shared\Boost\foreach.hpp" />
+    <ClInclude Include="..\Shared\Boost\foreach_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\format.hpp" />
+    <ClInclude Include="..\Shared\Boost\function.hpp" />
+    <ClInclude Include="..\Shared\Boost\functional.hpp" />
+    <ClInclude Include="..\Shared\Boost\function_equal.hpp" />
+    <ClInclude Include="..\Shared\Boost\function_output_iterator.hpp" />
+    <ClInclude Include="..\Shared\Boost\generator_iterator.hpp" />
+    <ClInclude Include="..\Shared\Boost\geometry.hpp" />
+    <ClInclude Include="..\Shared\Boost\get_pointer.hpp" />
+    <ClInclude Include="..\Shared\Boost\implicit_cast.hpp" />
+    <ClInclude Include="..\Shared\Boost\indirect_reference.hpp" />
+    <ClInclude Include="..\Shared\Boost\integer.hpp" />
+    <ClInclude Include="..\Shared\Boost\integer_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\integer_traits.hpp" />
+    <ClInclude Include="..\Shared\Boost\intrusive_ptr.hpp" />
+    <ClInclude Include="..\Shared\Boost\io_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\is_placeholder.hpp" />
+    <ClInclude Include="..\Shared\Boost\iterator.hpp" />
+    <ClInclude Include="..\Shared\Boost\iterator_adaptors.hpp" />
+    <ClInclude Include="..\Shared\Boost\last_value.hpp" />
+    <ClInclude Include="..\Shared\Boost\lexical_cast.hpp" />
+    <ClInclude Include="..\Shared\Boost\limits.hpp" />
+    <ClInclude Include="..\Shared\Boost\locale.hpp" />
+    <ClInclude Include="..\Shared\Boost\local_function.hpp" />
+    <ClInclude Include="..\Shared\Boost\make_shared.hpp" />
+    <ClInclude Include="..\Shared\Boost\math_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\memory_order.hpp" />
+    <ClInclude Include="..\Shared\Boost\mem_fn.hpp" />
+    <ClInclude Include="..\Shared\Boost\mpi.hpp" />
+    <ClInclude Include="..\Shared\Boost\multi_array.hpp" />
+    <ClInclude Include="..\Shared\Boost\multi_index_container.hpp" />
+    <ClInclude Include="..\Shared\Boost\multi_index_container_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\next_prior.hpp" />
+    <ClInclude Include="..\Shared\Boost\noncopyable.hpp" />
+    <ClInclude Include="..\Shared\Boost\nondet_random.hpp" />
+    <ClInclude Include="..\Shared\Boost\none.hpp" />
+    <ClInclude Include="..\Shared\Boost\none_t.hpp" />
+    <ClInclude Include="..\Shared\Boost\non_type.hpp" />
+    <ClInclude Include="..\Shared\Boost\operators.hpp" />
+    <ClInclude Include="..\Shared\Boost\optional.hpp" />
+    <ClInclude Include="..\Shared\Boost\parameter.hpp" />
+    <ClInclude Include="..\Shared\Boost\phoenix.hpp" />
+    <ClInclude Include="..\Shared\Boost\pointee.hpp" />
+    <ClInclude Include="..\Shared\Boost\pointer_cast.hpp" />
+    <ClInclude Include="..\Shared\Boost\pointer_to_other.hpp" />
+    <ClInclude Include="..\Shared\Boost\predef.h" />
+    <ClInclude Include="..\Shared\Boost\preprocessor.hpp" />
+    <ClInclude Include="..\Shared\Boost\program_options.hpp" />
+    <ClInclude Include="..\Shared\Boost\progress.hpp" />
+    <ClInclude Include="..\Shared\Boost\python.hpp" />
+    <ClInclude Include="..\Shared\Boost\random.hpp" />
+    <ClInclude Include="..\Shared\Boost\range.hpp" />
+    <ClInclude Include="..\Shared\Boost\ratio.hpp" />
+    <ClInclude Include="..\Shared\Boost\rational.hpp" />
+    <ClInclude Include="..\Shared\Boost\ref.hpp" />
+    <ClInclude Include="..\Shared\Boost\regex.h" />
+    <ClInclude Include="..\Shared\Boost\regex.hpp" />
+    <ClInclude Include="..\Shared\Boost\regex_fwd.hpp" />
+    <ClInclude Include="..\Shared\Boost\scoped_array.hpp" />
+    <ClInclude Include="..\Shared\Boost\scoped_ptr.hpp" />
+    <ClInclude Include="..\Shared\Boost\scope_exit.hpp" />
+    <ClInclude Include="..\Shared\Boost\shared_array.hpp" />
+    <ClInclude Include="..\Shared\Boost\shared_container_iterator.hpp" />
+    <ClInclude Include="..\Shared\Boost\shared_ptr.hpp" />
+    <ClInclude Include="..\Shared\Boost\signal.hpp" />
+    <ClInclude Include="..\Shared\Boost\signals.hpp" />
+    <ClInclude Include="..\Shared\Boost\signals2.hpp" />
+    <ClInclude Include="..\Shared\Boost\smart_ptr.hpp" />
+    <ClInclude Include="..\Shared\Boost\spirit.hpp" />
+    <ClInclude Include="..\Shared\Boost\static_assert.hpp" />
+    <ClInclude Include="..\Shared\Boost\strong_typedef.hpp" />
+    <ClInclude Include="..\Shared\Boost\swap.hpp" />
+    <ClInclude Include="..\Shared\Boost\thread.hpp" />
+    <ClInclude Include="..\Shared\Boost\throw_exception.hpp" />
+    <ClInclude Include="..\Shared\Boost\timer.hpp" />
+    <ClInclude Include="..\Shared\Boost\tokenizer.hpp" />
+    <ClInclude Include="..\Shared\Boost\token_functions.hpp" />
+    <ClInclude Include="..\Shared\Boost\token_iterator.hpp" />
+    <ClInclude Include="..\Shared\Boost\type.hpp" />
+    <ClInclude Include="..\Shared\Boost\type_traits.hpp" />
+    <ClInclude Include="..\Shared\Boost\unordered_map.hpp" />
+    <ClInclude Include="..\Shared\Boost\unordered_set.hpp" />
+    <ClInclude Include="..\Shared\Boost\utility.hpp" />
+    <ClInclude Include="..\Shared\Boost\variant.hpp" />
+    <ClInclude Include="..\Shared\Boost\version.hpp" />
+    <ClInclude Include="..\Shared\Boost\visit_each.hpp" />
+    <ClInclude Include="..\Shared\Boost\wave.hpp" />
+    <ClInclude Include="..\Shared\Boost\weak_ptr.hpp" />
+    <ClInclude Include="..\Shared\MD5_Info\Cmd5Info.h" />
+    <ClInclude Include="..\Shared\MD5_Info\md5.h" />
+    <ClInclude Include="..\Shared\Network\ACVerifiedPacket.h" />
+    <ClInclude Include="..\Shared\Network\BitStream.h" />
+    <ClInclude Include="..\Shared\Network\CRPC.h" />
+    <ClInclude Include="..\Shared\Network\Network.h" />
+    <ClInclude Include="..\Shared\SelfUpdater\CSelfUpdater.h" />
+    <ClInclude Include="Addresses.h" />
+    <ClInclude Include="CFileCheck.h" />
+    <ClInclude Include="CHookManager.h" />
+    <ClInclude Include="CDirectoryScanner.h" />
+    <ClInclude Include="CDirectX.h" />
+    <ClInclude Include="CInjectedLibraries.h" />
+    <ClInclude Include="CLoader.h" />
+    <ClInclude Include="CLog.h" />
+    <ClInclude Include="CMem.h" />
+    <ClInclude Include="CMemProtect.h" />
+    <ClInclude Include="CModuleSecurity.h" />
+    <ClInclude Include="CPacketIntegrity.h" />
+    <ClInclude Include="CParseCommandLine.h" />
+    <ClInclude Include="CPatch.h" />
+    <ClInclude Include="CProcessList.h" />
+    <ClInclude Include="Detours\detours.h" />
+    <ClInclude Include="DirectX Hooks\CD3D9DeviceProxy.h" />
+    <ClInclude Include="DirectX Hooks\CD3D9Proxy.h" />
+    <ClInclude Include="DirectX Hooks\CMessageProxy.h" />
+    <ClInclude Include="DirectX\audiodefs.h" />
+    <ClInclude Include="DirectX\comdecl.h" />
+    <ClInclude Include="DirectX\D2D1.h" />
+    <ClInclude Include="DirectX\D2D1Helper.h" />
+    <ClInclude Include="DirectX\D2DBaseTypes.h" />
+    <ClInclude Include="DirectX\D2Derr.h" />
+    <ClInclude Include="DirectX\D3D10.h" />
+    <ClInclude Include="DirectX\D3D10effect.h" />
+    <ClInclude Include="DirectX\d3d10misc.h" />
+    <ClInclude Include="DirectX\d3d10sdklayers.h" />
+    <ClInclude Include="DirectX\D3D10shader.h" />
+    <ClInclude Include="DirectX\D3D10_1.h" />
+    <ClInclude Include="DirectX\D3D10_1shader.h" />
+    <ClInclude Include="DirectX\D3D11.h" />
+    <ClInclude Include="DirectX\D3D11SDKLayers.h" />
+    <ClInclude Include="DirectX\D3D11Shader.h" />
+    <ClInclude Include="DirectX\d3d9.h" />
+    <ClInclude Include="DirectX\d3d9caps.h" />
+    <ClInclude Include="DirectX\d3d9types.h" />
+    <ClInclude Include="DirectX\D3Dcommon.h" />
+    <ClInclude Include="DirectX\D3Dcompiler.h" />
+    <ClInclude Include="DirectX\D3DCSX.h" />
+    <ClInclude Include="DirectX\D3DX10.h" />
+    <ClInclude Include="DirectX\d3dx10async.h" />
+    <ClInclude Include="DirectX\D3DX10core.h" />
+    <ClInclude Include="DirectX\D3DX10math.h" />
+    <ClInclude Include="DirectX\D3DX10mesh.h" />
+    <ClInclude Include="DirectX\D3DX10tex.h" />
+    <ClInclude Include="DirectX\D3DX11.h" />
+    <ClInclude Include="DirectX\D3DX11async.h" />
+    <ClInclude Include="DirectX\D3DX11core.h" />
+    <ClInclude Include="DirectX\D3DX11tex.h" />
+    <ClInclude Include="DirectX\d3dx9.h" />
+    <ClInclude Include="DirectX\d3dx9anim.h" />
+    <ClInclude Include="DirectX\d3dx9core.h" />
+    <ClInclude Include="DirectX\d3dx9effect.h" />
+    <ClInclude Include="DirectX\d3dx9math.h" />
+    <ClInclude Include="DirectX\d3dx9mesh.h" />
+    <ClInclude Include="DirectX\d3dx9shader.h" />
+    <ClInclude Include="DirectX\d3dx9shape.h" />
+    <ClInclude Include="DirectX\d3dx9tex.h" />
+    <ClInclude Include="DirectX\d3dx9xof.h" />
+    <ClInclude Include="DirectX\Dcommon.h" />
+    <ClInclude Include="DirectX\dinput.h" />
+    <ClInclude Include="DirectX\dinputd.h" />
+    <ClInclude Include="DirectX\dsconf.h" />
+    <ClInclude Include="DirectX\dsetup.h" />
+    <ClInclude Include="DirectX\dsound.h" />
+    <ClInclude Include="DirectX\DWrite.h" />
+    <ClInclude Include="DirectX\dxdiag.h" />
+    <ClInclude Include="DirectX\DxErr.h" />
+    <ClInclude Include="DirectX\dxfile.h" />
+    <ClInclude Include="DirectX\DXGI.h" />
+    <ClInclude Include="DirectX\DXGIFormat.h" />
+    <ClInclude Include="DirectX\DXGIType.h" />
+    <ClInclude Include="DirectX\dxsdkver.h" />
+    <ClInclude Include="DirectX\gameux.h" />
+    <ClInclude Include="DirectX\PIXPlugin.h" />
+    <ClInclude Include="DirectX\rmxfguid.h" />
+    <ClInclude Include="DirectX\rmxftmpl.h" />
+    <ClInclude Include="DirectX\rpcsal.h" />
+    <ClInclude Include="DirectX\X3DAudio.h" />
+    <ClInclude Include="DirectX\xact3.h" />
+    <ClInclude Include="DirectX\xact3d3.h" />
+    <ClInclude Include="DirectX\xact3wb.h" />
+    <ClInclude Include="DirectX\XAPO.h" />
+    <ClInclude Include="DirectX\XAPOBase.h" />
+    <ClInclude Include="DirectX\XAPOFX.h" />
+    <ClInclude Include="DirectX\XAudio2.h" />
+    <ClInclude Include="DirectX\XAudio2fx.h" />
+    <ClInclude Include="DirectX\XDSP.h" />
+    <ClInclude Include="DirectX\XInput.h" />
+    <ClInclude Include="DirectX\xma2defs.h" />
+    <ClInclude Include="DirectX\xnamath.h" />
+    <ClInclude Include="Enigma\enigma_ide.h" />
+    <ClInclude Include="Enigma\enigma_keygen_ide.h" />
+    <ClInclude Include="GTASA_CRC32.h" />
+    <ClInclude Include="Hooks.h" />
+    <ClInclude Include="IMG.h" />
+    <ClInclude Include="ManualInjection.h" />
+    <ClInclude Include="Misc.h" />
+    <ClInclude Include="Network\CPacketQueue.h" />
+    <ClInclude Include="Network\CRakClientHandler.h" />
+    <ClInclude Include="Network\CRPCCallback.h" />
+    <ClInclude Include="Network\HookedRakClient.h" />
+    <ClInclude Include="Network\RakClient.h" />
+    <ClInclude Include="PatternScan.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="s0beit\samp.h" />
+    <ClInclude Include="s0beit\stdtypes.h" />
+    <ClInclude Include="VersionHelper.h" />
+    <ClInclude Include="VersionHelpers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DirectX\D3DX10math.inl" />
+    <None Include="DirectX\d3dx9math.inl" />
+    <None Include="DirectX\D3DX_DXGIFormatConvert.inl" />
+    <None Include="DirectX\xnamathconvert.inl" />
+    <None Include="DirectX\xnamathmatrix.inl" />
+    <None Include="DirectX\xnamathmisc.inl" />
+    <None Include="DirectX\xnamathvector.inl" />
+    <None Include="Enigma\check_protection_begin.inc" />
+    <None Include="Enigma\check_protection_end.inc" />
+    <None Include="Enigma\decrypt_on_execute_begin.inc" />
+    <None Include="Enigma\decrypt_on_execute_end.inc" />
+    <None Include="Enigma\reg_crypt_begin1.inc" />
+    <None Include="Enigma\reg_crypt_begin10.inc" />
+    <None Include="Enigma\reg_crypt_begin11.inc" />
+    <None Include="Enigma\reg_crypt_begin12.inc" />
+    <None Include="Enigma\reg_crypt_begin13.inc" />
+    <None Include="Enigma\reg_crypt_begin14.inc" />
+    <None Include="Enigma\reg_crypt_begin15.inc" />
+    <None Include="Enigma\reg_crypt_begin16.inc" />
+    <None Include="Enigma\reg_crypt_begin2.inc" />
+    <None Include="Enigma\reg_crypt_begin3.inc" />
+    <None Include="Enigma\reg_crypt_begin4.inc" />
+    <None Include="Enigma\reg_crypt_begin5.inc" />
+    <None Include="Enigma\reg_crypt_begin6.inc" />
+    <None Include="Enigma\reg_crypt_begin7.inc" />
+    <None Include="Enigma\reg_crypt_begin8.inc" />
+    <None Include="Enigma\reg_crypt_begin9.inc" />
+    <None Include="Enigma\reg_crypt_end1.inc" />
+    <None Include="Enigma\reg_crypt_end10.inc" />
+    <None Include="Enigma\reg_crypt_end11.inc" />
+    <None Include="Enigma\reg_crypt_end12.inc" />
+    <None Include="Enigma\reg_crypt_end13.inc" />
+    <None Include="Enigma\reg_crypt_end14.inc" />
+    <None Include="Enigma\reg_crypt_end15.inc" />
+    <None Include="Enigma\reg_crypt_end16.inc" />
+    <None Include="Enigma\reg_crypt_end2.inc" />
+    <None Include="Enigma\reg_crypt_end3.inc" />
+    <None Include="Enigma\reg_crypt_end4.inc" />
+    <None Include="Enigma\reg_crypt_end5.inc" />
+    <None Include="Enigma\reg_crypt_end6.inc" />
+    <None Include="Enigma\reg_crypt_end7.inc" />
+    <None Include="Enigma\reg_crypt_end8.inc" />
+    <None Include="Enigma\reg_crypt_end9.inc" />
+    <None Include="Enigma\run_once_begin.inc" />
+    <None Include="Enigma\run_once_end.inc" />
+    <None Include="Enigma\unprotected_begin.inc" />
+    <None Include="Enigma\unprotected_end.inc" />
+    <None Include="Enigma\unreg_crypt_begin1.inc" />
+    <None Include="Enigma\unreg_crypt_begin10.inc" />
+    <None Include="Enigma\unreg_crypt_begin11.inc" />
+    <None Include="Enigma\unreg_crypt_begin12.inc" />
+    <None Include="Enigma\unreg_crypt_begin13.inc" />
+    <None Include="Enigma\unreg_crypt_begin14.inc" />
+    <None Include="Enigma\unreg_crypt_begin15.inc" />
+    <None Include="Enigma\unreg_crypt_begin16.inc" />
+    <None Include="Enigma\unreg_crypt_begin2.inc" />
+    <None Include="Enigma\unreg_crypt_begin3.inc" />
+    <None Include="Enigma\unreg_crypt_begin4.inc" />
+    <None Include="Enigma\unreg_crypt_begin5.inc" />
+    <None Include="Enigma\unreg_crypt_begin6.inc" />
+    <None Include="Enigma\unreg_crypt_begin7.inc" />
+    <None Include="Enigma\unreg_crypt_begin8.inc" />
+    <None Include="Enigma\unreg_crypt_begin9.inc" />
+    <None Include="Enigma\unreg_crypt_end1.inc" />
+    <None Include="Enigma\unreg_crypt_end10.inc" />
+    <None Include="Enigma\unreg_crypt_end11.inc" />
+    <None Include="Enigma\unreg_crypt_end12.inc" />
+    <None Include="Enigma\unreg_crypt_end13.inc" />
+    <None Include="Enigma\unreg_crypt_end14.inc" />
+    <None Include="Enigma\unreg_crypt_end15.inc" />
+    <None Include="Enigma\unreg_crypt_end16.inc" />
+    <None Include="Enigma\unreg_crypt_end2.inc" />
+    <None Include="Enigma\unreg_crypt_end3.inc" />
+    <None Include="Enigma\unreg_crypt_end4.inc" />
+    <None Include="Enigma\unreg_crypt_end5.inc" />
+    <None Include="Enigma\unreg_crypt_end6.inc" />
+    <None Include="Enigma\unreg_crypt_end7.inc" />
+    <None Include="Enigma\unreg_crypt_end8.inc" />
+    <None Include="Enigma\unreg_crypt_end9.inc" />
+    <None Include="Enigma\vm_begin.inc" />
+    <None Include="Enigma\vm_end.inc" />
+    <None Include="Enigma\vm_risc_begin.inc" />
+    <None Include="Enigma\vm_risc_end.inc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

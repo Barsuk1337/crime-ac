@@ -1,0 +1,9 @@
+language: cpp
+sudo: required
+dist: trusty
+services:
+  - docker
+os:
+- linux
+script: 
+- sudo docker build -f Dockerfile -t samp_ac_v2:latest .
