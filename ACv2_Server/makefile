@@ -10,7 +10,7 @@ GCC = gcc
 AC_OUTFILE = "bin/sampac.so"
 
 COMPILE_FLAGS = -m32 -fPIC -c -O2 -w -D LINUX -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D PROJECT_NAME=\"sampac\" -D SAMPGDK_AMALGAMATION -DSAMPGDK_CPP_WRAPPERS -D SUBHOOK_STATIC -DCURL_STATICLIB
-LIBS = -L./../Shared/libs -static -static-libgcc -lc -lgcc -ldl -lboost_system -lboost_thread -lboost_filesystem -lboost_chrono -lboost_date_time -lrt -lsubhook -lcurl -lssl -lcrypto -lcpprest
+LIBS = -lboost_system -L./../Shared/libs -static -static-libgcc -lc -lgcc -ldl -lboost_thread -lboost_filesystem -lboost_chrono -lboost_date_time -lrt -lsubhook -lcurl -lssl -lcrypto
 
 LDFLAGS = -shared -lpthread
 
