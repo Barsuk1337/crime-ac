@@ -22,7 +22,7 @@ clean:
 	-rm -f *~ *.o *.so
 
 quick:
-	$(GPP) -m32 -O2 -fshort-wchar -static -DBOOST_ERROR_CODE_HEADER_ONLY -I ./../Shared/ -o $(AC_OUTFILE) *.o $(LDFLAGS) $(LIBS)
+	$(GPP) -m32 -O2 -fshort-wchar -static -I ./../Shared/ -o $(AC_OUTFILE) *.o $(LDFLAGS) $(LIBS)
 
 quickcomp:
 
@@ -38,4 +38,4 @@ SAMPAC: clean
 	$(GPP) $(SAMPAC) ../Shared/Network/*.cpp
 	$(GPP) $(SAMPAC) ../Shared/SelfUpdater/*.cpp
 	mkdir -p "bin"
-	$(GPP) -m32 -O2 -fshort-wchar -static -o $(AC_OUTFILE) *.o $(LDFLAGS) $(LIBS)
+	$(GPP) -m32 -O2 -fshort-wchar -static -DBOOST_ERROR_CODE_HEADER_ONLY -o $(AC_OUTFILE) *.o $(LDFLAGS) $(LIBS)
