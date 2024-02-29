@@ -65,7 +65,7 @@
 # define BOOST_SYSTEM_CONSTEXPR
 #endif
 
-#define BOOST_ERROR_CODE_HEADER_ONLY
+# define BOOST_SYSTEM_HAS_CONSTEXPR
 
 namespace boost
 {
