@@ -1,5 +1,3 @@
-#define BOOST_ERROR_CODE_HEADER_ONLY
-
 #include "CThreadSync.h"
 #include "plugin.h"
 #include "Utility.h"
