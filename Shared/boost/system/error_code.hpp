@@ -60,9 +60,11 @@
 #endif
 
 #if defined(BOOST_SYSTEM_HAS_CONSTEXPR)
+printf("BOOST_SYSTEM_HAS_CONSTEXPR");
 # define BOOST_SYSTEM_CONSTEXPR constexpr
 #else
 # define BOOST_SYSTEM_CONSTEXPR
+printf("not BOOST_SYSTEM_HAS_CONSTEXPR");
 #endif
 
 namespace boost
