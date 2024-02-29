@@ -9,7 +9,7 @@ GPP = g++-4.4
 GCC = gcc
 AC_OUTFILE = "bin/sampac.so"
 
-COMPILE_FLAGS = -m32 -fPIC -c -O2 -w -D LINUX -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D PROJECT_NAME=\"sampac\" -D SAMPGDK_AMALGAMATION -DSAMPGDK_CPP_WRAPPERS -D SUBHOOK_STATIC -DCURL_STATICLIB -I ./../Shared/
+COMPILE_FLAGS = -m32 -fPIC -c -O2 -w -D LINUX -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D PROJECT_NAME=\"sampac\" -D SAMPGDK_AMALGAMATION -DSAMPGDK_CPP_WRAPPERS -D SUBHOOK_STATIC -DCURL_STATICLIB
 LIBS = -L./../Shared/libs -static -static-libgcc -lc -lgcc -ldl -lboost_system -lboost_thread -lboost_filesystem -lboost_chrono -lboost_date_time -lrt -lsubhook -lcurl -lssl -lcrypto
 
 LDFLAGS = -shared -lpthread
@@ -22,7 +22,7 @@ clean:
 	-rm -f *~ *.o *.so
 
 quick:
-	$(GPP) -m32 -O2 -fshort-wchar -static -o $(AC_OUTFILE) *.o $(LDFLAGS) $(LIBS)
+	$(GPP) -m32 -O2 -fshort-wchar -static -I ./../Shared/ -o $(AC_OUTFILE) *.o $(LDFLAGS) $(LIBS)
 
 quickcomp:
 
@@ -37,6 +37,5 @@ SAMPAC: clean
 	$(GPP) $(SAMPAC) ../Shared/MD5_Info/*.cpp
 	$(GPP) $(SAMPAC) ../Shared/Network/*.cpp
 	$(GPP) $(SAMPAC) ../Shared/SelfUpdater/*.cpp
-	$(GCC) $(SAMPAC) ../Shared/*.h
 	mkdir -p "bin"
 	$(GPP) -m32 -O2 -fshort-wchar -static -o $(AC_OUTFILE) *.o $(LDFLAGS) $(LIBS)
