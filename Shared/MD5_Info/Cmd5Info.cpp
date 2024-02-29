@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
-#include <curl/curl.h>
+#include "../curl/curl.h"
 
 #include <ostream>
 #include <boost/algorithm/string.hpp>
