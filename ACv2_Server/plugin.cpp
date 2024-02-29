@@ -11,7 +11,7 @@
 #include "VersionHelper.h"
 #include "CAntiCheatHandler.h"
 #include "Hooks.h"
-#include <curl/curl.h>
+#include "../Shared/curl/curl.h"
 
 void **PluginData;
 CThreadSync *pMainThreadSync;

@@ -4,7 +4,7 @@
 #include "CAntiCheat.h"
 #include "CAntiCheatHandler.h"
 #include "CThreadSync.h"
-#include <curl/curl.h>
+#include "../Shared/curl/curl.h"
 #include "Utility.h"
 #include "plugin.h"
 #include "VersionHelper.h"
