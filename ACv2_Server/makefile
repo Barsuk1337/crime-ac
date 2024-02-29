@@ -9,12 +9,12 @@ GPP = g++-4.4
 GCC = gcc
 AC_OUTFILE = "bin/sampac.so"
 
-COMPILE_FLAGS = -m32 -fPIC -c -O2 -w -D LINUX -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D PROJECT_NAME=\"sampac\" -D SAMPGDK_AMALGAMATION -DSAMPGDK_CPP_WRAPPERS -D SUBHOOK_STATIC -DCURL_STATICLIB
+COMPILE_FLAGS = -m32 -fPIC -c -O2 -w -D LINUX -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D PROJECT_NAME=\"sampac\" -D SAMPGDK_AMALGAMATION -DSAMPGDK_CPP_WRAPPERS -D SUBHOOK_STATIC -DCURL_STATICLIB -D BOOST_ERROR_CODE_HEADER_ONLY
 LIBS = -lboost_system -L./../Shared/libs -static -static-libgcc -lc -lgcc -ldl -lboost_thread -lboost_filesystem -lboost_chrono -lboost_date_time -lrt -lsubhook -lcurl -lssl -lcrypto
 
 LDFLAGS = -shared -lpthread
 
-SAMPAC = -D SAMPAC -D BOOST_ERROR_CODE_HEADER_ONLY $(COMPILE_FLAGS)
+SAMPAC = -D SAMPAC $(COMPILE_FLAGS)
 
 all: SAMPAC
 
