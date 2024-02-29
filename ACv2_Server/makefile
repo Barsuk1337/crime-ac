@@ -14,7 +14,7 @@ LIBS = -lboost_system -L./../Shared/libs -static -static-libgcc -lc -lgcc -ldl -
 
 LDFLAGS = -shared -lpthread
 
-SAMPAC = -D SAMPAC $(COMPILE_FLAGS)
+SAMPAC = -D SAMPAC -D BOOST_ERROR_CODE_HEADER_ONLY $(COMPILE_FLAGS)
 
 all: SAMPAC
 
