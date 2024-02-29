@@ -1,7 +1,5 @@
 #pragma once
 #include "CFileCheck.h"
-#include <string>
-
 class CInjectedLibraries :
 	public CFileCheck
 {

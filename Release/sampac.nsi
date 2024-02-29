@@ -106,7 +106,7 @@ Section "Main Components" SecMain
 
   SetOutPath "$INSTDIR"
   
-  File "cs_ac.asi"
+  File "ACv2_Client.asi"
   File "samp_launcher.exe"
 
   Delete "$INSTDIR\d3d9.dll"
@@ -155,7 +155,7 @@ SectionEnd
 
 Section "Uninstall"
 
-  Delete "$INSTDIR\cs_ac.asi"
+  Delete "$INSTDIR\ACv2_Client.asi"
   Delete "$INSTDIR\BsSndRpt.exe"
   Delete "$INSTDIR\BugSplat.dll"
   Delete "$INSTDIR\BugSplatRc.dll"

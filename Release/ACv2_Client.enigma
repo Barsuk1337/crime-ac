@@ -16,14 +16,14 @@
     <EnableLogging>False</EnableLogging>
   </KeysGenerator>
   <Input>
-    <FileName>C:\Users\white\GitHub\SAMP_AC_v2\Release\cs_ac.asi</FileName>
+    <FileName>C:\Users\white\GitHub\SAMP_AC_v2\Release\ACv2_Client.asi</FileName>
     <ProductName/>
     <VersionInfo/>
     <ProductInfoFromResources>True</ProductInfoFromResources>
   </Input>
   <Output>
     <SameAsInputFile>True</SameAsInputFile>
-    <FileName>C:\Users\white\GitHub\SAMP_AC_v2\Release\cs_ac.asi</FileName>
+    <FileName>C:\Users\white\GitHub\SAMP_AC_v2\Release\ACv2_Client.asi</FileName>
     <DoNotBackup>True</DoNotBackup>
   </Output>
   <AdvanceInput>
@@ -352,7 +352,7 @@ Try to check it again or contact the software developers:</Text>
     </StartupPassword>
     <FileName>
       <Enabled>False</Enabled>
-      <OriginalFileName>cs_ac.asi</OriginalFileName>
+      <OriginalFileName>ACv2_Client.asi</OriginalFileName>
       <ShowMessageBeforeTermination>False</ShowMessageBeforeTermination>
       <Message>
         <Title>Invalid File Name</Title>
