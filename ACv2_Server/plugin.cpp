@@ -1,7 +1,7 @@
 #include "CThreadSync.h"
 #include "plugin.h"
 #include "Utility.h"
-#include "Network/BitStream.h"
+#include "../Shared/Network/BitStream.h"
 #include "../Shared/MD5_Info/Cmd5Info.h"
 #include "../Shared/Network/CRPC.h"
 #include "GDK/sampgdk.h"
