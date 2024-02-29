@@ -65,8 +65,6 @@
 # define BOOST_SYSTEM_CONSTEXPR
 #endif
 
-# define BOOST_SYSTEM_HAS_CONSTEXPR
-
 namespace boost
 {
   namespace system
