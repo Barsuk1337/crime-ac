@@ -14,7 +14,7 @@
 
 #include <boost/geometry/srs/projections/impl/pj_gridinfo.hpp>
 
-#include <boost/thread.hpp>
+#include "../Shared/boost/thread.hpp"
 
 #include <vector>
 

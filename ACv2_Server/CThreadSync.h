@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/thread.hpp>
+#include "../Shared/boost/thread.hpp"
 #include <queue>
 #include <string>
 #include <vector>
