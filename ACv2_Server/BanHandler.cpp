@@ -104,9 +104,6 @@ namespace Queue_BanHandler
 
 				// Wake up every other thread that has been waiting for this too
 				BansQueueCond.notify_all();
-
-				// Get very little sleep
-				boost::this_thread::sleep_for(boost::chrono::seconds(30));
 			}
 			else
 			{
@@ -138,9 +135,6 @@ namespace Queue_BanHandler
 						}
 					}
 				}
-
-				// Get enough sleep because the queue has no failed bans as of right now
-				boost::this_thread::sleep_for(boost::chrono::minutes(5));
 			}
 		}
 	}

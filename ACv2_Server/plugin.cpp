@@ -417,7 +417,7 @@ void WorkThread()
 {
 	while (1)
 	{
-		boost::this_thread::sleep_for(boost::chrono::hours(6));
+		//boost::this_thread::sleep_for(boost::chrono::hours(6));
 		
 		// Cheats update!
 		// If the list hasn't been updated in 6 hours...
