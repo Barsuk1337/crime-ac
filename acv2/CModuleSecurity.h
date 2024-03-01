@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <vector>
+#include <string>
 
 // PURPOSE OF THIS CLASS: PREVENT STEALTH INJECTORS
 // NOT WORKING AT THE MOMENT

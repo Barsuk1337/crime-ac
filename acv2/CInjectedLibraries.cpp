@@ -1,6 +1,7 @@
 #include "CInjectedLibraries.h"
 #include <Windows.h>
 #include <psapi.h>
+#include <string>
 
 CInjectedLibraries::CInjectedLibraries()
 {
