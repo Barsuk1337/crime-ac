@@ -237,6 +237,8 @@ namespace Callback
 		} // CAntiCheatHandler::IsConnected(playerid)
 		else if (ACToggle)
 		{
+			char msg[144];
+			
 			snprintf(msg, sizeof msg, "{FFFFFF}Вам необходимо установить Crime Streets Anticheat версии {FF0000}%s", VersionHelper::AC_SERVER_VERSION_STRING);
 			sampgdk::SendClientMessage(playerid, -1, msg);
 
