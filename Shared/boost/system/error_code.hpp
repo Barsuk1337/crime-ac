@@ -937,8 +937,8 @@ inline const error_category & generic_category() BOOST_SYSTEM_NOEXCEPT
 
 #include <boost/config/abi_suffix.hpp> // pops abi_prefix.hpp pragmas
 
-# ifdef BOOST_ERROR_CODE_HEADER_ONLY
+/*# ifdef BOOST_ERROR_CODE_HEADER_ONLY
 #include <detail/error_code.ipp>
-# endif
+# endif*/
 
 #endif // BOOST_SYSTEM_ERROR_CODE_HPP

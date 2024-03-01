@@ -32,7 +32,7 @@ quickcomp:
 SAMPAC: clean
 	$(GPP) $(SAMPAC) ./SDK/samp-sdk/*.cpp
 	$(GCC) $(SAMPAC) ./GDK/*.c
-	$(GPP) $(SAMPAC) -DBOOST_ERROR_CODE_HEADER_ONLY *.cpp
+	$(GPP) $(SAMPAC) *.cpp
 	$(GPP) $(SAMPAC) ./Network/*.cpp
 	$(GPP) $(SAMPAC) ../Shared/MD5_Info/*.cpp
 	$(GPP) $(SAMPAC) ../Shared/Network/*.cpp
