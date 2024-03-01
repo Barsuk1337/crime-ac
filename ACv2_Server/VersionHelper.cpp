@@ -36,44 +36,6 @@ namespace VersionHelper
 
 	void CheckForUpdate()
 	{
-		Utility::Printf("Checking for an update...");
-
-		CSelfUpdater updater = CSelfUpdater(AC_SERVER_VERSION, AC_UPDATE_URL);
-		if (!updater.CheckForNewVersion())
-		{
-			Utility::Printf("ERROR! Couldn't contact the update server or the response was malformed.");
-			Utility::Printf("Continue using AC version: v%s.", AC_SERVER_VERSION_STRING);
-			return;
-		}
-		if (updater.m_currentVersion >= updater.m_newVersion)
-		{
-			Utility::Printf("You are running the latest version.");
-			return;
-		}
-		Utility::Printf("Update found! AC plugin will attempt to update itself. If you'll get any errors, you will have to update it manually or remove it from the server.cfg and adjust your scripts accordingly.");
-		if(updater.m_additionalInfo.length() > 1)
-			Utility::Printf("Update notes:\n%s", updater.m_additionalInfo.c_str());
-		Utility::Printf("Downloading version v%d.%02d.%d from %s ...", updater.m_newVersion.major, updater.m_newVersion.minor, updater.m_newVersion.patch, updater.m_fileURL.c_str());
-		Utility::Printf("MD5 hash of new plugin version: %s", updater.m_fileMD5.c_str());
-		if (!updater.DownloadUpdate())
-		{
-			Utility::Printf("ERROR! Couldn't download the updated binary.");
-			Utility::Printf("Continue using AC version: v%s.", AC_SERVER_VERSION_STRING);
-			Utility::Printf("WARNING! Players may not be able to connect to this server anymore unless you manually update the AC server plugin to the latest version.");
-			return;
-		}
-		Utility::Printf("Applying update ...");
-		Utility::Printf("WARNING! If update fails at this step, it is most likely that AC plugin will get corrupted or deleted and you will have to update it manually or remove it from the server.cfg and adjust your scripts accordingly.");
-		if (!updater.ApplyUpdate())
-		{
-			Utility::Printf("ERROR! Couldn't apply the updated binary.");
-			Utility::Printf("Continue using AC version: v%s.", AC_SERVER_VERSION_STRING);
-			Utility::Printf("WARNING! Players may not be able to connect to this server anymore unless you manually update the AC server plugin to the latest version.");
-			return;
-		}
-		Utility::Printf("AC server plugin should have been updated to version v%d.%02d.%d!", updater.m_newVersion.major, updater.m_newVersion.minor, updater.m_newVersion.patch);
-		Utility::Printf("Server will now shut down. Please reopen the SA-MP server.");
-		
-		//sampgdk::SendRconCommand("exit");
+		Utility::Printf("Crime Streets Anticheat: v%s.", AC_SERVER_VERSION_STRING);
 	}
 }
