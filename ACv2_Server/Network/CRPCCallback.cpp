@@ -218,8 +218,7 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 
 	// Get the player's name
 	sampgdk::GetPlayerName(iExtra, name, sizeof(name));
-	snprintf(msg, sizeof(msg), "подключился %s", name);
-	sampgdk::SendClientMessageToAll(-1, msg);
+	Utility::Printf("connected %s", name);
 
 
 	// Create a big variable to hold hardware ID.
