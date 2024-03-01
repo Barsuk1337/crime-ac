@@ -201,8 +201,6 @@ void InstallHooks()
 	{
 		CRPCCallback::Initialize();
 		GetPacketID_hook.Install((void*)FUNC_GetPacketID, (void*)HOOK_GetPacketID);
-
-		Utility::Printf("InstallHooks successfully");
 	}
 	else
 	{

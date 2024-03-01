@@ -48,7 +48,7 @@ namespace Utility
 		vsnprintf(szBuffer, sizeof(szBuffer), szFormat, vaArgs);
 		va_end(vaArgs);
 
-		logprintf("[SAMP_AC_V2] %s", szBuffer);
+		logprintf("[CS:AC] %s", szBuffer);
 	}
 
 	char* GetSafeFilePath(char* orginalFilePath)

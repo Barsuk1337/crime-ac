@@ -413,22 +413,6 @@ PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 	return sampgdk::ProcessTick();
 }
 
-void WorkThread()
-{
-	while (1)
-	{
-		//boost::this_thread::sleep_for(boost::chrono::hours(6));
-		
-		// Cheats update!
-		// If the list hasn't been updated in 6 hours...
-		CThreadSync::OnCheatsUpdate__parameters *param = new CThreadSync::OnCheatsUpdate__parameters;
-		param->FileNames = Cmd5Info::GetGtaDirectoryFilesNames();
-		param->MD5s = Cmd5Info::GetGtaDirectoryFilesMd5();
-		param->ProcessMD5s = Cmd5Info::GetBadExecutableFiles();
-		pMainThreadSync->AddCallbackToQueue(&CThreadSync::OnCheatsUpdate, param);
-	}
-}
-
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void **ppData)
 {
 	// Load SampGDK
@@ -446,9 +430,6 @@ PLUGIN_EXPORT bool PLUGIN_CALL Load(void **ppData)
 	// Initialize main thread sync
 	pMainThreadSync = new CThreadSync();
 
-	// Initialize work thread
-	boost::thread workThread(&WorkThread);
-
 	// Initialize cheat database (first time we do it non threaded)
 	CAntiCheat::UpdateCheatDatabase();
 
@@ -461,7 +442,7 @@ PLUGIN_EXPORT bool PLUGIN_CALL Load(void **ppData)
 	PluginData = ppData;
 
 	// Print out that we've loaded successfully.
-	Utility::Printf("SA-MP Anti-Cheat v%s has loaded successfully.", VersionHelper::AC_SERVER_VERSION_STRING);
+	Utility::Printf("Anti-Cheat v%s has loaded successfully", VersionHelper::AC_SERVER_VERSION_STRING);
 
 	// return SampGDK load value
 	return load;
@@ -470,7 +451,7 @@ PLUGIN_EXPORT bool PLUGIN_CALL Load(void **ppData)
 PLUGIN_EXPORT void PLUGIN_CALL Unload()
 {
 	// The plugin has been unloaded, let them know we're leaving :(
-	Utility::Printf("Unloaded SA-MP Anti-Cheat v%s", VersionHelper::AC_SERVER_VERSION_STRING);
+	Utility::Printf("Unloaded Anti-Cheat v%s", VersionHelper::AC_SERVER_VERSION_STRING);
 
 	// Clean up
 	// Not really necessary

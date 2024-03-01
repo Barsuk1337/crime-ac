@@ -7,15 +7,9 @@
 
 namespace VersionHelper
 {
-#ifdef WIN32
-	const char* AC_UPDATE_URL = "https://whitetigerswt.github.io/SAMP_AC_v2/API/SelfUpdater/Server_Windows.html";
-#else
-	const char* AC_UPDATE_URL = "https://whitetigerswt.github.io/SAMP_AC_v2/API/SelfUpdater/Server_Linux.html";
-#endif
-
 	char HTTP_REQUEST_USER_AGENT[32];
 	char AC_SERVER_VERSION_STRING[16];
-	CSelfUpdater::stVersion AC_SERVER_VERSION{ 2, 83, 0 };
+	CSelfUpdater::stVersion AC_SERVER_VERSION{ 1, 0, 0 };
 	// Incrementing the version will force the server to update when they run it next.
 	// Only MAJOR and/or MINOR version numbers determine if server is compatible with client.
 	// If only PATCH version number is different, server and client are compatible.

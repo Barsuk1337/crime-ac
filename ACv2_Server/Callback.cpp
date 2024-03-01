@@ -237,26 +237,8 @@ namespace Callback
 		} // CAntiCheatHandler::IsConnected(playerid)
 		else if (ACToggle)
 		{
-			// Notify them that this isn't allowed.
-			sampgdk::SendClientMessage(playerid, -1, "{FF0000}Error: {FFFFFF}You've been kicked from this server for not running Whitetiger's Anti-Cheat (v2)");
-
-			char msg[160], name[MAX_PLAYER_NAME];
-
-			// Get the player name and store it in the name variable.
-			sampgdk::GetPlayerName(playerid, name, sizeof(name));
-			snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF} has been kicked from the server for not running Whitetiger's Anti-Cheat (v2)", name);
-
-			// Send them the formatted message.
-			sampgdk::SendClientMessageToAll(-1, msg);
-
-			// Tell them where to get the AC and install it.
-			snprintf(msg, sizeof msg, "{FFFFFF}You can download the latest version of Whitetiger's Anti-Cheat at: {FF0000}%s", AC_WEBSITE);
+			snprintf(msg, sizeof msg, "{FFFFFF}Вам необходимо установить Crime Streets Anticheat версии {FF0000}%s", VersionHelper::AC_SERVER_VERSION_STRING);
 			sampgdk::SendClientMessage(playerid, -1, msg);
-
-			Utility::Printf("%s has been kicked from the server for not connecting with AC while AC is on.", name);
-
-			// Finally, kick the player.
-			sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)playerid);
 
 			return true;
 		}
