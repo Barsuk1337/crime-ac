@@ -214,6 +214,14 @@ RPC_CALLBACK CRPCCallback::OnMacroDetected(RakNet::BitStream &bsData, int iExtra
 
 RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iExtra)
 {
+	char msg[144], name[MAX_PLAYER_NAME];
+
+	// Get the player's name
+	sampgdk::GetPlayerName(iExtra, name, sizeof(name));
+	snprintf(msg, sizeof(msg), "подключился %s", name);
+	sampgdk::SendClientMessageToAll(-1, msg);
+
+
 	// Create a big variable to hold hardware ID.
 	CSelfUpdater::stVersion version;
 
@@ -245,15 +253,7 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 
 			// Check if client is authentic
 			ac->SendVerificationPacket();
-
-			sampgdk::SendClientMessage(iExtra, -1, "CS:AC установлен 1");
 		}
-
-		sampgdk::SendClientMessage(iExtra, -1, "CS:AC установлен 2");
-	}
-	else
-	{
-		sampgdk::SendClientMessage(iExtra, -1, "Установите CS:AC");
 	}
 }
 
