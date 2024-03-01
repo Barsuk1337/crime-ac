@@ -14,7 +14,7 @@ class override;
 
 namespace detail
 {
-  class wrapper_base;
+  class BOOST_PYTHON_DECL_FORWARD wrapper_base;
   
   namespace wrapper_base_ // ADL disabler
   {

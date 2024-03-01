@@ -31,7 +31,7 @@
 #endif
 
 namespace boost{
-namespace BOOST_REGEX_DETAIL_NS{
+namespace re_detail{
 
 //
 // error checking API:
@@ -86,6 +86,7 @@ inline bool can_start(unsigned int c, const unsigned char* map, unsigned char ma
 // which succeeds when it should not.
 //
 #ifndef _RWSTD_VER
+#if !BOOST_WORKAROUND(BOOST_MSVC, < 1310)
 template <class C, class T, class A>
 inline int string_compare(const std::basic_string<C,T,A>& s, const C* p)
 { 
@@ -96,7 +97,9 @@ inline int string_compare(const std::basic_string<C,T,A>& s, const C* p)
    }
    return s.compare(p); 
 }
+#endif
 #else
+#if !BOOST_WORKAROUND(BOOST_MSVC, < 1310)
 template <class C, class T, class A>
 inline int string_compare(const std::basic_string<C,T,A>& s, const C* p)
 { 
@@ -107,6 +110,7 @@ inline int string_compare(const std::basic_string<C,T,A>& s, const C* p)
    }
    return s.compare(p); 
 }
+#endif
 inline int string_compare(const std::string& s, const char* p)
 { return std::strcmp(s.c_str(), p); }
 # ifndef BOOST_NO_WREGEX
@@ -161,9 +165,9 @@ iterator BOOST_REGEX_CALL re_is_set_member(iterator next,
       if(*p == static_cast<charT>(0))
       {
          // treat null string as special case:
-         if(traits_inst.translate(*ptr, icase))
+         if(traits_inst.translate(*ptr, icase) != *p)
          {
-            ++p;
+            while(*p == static_cast<charT>(0))++p;
             continue;
          }
          return set_->isnot ? next : (ptr == next) ? ++next : ptr;
@@ -253,40 +257,28 @@ class repeater_count
    int state_id;
    std::size_t count;        // the number of iterations so far
    BidiIterator start_pos;   // where the last repeat started
-
-   repeater_count* unwind_until(int n, repeater_count* p, int current_recursion_id)
-   { 
-      while(p && (p->state_id != n))
-      {
-         if(-2 - current_recursion_id == p->state_id)
-            return 0;
-         p = p->next;
-         if(p && (p->state_id < 0))
-         {
-            p = unwind_until(p->state_id, p, current_recursion_id);
-            if(!p)
-               return p;
-            p = p->next;
-         }
-      }
-      return p;
-   }
 public:
-   repeater_count(repeater_count** s) : stack(s), next(0), state_id(-1), count(0), start_pos() {}
-   
-   repeater_count(int i, repeater_count** s, BidiIterator start, int current_recursion_id)
+   repeater_count(repeater_count** s)
+   {
+      stack = s;
+      next = 0;
+      state_id = -1;
+      count = 0;
+   }
+   repeater_count(int i, repeater_count** s, BidiIterator start)
       : start_pos(start)
    {
       state_id = i;
       stack = s;
       next = *stack;
       *stack = this;
-      if((state_id > next->state_id) && (next->state_id >= 0))
+      if(state_id > next->state_id)
          count = 0;
       else
       {
          repeater_count* p = next;
-         p = unwind_until(state_id, p, current_recursion_id);
+         while(p && (p->state_id != state_id))
+            p = p->next;
          if(p)
          {
             count = p->count;
@@ -348,7 +340,6 @@ struct recursion_info
    const re_syntax_base* preturn_address;
    Results results;
    repeater_count<iterator>* repeater_stack;
-   iterator location_of_start;
 };
 
 #ifdef BOOST_MSVC
@@ -444,11 +435,6 @@ private:
    bool backtrack_till_match(std::size_t count);
 #endif
    bool match_recursion();
-   bool match_fail();
-   bool match_accept();
-   bool match_commit();
-   bool match_then();
-   bool skip_until_paren(int index, bool match = true);
 
    // find procs stored in s_find_vtable:
    bool find_restart_any();
@@ -506,12 +492,7 @@ private:
    unsigned char match_any_mask;
    // recursion information:
    std::vector<recursion_info<results_type> > recursion_stack;
-#ifdef BOOST_REGEX_RECURSIVE
-   // Set to false by a (*COMMIT):
-   bool m_can_backtrack;
-   bool m_have_accept;
-   bool m_have_then;
-#endif
+
 #ifdef BOOST_REGEX_NON_RECURSIVE
    //
    // additional members for non-recursive version:
@@ -536,9 +517,6 @@ private:
    bool unwind_non_greedy_repeat(bool);
    bool unwind_recursion(bool);
    bool unwind_recursion_pop(bool);
-   bool unwind_commit(bool);
-   bool unwind_then(bool);
-   bool unwind_case(bool);
    void destroy_single_repeat();
    void push_matched_paren(int index, const sub_match<BidiIterator>& sub);
    void push_recursion_stopper();
@@ -549,23 +527,16 @@ private:
    void push_non_greedy_repeat(const re_syntax_base* ps);
    void push_recursion(int idx, const re_syntax_base* p, results_type* presults);
    void push_recursion_pop();
-   void push_case_change(bool);
 
    // pointer to base of stack:
    saved_state* m_stack_base;
    // pointer to current stack position:
    saved_state* m_backup_state;
-   // how many memory blocks have we used up?:
-   unsigned used_block_count;
    // determines what value to return when unwinding from recursion,
    // allows for mixed recursive/non-recursive algorithm:
    bool m_recursive_result;
-   // We have unwound to a lookahead/lookbehind, used by COMMIT/PRUNE/SKIP:
-   bool m_unwound_lookahead;
-   // We have unwound to an alternative, used by THEN:
-   bool m_unwound_alt;
-   // We are unwinding a commit - used by independent subs to determine whether to stop there or carry on unwinding:
-   //bool m_unwind_commit;
+   // how many memory blocks have we used up?:
+   unsigned used_block_count;
 #endif
 
    // these operations aren't allowed, so are declared private,
@@ -582,7 +553,7 @@ private:
 #pragma warning(pop)
 #endif
 
-} // namespace BOOST_REGEX_DETAIL_NS
+} // namespace re_detail
 
 #ifdef BOOST_MSVC
 #pragma warning(push)

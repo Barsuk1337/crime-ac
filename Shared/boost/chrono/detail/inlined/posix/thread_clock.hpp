@@ -13,7 +13,6 @@
 #include <boost/chrono/config.hpp>
 #include <boost/chrono/thread_clock.hpp>
 #include <cassert>
-#include <boost/assert.hpp>
 
 #if !defined(__VXWORKS__)
 # include <sys/times.h>

@@ -22,7 +22,7 @@
 #include <boost/geometry/util/parameter_type_of.hpp>
 
 
-namespace boost { namespace geometry { namespace concepts
+namespace boost { namespace geometry { namespace concept
 {
 
 
@@ -55,12 +55,12 @@ class WithinStrategyPolygonal
             // CHECK: apply-arguments should both fulfill point concept
             BOOST_CONCEPT_ASSERT
                 (
-                    (concepts::ConstPoint<point_type>)
+                    (concept::ConstPoint<point_type>)
                 );
 
             BOOST_CONCEPT_ASSERT
                 (
-                    (concepts::ConstPoint<segment_point_type>)
+                    (concept::ConstPoint<segment_point_type>)
                 );
 
             // CHECK: return types (result: int, apply: bool)
@@ -130,12 +130,12 @@ class WithinStrategyPointBox
             // CHECK: apply-arguments should fulfill point/box concept
             BOOST_CONCEPT_ASSERT
                 (
-                    (concepts::ConstPoint<point_type>)
+                    (concept::ConstPoint<point_type>)
                 );
 
             BOOST_CONCEPT_ASSERT
                 (
-                    (concepts::ConstBox<box_type>)
+                    (concept::ConstBox<box_type>)
                 );
 
             // CHECK: return types (apply: bool)
@@ -143,7 +143,7 @@ class WithinStrategyPointBox
                 (
                     (boost::is_same
                         <
-                            bool,
+                            bool, 
                             typename boost::function_types::result_type<ApplyMethod>::type
                         >::type::value),
                     WRONG_RETURN_TYPE
@@ -194,12 +194,12 @@ class WithinStrategyBoxBox
             // CHECK: apply-arguments should both fulfill box concept
             BOOST_CONCEPT_ASSERT
                 (
-                    (concepts::ConstBox<box_type1>)
+                    (concept::ConstBox<box_type1>)
                 );
 
             BOOST_CONCEPT_ASSERT
                 (
-                    (concepts::ConstBox<box_type2>)
+                    (concept::ConstBox<box_type2>)
                 );
 
             // CHECK: return types (apply: bool)
@@ -207,7 +207,7 @@ class WithinStrategyBoxBox
                 (
                     (boost::is_same
                         <
-                            bool,
+                            bool, 
                             typename boost::function_types::result_type<ApplyMethod>::type
                         >::type::value),
                     WRONG_RETURN_TYPE
@@ -236,9 +236,9 @@ public :
 #endif
 };
 
-// So now: boost::geometry::concepts::within
-namespace within
-{
+// So now: boost::geometry::concept::within
+namespace within 
+{ 
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace dispatch
@@ -285,7 +285,7 @@ inline void check()
 }
 
 
-}}}} // namespace boost::geometry::concepts::within
+}}}} // namespace boost::geometry::concept::within
 
 
 #endif // BOOST_GEOMETRY_STRATEGIES_CONCEPTS_WITHIN_CONCEPT_HPP

@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst 
- * $Date$
+ * $Date: 2008-02-27 12:00:24 -0800 (Wed, 27 Feb 2008) $
  */
 
 /*! \file period.hpp
@@ -17,8 +17,7 @@
 
 */
 
-#include <boost/operators.hpp>
-#include <boost/date_time/compiler_config.hpp>
+#include "boost/operators.hpp"
 
 
 namespace boost {
@@ -49,7 +48,7 @@ namespace date_time {
 
    */
   template<class point_rep, class duration_rep>
-  class BOOST_SYMBOL_VISIBLE period : private
+  class period : private
       boost::less_than_comparable<period<point_rep, duration_rep> 
     , boost::equality_comparable< period<point_rep, duration_rep> 
     > >

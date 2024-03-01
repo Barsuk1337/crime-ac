@@ -12,23 +12,18 @@
 #define BOOST_LOCKFREE_FIFO_HPP_INCLUDED
 
 #include <boost/assert.hpp>
+#ifdef BOOST_NO_CXX11_DELETED_FUNCTIONS
+#include <boost/noncopyable.hpp>
+#endif
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/has_trivial_assign.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
-#include <boost/config.hpp> // for BOOST_LIKELY & BOOST_ALIGNMENT
 
 #include <boost/lockfree/detail/atomic.hpp>
 #include <boost/lockfree/detail/copy_payload.hpp>
 #include <boost/lockfree/detail/freelist.hpp>
 #include <boost/lockfree/detail/parameter.hpp>
 #include <boost/lockfree/detail/tagged_ptr.hpp>
-
-#include <boost/lockfree/lockfree_forward.hpp>
-
-#ifdef BOOST_HAS_PRAGMA_ONCE
-#pragma once
-#endif
-
 
 #if defined(_MSC_VER)
 #pragma warning(push)
@@ -61,7 +56,7 @@ typedef parameter::parameters<boost::parameter::optional<tag::allocator>,
  *
  *  - \ref boost::lockfree::capacity, optional \n
  *    If this template argument is passed to the options, the size of the queue is set at compile-time.\n
- *    This option implies \c fixed_sized<true>
+ *    It this option implies \c fixed_sized<true>
  *
  *  - \ref boost::lockfree::allocator, defaults to \c boost::lockfree::allocator<std::allocator<void>> \n
  *    Specifies the allocator that is used for the internal freelist
@@ -72,12 +67,18 @@ typedef parameter::parameters<boost::parameter::optional<tag::allocator>,
  *   - T must have a trivial destructor
  *
  * */
-#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
-template <typename T, class A0, class A1, class A2>
+#ifndef BOOST_DOXYGEN_INVOKED
+template <typename T,
+          class A0 = boost::parameter::void_,
+          class A1 = boost::parameter::void_,
+          class A2 = boost::parameter::void_>
 #else
-template <typename T, typename ...Options>
+template <typename T, ...Options>
 #endif
 class queue
+#ifdef BOOST_NO_CXX11_DELETED_FUNCTIONS
+    : boost::noncopyable
+#endif
 {
 private:
 #ifndef BOOST_DOXYGEN_INVOKED
@@ -90,11 +91,7 @@ private:
     BOOST_STATIC_ASSERT((boost::has_trivial_assign<T>::value));
 #endif
 
-#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
     typedef typename detail::queue_signature::bind<A0, A1, A2>::type bound_args;
-#else
-    typedef typename detail::queue_signature::bind<Options...>::type bound_args;
-#endif
 
     static const bool has_capacity = detail::extract_capacity<bound_args>::has_capacity;
     static const size_t capacity = detail::extract_capacity<bound_args>::capacity + 1; // the queue uses one dummy node
@@ -102,7 +99,7 @@ private:
     static const bool node_based = !(has_capacity || fixed_sized);
     static const bool compile_time_sized = has_capacity;
 
-    struct BOOST_ALIGNMENT(BOOST_LOCKFREE_CACHELINE_BYTES) node
+    struct BOOST_LOCKFREE_CACHELINE_ALIGNMENT node
     {
         typedef typename detail::select_tagged_handle<node, node_based>::tagged_handle_type tagged_node_handle;
         typedef typename detail::select_tagged_handle<node, node_based>::handle_type handle_type;
@@ -148,8 +145,11 @@ private:
 
 #endif
 
-    BOOST_DELETED_FUNCTION(queue(queue const&))
-    BOOST_DELETED_FUNCTION(queue& operator= (queue const&))
+#ifndef BOOST_NO_CXX11_DELETED_FUNCTIONS
+    queue(queue const &) = delete;
+    queue(queue &&)      = delete;
+    const queue& operator=( const queue& ) = delete;
+#endif
 
 public:
     typedef T value_type;
@@ -253,7 +253,7 @@ public:
      * \note The result is only accurate, if no other thread modifies the queue. Therefore it is rarely practical to use this
      *       value in program logic.
      * */
-    bool empty(void) const
+    bool empty(void)
     {
         return pool.get_handle(head_.load()) == pool.get_handle(tail_.load());
     }
@@ -290,6 +290,8 @@ private:
     template <bool Bounded>
     bool do_push(T const & t)
     {
+        using detail::likely;
+
         node * n = pool.template construct<true, Bounded>(t, pool.null_handle());
         handle_type node_handle = pool.get_handle(n);
 
@@ -303,7 +305,7 @@ private:
             node * next_ptr = pool.get_pointer(next);
 
             tagged_node_handle tail2 = tail_.load(memory_order_acquire);
-            if (BOOST_LIKELY(tail == tail2)) {
+            if (likely(tail == tail2)) {
                 if (next_ptr == 0) {
                     tagged_node_handle new_tail_next(node_handle, next.get_next_tag());
                     if ( tail_node->next.compare_exchange_weak(next, new_tail_next) ) {
@@ -377,6 +379,7 @@ public:
     template <typename U>
     bool pop (U & ret)
     {
+        using detail::likely;
         for (;;) {
             tagged_node_handle head = head_.load(memory_order_acquire);
             node * head_ptr = pool.get_pointer(head);
@@ -386,7 +389,7 @@ public:
             node * next_ptr = pool.get_pointer(next);
 
             tagged_node_handle head2 = head_.load(memory_order_acquire);
-            if (BOOST_LIKELY(head == head2)) {
+            if (likely(head == head2)) {
                 if (pool.get_handle(head) == pool.get_handle(tail)) {
                     if (next_ptr == 0)
                         return false;

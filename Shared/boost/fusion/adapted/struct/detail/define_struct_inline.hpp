@@ -8,7 +8,6 @@
 #ifndef BOOST_FUSION_ADAPTED_STRUCT_DETAIL_DEFINE_STRUCT_INLINE_HPP
 #define BOOST_FUSION_ADAPTED_STRUCT_DETAIL_DEFINE_STRUCT_INLINE_HPP
 
-#include <boost/fusion/support/config.hpp>
 #include <boost/config.hpp>
 #include <boost/fusion/support/category_of.hpp>
 #include <boost/fusion/sequence/sequence_facade.hpp>
@@ -22,7 +21,7 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/preprocessor/comma_if.hpp>
-#include <boost/preprocessor/facilities/empty.hpp>
+#include <boost/preprocessor/facilities/is_empty.hpp>
 #include <boost/preprocessor/repeat.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/size.hpp>
@@ -37,7 +36,7 @@
 // an alternate implementation for these metafunctions is used that does not 
 // require such specializations. The alternate implementation takes longer
 // to compile so its use is restricted to the offending compilers.
-// For MSVC, the bug was reported at https://connect.microsoft.com/VisualStudio/feedback/details/757891/c-compiler-error-involving-partial-specializations-of-nested-templates
+// For MSVC, the bug was was reported at https://connect.microsoft.com/VisualStudio/feedback/details/757891/c-compiler-error-involving-partial-specializations-of-nested-templates
 // For GCC, 4.4 and earlier are no longer maintained so there is no need
 // to report a bug.
 #if defined(BOOST_MSVC) || (defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ <= 4)))
@@ -62,10 +61,10 @@
               ~,                                                                \
               ATTRIBUTES_SEQ)                                                   \
 
+#define BOOST_FUSION_IGNORE_1(ARG1)
 #define BOOST_FUSION_IGNORE_2(ARG1, ARG2)
 
 #define BOOST_FUSION_MAKE_COPY_CONSTRUCTOR(NAME, ATTRIBUTES_SEQ)                \
-    BOOST_FUSION_GPU_ENABLED                                                    \
     NAME(BOOST_PP_SEQ_FOR_EACH_I(                                               \
             BOOST_FUSION_MAKE_CONST_REF_PARAM,                                  \
             ~,                                                                  \
@@ -113,7 +112,6 @@
     struct deref<SPEC_TYPE, N> >                                                \
     {                                                                           \
         typedef typename boost_fusion_detail_Sq::t##N##_type TYPE_QUAL& type;   \
-        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                                \
         static type call(CALL_ARG_TYPE, N> const& iter)                         \
         {                                                                       \
             return iter.seq_.BOOST_PP_TUPLE_ELEM(2, 1, ATTRIBUTE);              \
@@ -163,7 +161,6 @@
             typename boost_fusion_detail_Sq::t##N##_type&                       \
         >::type type;                                                           \
                                                                                 \
-        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                                \
         static type call(boost_fusion_detail_Sq& sq)                            \
         {                                                                       \
             return sq. BOOST_PP_TUPLE_ELEM(2, 1, ATTRIBUTE);                    \
@@ -208,7 +205,6 @@
                 result_raw_type                                                 \
             >::type type;                                                       \
                                                                                 \
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                            \
             static type call(iterator_raw_type const& iter)                     \
             {                                                                   \
                 return boost::fusion::at_c<index>(iter.ref_vec);                \
@@ -301,7 +297,7 @@
 #define BOOST_FUSION_DEFINE_STRUCT_INLINE_MEMBERS(NAME, ATTRIBUTES)             \
     BOOST_FUSION_DEFINE_STRUCT_MEMBERS_IMPL(                                    \
         NAME,                                                                   \
-        BOOST_PP_CAT(BOOST_FUSION_DEFINE_STRUCT_FILLER_0 ATTRIBUTES,_END))
+        BOOST_PP_CAT(BOOST_FUSION_ADAPT_STRUCT_FILLER_0 ATTRIBUTES,_END))
 
 // Note: can't compute BOOST_PP_SEQ_SIZE(ATTRIBUTES_SEQ) directly because
 //       ATTRIBUTES_SEQ may be empty and calling BOOST_PP_SEQ_SIZE on an empty
@@ -315,7 +311,7 @@
 #define BOOST_FUSION_DEFINE_STRUCT_INLINE_ITERATOR(NAME, ATTRIBUTES)            \
     BOOST_FUSION_DEFINE_STRUCT_ITERATOR_IMPL(                                   \
         NAME,                                                                   \
-        BOOST_PP_CAT(BOOST_FUSION_DEFINE_STRUCT_FILLER_0 ATTRIBUTES,_END))
+        BOOST_PP_CAT(BOOST_FUSION_ADAPT_STRUCT_FILLER_0 ATTRIBUTES,_END))
 
 #define BOOST_FUSION_DEFINE_STRUCT_ITERATOR_IMPL(NAME, ATTRIBUTES_SEQ)          \
     BOOST_FUSION_DEFINE_STRUCT_INLINE_ITERATOR_IMPL_IMPL(                       \
@@ -336,7 +332,6 @@
         typedef boost::mpl::int_<N> index;                                      \
         typedef boost_fusion_detail_Seq sequence_type;                          \
                                                                                 \
-        BOOST_FUSION_GPU_ENABLED                                                \
         BOOST_FUSION_ITERATOR_NAME(NAME)(boost_fusion_detail_Seq& seq)          \
             : seq_(seq)                                                         \
               BOOST_FUSION_DEFINE_ITERATOR_WKND_INIT_LIST_ENTRIES(              \
@@ -359,7 +354,6 @@
                 boost_fusion_detail_It::index::value + 1                        \
             > type;                                                             \
                                                                                 \
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                            \
             static type call(boost_fusion_detail_It const& it)                  \
             {                                                                   \
                 return type(it.seq_);                                           \
@@ -374,7 +368,6 @@
                 boost_fusion_detail_It::index::value - 1                        \
             > type;                                                             \
                                                                                 \
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                            \
             static type call(boost_fusion_detail_It const& it)                  \
             {                                                                   \
                 return type(it.seq_);                                           \
@@ -392,9 +385,8 @@
                 typename boost_fusion_detail_It1::index                         \
             >::type type;                                                       \
                                                                                 \
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                            \
-            static type call(boost_fusion_detail_It1 const& /* it1 */,          \
-                             boost_fusion_detail_It2 const& /* it2 */)          \
+             static type call(boost_fusion_detail_It1 const& it1,               \
+                              boost_fusion_detail_It2 const& it2)               \
             {                                                                   \
                 return type();                                                  \
             }                                                                   \
@@ -412,7 +404,6 @@
                     + boost_fusion_detail_M::value                              \
             > type;                                                             \
                                                                                 \
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                            \
             static type call(boost_fusion_detail_It const& it)                  \
             {                                                                   \
                 return type(it.seq_);                                           \
@@ -424,10 +415,17 @@
 #define BOOST_FUSION_DEFINE_STRUCT_INLINE_MEMBERS_IMPL_IMPL(                    \
     NAME, ATTRIBUTES_SEQ, ATTRIBUTES_SEQ_SIZE)                                  \
                                                                                 \
+    /* Note: second BOOST_PP_IF is necessary to avoid MSVC warning when */      \
+    /*       calling BOOST_FUSION_IGNORE_1 with no arguments.           */      \
     NAME()                                                                      \
-        BOOST_PP_IF(ATTRIBUTES_SEQ_SIZE,                                        \
+        BOOST_PP_IF(                                                            \
+            ATTRIBUTES_SEQ_SIZE,                                                \
             BOOST_FUSION_MAKE_DEFAULT_INIT_LIST,                                \
-            BOOST_PP_EMPTY)(ATTRIBUTES_SEQ)                                     \
+            BOOST_FUSION_IGNORE_1)                                              \
+                (BOOST_PP_IF(                                                   \
+                    ATTRIBUTES_SEQ_SIZE,                                        \
+                    ATTRIBUTES_SEQ,                                             \
+                    0))                                                         \
     {                                                                           \
     }                                                                           \
                                                                                 \
@@ -438,14 +436,12 @@
             (NAME, ATTRIBUTES_SEQ)                                              \
                                                                                 \
     template <typename boost_fusion_detail_Seq>                                 \
-    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED                              \
     NAME(const boost_fusion_detail_Seq& rhs)                                    \
     {                                                                           \
         boost::fusion::copy(rhs, *this);                                        \
     }                                                                           \
                                                                                 \
     template <typename boost_fusion_detail_Seq>                                 \
-    BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED                              \
     NAME& operator=(const boost_fusion_detail_Seq& rhs)                         \
     {                                                                           \
         boost::fusion::copy(rhs, *this);                                        \
@@ -458,7 +454,6 @@
         typedef BOOST_FUSION_ITERATOR_NAME(NAME)<boost_fusion_detail_Sq, 0>     \
              type;                                                              \
                                                                                 \
-        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                                \
         static type call(boost_fusion_detail_Sq& sq)                            \
         {                                                                       \
             return type(sq);                                                    \
@@ -473,7 +468,6 @@
             ATTRIBUTES_SEQ_SIZE                                                 \
         > type;                                                                 \
                                                                                 \
-        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED                                \
         static type call(boost_fusion_detail_Sq& sq)                            \
         {                                                                       \
             return type(sq);                                                    \

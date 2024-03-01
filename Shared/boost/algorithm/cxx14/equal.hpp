@@ -13,8 +13,7 @@
 #define BOOST_ALGORITHM_EQUAL_HPP
 
 #include <algorithm>    // for std::equal
-#include <functional>   // for std::binary_function
-#include <iterator>
+#include <functional>   // for std::equal_to
 
 namespace boost { namespace algorithm {
 

@@ -12,14 +12,6 @@
 #pragma warning(push,1)
 #endif
 
-#ifdef BOOST_EXCEPTION_MINI_BOOST
-#include  <memory>
-namespace boost { namespace exception_detail { using std::shared_ptr; } }
-#else
-namespace boost { template <class T> class shared_ptr; };
-namespace boost { namespace exception_detail { using boost::shared_ptr; } }
-#endif
-
 namespace
 boost
     {
@@ -152,6 +144,9 @@ boost
 # endif
 #endif
 
+    template <class T>
+    class shared_ptr;
+
     namespace
     exception_detail
         {
@@ -187,18 +182,6 @@ boost
         template <>
         struct get_info<throw_line>;
 
-        template <class>
-        struct set_info_rv;
-
-        template <>
-        struct set_info_rv<throw_function>;
-
-        template <>
-        struct set_info_rv<throw_file>;
-
-        template <>
-        struct set_info_rv<throw_line>;
-
         char const * get_diagnostic_information( exception const &, char const * );
 
         void copy_boost_exception( exception *, exception const * );
@@ -224,12 +207,6 @@ boost
     class
     exception
         {
-        //<N3757>
-        public:
-        template <class Tag> void set( typename Tag::type const & );
-        template <class Tag> typename Tag::type const * get() const;
-        //</N3757>
-
         protected:
 
         exception():
@@ -281,11 +258,6 @@ boost
         friend struct exception_detail::get_info<throw_function>;
         friend struct exception_detail::get_info<throw_file>;
         friend struct exception_detail::get_info<throw_line>;
-        template <class>
-        friend struct exception_detail::set_info_rv;
-        friend struct exception_detail::set_info_rv<throw_function>;
-        friend struct exception_detail::set_info_rv<throw_file>;
-        friend struct exception_detail::set_info_rv<throw_line>;
         friend void exception_detail::copy_boost_exception( exception *, exception const * );
 #endif
         mutable exception_detail::refcount_ptr<exception_detail::error_info_container> data_;
@@ -454,11 +426,6 @@ boost
             {
             }
 
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility push (default)
-# endif
-#endif
         template <class T>
         class
         clone_impl:
@@ -500,11 +467,6 @@ boost
                 }
             };
         }
-#if defined(__GNUC__)
-# if (__GNUC__ == 4 && __GNUC_MINOR__ >= 1) || (__GNUC__ > 4)
-#  pragma GCC visibility pop
-# endif
-#endif
 
     template <class T>
     inline

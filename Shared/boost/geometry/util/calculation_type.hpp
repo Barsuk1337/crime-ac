@@ -13,9 +13,7 @@
 
 #include <boost/config.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/type_traits/is_fundamental.hpp>
-#include <boost/type_traits/is_void.hpp>
+#include <boost/type_traits.hpp>
 
 #include <boost/geometry/util/select_coordinate_type.hpp>
 #include <boost/geometry/util/select_most_precise.hpp>
@@ -36,7 +34,7 @@ struct default_integral
     typedef boost::long_long_type type;
 #else
     typedef int type;
-#endif
+#endif    
 };
 
 /*!
@@ -67,7 +65,7 @@ struct calculation_type
                 DefaultIntegralCalculationType
             >::type::value
         ));
-
+    
 
     typedef typename boost::mpl::if_
         <
@@ -155,12 +153,12 @@ struct ternary
         <
             typename select_most_precise
                 <
-                    typename coordinate_type<Geometry1>::type,
+                    typename coordinate_type<Geometry1>::type, 
                     typename select_coordinate_type
                         <
                             Geometry2,
                             Geometry3
-                        >::type
+                        >::type 
                 >::type,
             CalculationType,
             DefaultFloatingPointCalculationType,

@@ -6,11 +6,10 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date$
+ * $Date: 2012-09-22 15:33:33 -0700 (Sat, 22 Sep 2012) $
  */
 
 #include <boost/operators.hpp>
-#include <boost/date_time/compiler_config.hpp>
 #include <boost/date_time/year_month_day.hpp>
 #include <boost/date_time/special_defs.hpp>
 
@@ -51,7 +50,7 @@ namespace date_time {
 
 
   template<class T, class calendar, class duration_type_>
-  class BOOST_SYMBOL_VISIBLE date : private
+  class date : private
        boost::less_than_comparable<T
      , boost::equality_comparable<T
     > >
@@ -160,7 +159,7 @@ namespace date_time {
       {
         return date_type(date_rep_type(days_) - dd.get_rep());
       }
-      return date_type(date_rep_type(days_) - static_cast<date_int_type>(dd.days()));
+      return date_type(date_rep_type(days_) - dd.days());
     }
     date_type operator-=(const duration_type& dd)
     {
@@ -178,7 +177,7 @@ namespace date_time {
       {
         return date_type(date_rep_type(days_) + dd.get_rep());
       }
-      return date_type(date_rep_type(days_) + static_cast<date_int_type>(dd.days()));
+      return date_type(date_rep_type(days_) + dd.days());
     }
     date_type operator+=(const duration_type& dd)
     {

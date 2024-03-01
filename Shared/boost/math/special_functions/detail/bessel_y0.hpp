@@ -8,8 +8,6 @@
 
 #ifdef _MSC_VER
 #pragma once
-#pragma warning(push)
-#pragma warning(disable:4702) // Unreachable code (release mode only warning)
 #endif
 
 #include <boost/math/special_functions/detail/bessel_j0.hpp>
@@ -221,10 +219,6 @@ T bessel_y0(T x, const Policy& pol)
 }
 
 }}} // namespaces
-
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 #endif // BOOST_MATH_BESSEL_Y0_HPP
 

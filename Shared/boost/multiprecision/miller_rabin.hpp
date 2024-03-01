@@ -6,7 +6,7 @@
 #ifndef BOOST_MP_MR_HPP
 #define BOOST_MP_MR_HPP
 
-#include <boost/random.hpp>
+#include <boost/multiprecision/random.hpp>
 #include <boost/multiprecision/integer.hpp>
 
 namespace boost{
@@ -144,8 +144,6 @@ typename enable_if_c<number_category<I>::value == number_kind_integer, bool>::ty
 #endif
    typedef I number_type;
 
-   if (n == 2)
-      return true;  // Trivial special case.
    if(bit_test(n, 0) == 0)
       return false;  // n is even
    if(n <= 227)

@@ -15,7 +15,6 @@
 #include <boost/next_prior.hpp>
 
 #include <algorithm>   // for std::remove
-#include <utility>
 #include <vector>
 #include <list>
 #include <map>
@@ -23,20 +22,18 @@
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
 
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_SET
-#include <unordered_set>
+#if !defined BOOST_NO_SLIST
+#  ifdef BOOST_SLIST_HEADER
+#    include BOOST_SLIST_HEADER
+#  else
+#    include <slist>
+#  endif
 #endif
 
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-#include <unordered_map>
-#endif
-
-#ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
-#define BOOST_PENDING_FWD_TYPE(type) const type&
-#define BOOST_PENDING_FWD_VALUE(type, var) (var)
-#else
-#define BOOST_PENDING_FWD_TYPE(type) type&&
-#define BOOST_PENDING_FWD_VALUE(type, var) (std::forward<type>((var)))
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+// Stay out of the way of concept checking class templates
+# define Container Container_
+# define AssociativeContainer AssociativeContainer_
 #endif
 
 // The content of this file is in 'graph_detail' because otherwise
@@ -90,12 +87,14 @@ namespace boost { namespace graph_detail {
   //======================================================================
   // Container Traits Class and container_category() function
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   // don't use this unless there is partial specialization 
   template <class Container>
   struct container_traits {
     typedef typename Container::category category;
     typedef typename Container::iterator_stability iterator_stability;
   };
+#endif
 
   // Use this as a compile-time assertion that X is stable
   inline void require_stable(stable_tag) { }
@@ -113,11 +112,13 @@ namespace boost { namespace graph_detail {
   unstable_tag iterator_stability(const std::vector<T,Alloc>&)
     { return unstable_tag(); }
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template <class T, class Alloc>
   struct container_traits< std::vector<T,Alloc> > {
     typedef vector_tag category;
     typedef unstable_tag iterator_stability;
   };
+#endif
 
   // std::list
   struct list_tag :
@@ -135,11 +136,36 @@ namespace boost { namespace graph_detail {
   stable_tag iterator_stability(const std::list<T,Alloc>&)
     { return stable_tag(); }
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template <class T, class Alloc>
   struct container_traits< std::list<T,Alloc> > {
     typedef list_tag category;
     typedef stable_tag iterator_stability;
   };
+#endif
+
+
+  // std::slist
+#ifndef BOOST_NO_SLIST
+# ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+  template <class T, class Alloc>
+  struct container_traits<BOOST_STD_EXTENSION_NAMESPACE::slist<T,Alloc> > {
+    typedef front_insertion_sequence_tag category;
+    typedef stable_tag iterator_stability;
+  };
+#endif
+  template <class T, class Alloc>
+  front_insertion_sequence_tag container_category(
+  const BOOST_STD_EXTENSION_NAMESPACE::slist<T,Alloc>&
+  )
+    { return front_insertion_sequence_tag(); }
+
+  template <class T, class Alloc>
+  stable_tag iterator_stability(
+  const BOOST_STD_EXTENSION_NAMESPACE::slist<T,Alloc>&)
+    { return stable_tag(); }
+#endif
+
 
   // std::set
   struct set_tag :
@@ -156,11 +182,13 @@ namespace boost { namespace graph_detail {
   stable_tag iterator_stability(const std::set<Key,Cmp,Alloc>&)
   { return stable_tag(); }
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template <class Key, class Cmp, class Alloc> 
   struct container_traits< std::set<Key,Cmp,Alloc> > {
     typedef set_tag category;
     typedef stable_tag iterator_stability;
   };
+#endif
 
   // std::multiset
   struct multiset_tag :
@@ -177,11 +205,13 @@ namespace boost { namespace graph_detail {
   stable_tag iterator_stability(const std::multiset<Key,Cmp,Alloc>&)
   { return stable_tag(); }
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template <class Key, class Cmp, class Alloc> 
   struct container_traits< std::multiset<Key,Cmp,Alloc> > {
     typedef multiset_tag category;
     typedef stable_tag iterator_stability;
   };
+#endif
 
   // deque
 
@@ -192,11 +222,13 @@ namespace boost { namespace graph_detail {
     virtual public unique_associative_container_tag 
     { };
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template <class Key, class T, class Cmp, class Alloc> 
   struct container_traits< std::map<Key,T,Cmp,Alloc> > {
     typedef map_tag category;
     typedef stable_tag iterator_stability;
   };
+#endif
 
   template <class Key, class T, class Cmp, class Alloc> 
   map_tag container_category(const std::map<Key,T,Cmp,Alloc>&)
@@ -213,11 +245,13 @@ namespace boost { namespace graph_detail {
     virtual public multiple_associative_container_tag 
     { };
 
+#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template <class Key, class T, class Cmp, class Alloc> 
   struct container_traits< std::multimap<Key,T,Cmp,Alloc> > {
     typedef multimap_tag category;
     typedef stable_tag iterator_stability;
   };
+#endif
 
   template <class Key, class T, class Cmp, class Alloc> 
   multimap_tag container_category(const std::multimap<Key,T,Cmp,Alloc>&)
@@ -252,6 +286,8 @@ namespace boost { namespace graph_detail {
     { };
 
 
+#ifndef BOOST_NO_HASH
+#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template <class Key, class Eq, class Hash, class Alloc> 
   struct container_traits< boost::unordered_set<Key,Eq,Hash,Alloc> > {
     typedef unordered_set_tag category;
@@ -272,7 +308,7 @@ namespace boost { namespace graph_detail {
     typedef unordered_multimap_tag category;
     typedef unstable_tag iterator_stability;
   };
-
+#endif
   template <class Key, class Eq, class Hash, class Alloc>
   unordered_set_tag
   container_category(const boost::unordered_set<Key,Eq,Hash,Alloc>&)
@@ -309,87 +345,8 @@ namespace boost { namespace graph_detail {
   unstable_tag
   iterator_stability(const boost::unordered_multimap<Key,T,Eq,Hash,Alloc>&)
   { return unstable_tag(); }
-
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_SET
-  template <class Key, class Eq, class Hash, class Alloc> 
-  struct container_traits< std::unordered_set<Key,Eq,Hash,Alloc> > {
-    typedef unordered_set_tag category;
-    typedef unstable_tag iterator_stability;
-  };
-#endif
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-  template <class Key, class T, class Eq, class Hash, class Alloc>
-  struct container_traits< std::unordered_map<Key,T,Eq,Hash,Alloc> > {
-    typedef unordered_map_tag category;
-    typedef unstable_tag iterator_stability;
-  };
-#endif
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_SET
-  template <class Key, class Eq, class Hash, class Alloc>
-  struct container_traits< std::unordered_multiset<Key,Eq,Hash,Alloc> > {
-    typedef unordered_multiset_tag category;
-    typedef unstable_tag iterator_stability;
-  };
-#endif
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-  template <class Key, class T, class Eq, class Hash, class Alloc>
-  struct container_traits< std::unordered_multimap<Key,T,Eq,Hash,Alloc> > {
-    typedef unordered_multimap_tag category;
-    typedef unstable_tag iterator_stability;
-  };
-#endif
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_SET
-  template <class Key, class Eq, class Hash, class Alloc>
-  unordered_set_tag
-  container_category(const std::unordered_set<Key,Eq,Hash,Alloc>&)
-  { return unordered_set_tag(); }
 #endif
 
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-  template <class Key, class T, class Eq, class Hash, class Alloc>
-  unordered_map_tag
-  container_category(const std::unordered_map<Key,T,Eq,Hash,Alloc>&)
-  { return unordered_map_tag(); }
-#endif
-
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_SET
-  template <class Key, class Eq, class Hash, class Alloc>
-  unstable_tag iterator_stability(const std::unordered_set<Key,Eq,Hash,Alloc>&)
-  { return unstable_tag(); }
-#endif
-
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-  template <class Key, class T, class Eq, class Hash, class Alloc>
-  unstable_tag iterator_stability(const std::unordered_map<Key,T,Eq,Hash,Alloc>&)
-  { return unstable_tag(); }
-#endif
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_SET
-  template <class Key, class Eq, class Hash, class Alloc>
-  unordered_multiset_tag
-  container_category(const std::unordered_multiset<Key,Eq,Hash,Alloc>&)
-  { return unordered_multiset_tag(); }
-#endif
-
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-  template <class Key, class T, class Eq, class Hash, class Alloc>
-  unordered_multimap_tag
-  container_category(const std::unordered_multimap<Key,T,Eq,Hash,Alloc>&)
-  { return unordered_multimap_tag(); }
-#endif
-
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_SET
-  template <class Key, class Eq, class Hash, class Alloc>
-  unstable_tag
-  iterator_stability(const std::unordered_multiset<Key,Eq,Hash,Alloc>&)
-  { return unstable_tag(); }
-#endif
-
-#ifndef BOOST_NO_CXX11_HDR_UNORDERED_MAP
-  template <class Key, class T, class Eq, class Hash, class Alloc>
-  unstable_tag
-  iterator_stability(const std::unordered_multimap<Key,T,Eq,Hash,Alloc>&)
-  { return unstable_tag(); }
-#endif
 
 
   //===========================================================================
@@ -464,41 +421,41 @@ namespace boost { namespace graph_detail {
   // Push
   template <class Container, class T>
   std::pair<typename Container::iterator, bool>
-  push_dispatch(Container& c, BOOST_PENDING_FWD_TYPE(T) v, back_insertion_sequence_tag)
+  push_dispatch(Container& c, const T& v, back_insertion_sequence_tag)
   {
-    c.push_back(BOOST_PENDING_FWD_VALUE(T, v));
+    c.push_back(v);
     return std::make_pair(boost::prior(c.end()), true);
   }
 
   template <class Container, class T>
   std::pair<typename Container::iterator, bool>
-  push_dispatch(Container& c, BOOST_PENDING_FWD_TYPE(T) v, front_insertion_sequence_tag)
+  push_dispatch(Container& c, const T& v, front_insertion_sequence_tag)
   {
-    c.push_front(BOOST_PENDING_FWD_VALUE(T, v));
+    c.push_front(v);
     return std::make_pair(c.begin(), true);
   }
 
   template <class AssociativeContainer, class T>
   std::pair<typename AssociativeContainer::iterator, bool>
-  push_dispatch(AssociativeContainer& c, BOOST_PENDING_FWD_TYPE(T) v, 
+  push_dispatch(AssociativeContainer& c, const T& v, 
                 unique_associative_container_tag)
   {
-    return c.insert(BOOST_PENDING_FWD_VALUE(T, v));
+    return c.insert(v);
   }
 
   template <class AssociativeContainer, class T>
   std::pair<typename AssociativeContainer::iterator, bool>
-  push_dispatch(AssociativeContainer& c, BOOST_PENDING_FWD_TYPE(T) v,
+  push_dispatch(AssociativeContainer& c, const T& v,
                 multiple_associative_container_tag)
   {
-    return std::make_pair(c.insert(BOOST_PENDING_FWD_VALUE(T, v)), true);
+    return std::make_pair(c.insert(v), true);
   }
 
   template <class Container, class T>
   std::pair<typename Container::iterator,bool>
-  push(Container& c, BOOST_PENDING_FWD_TYPE(T) v)
+  push(Container& c, const T& v)
   {
-    return push_dispatch(c, BOOST_PENDING_FWD_VALUE(T, v), container_category(c));
+    return push_dispatch(c, v, container_category(c));
   }
 
   // Find
@@ -595,7 +552,10 @@ namespace boost { namespace graph_detail {
 
 }} // namespace boost::graph_detail
 
-#undef BOOST_PENDING_FWD_TYPE
-#undef BOOST_PENDING_FWD_VALUE
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+// Stay out of the way of concept checking class templates
+# undef Container
+# undef AssociativeContainer
+#endif
 
 #endif // BOOST_GRAPH_DETAIL_CONTAINER_TRAITS_H

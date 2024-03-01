@@ -6,10 +6,9 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst 
- * $Date$
+ * $Date: 2008-11-12 11:37:53 -0800 (Wed, 12 Nov 2008) $
  */
 
-#include <boost/date_time/compiler_config.hpp>
 #include <boost/date_time/date_duration.hpp>
 #include <boost/date_time/int_adapter.hpp>
 #include <boost/date_time/special_defs.hpp>
@@ -23,7 +22,7 @@ namespace gregorian {
   //! Durations in days for gregorian system
   /*! \ingroup date_basics
    */
-  class BOOST_SYMBOL_VISIBLE date_duration :
+  class date_duration :
     public boost::date_time::date_duration< date_duration_rep >
   {
     typedef boost::date_time::date_duration< date_duration_rep > base_type;

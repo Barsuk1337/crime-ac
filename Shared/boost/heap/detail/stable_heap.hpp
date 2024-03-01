@@ -20,9 +20,6 @@
 #include <boost/heap/policies.hpp>
 #include <boost/heap/heap_merge.hpp>
 
-#include <boost/type_traits/is_nothrow_move_constructible.hpp>
-#include <boost/type_traits/is_nothrow_move_assignable.hpp>
-
 namespace boost  {
 namespace heap   {
 namespace detail {
@@ -33,54 +30,54 @@ struct size_holder
     static const bool constant_time_size = ConstantSize;
     typedef SizeType  size_type;
 
-    size_holder(void) BOOST_NOEXCEPT:
+    size_holder(void):
         size_(0)
     {}
 
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-    size_holder(size_holder && rhs) BOOST_NOEXCEPT:
+    size_holder(size_holder && rhs):
         size_(rhs.size_)
     {
         rhs.size_ = 0;
     }
 
-    size_holder(size_holder const & rhs) BOOST_NOEXCEPT:
+    size_holder(size_holder const & rhs):
         size_(rhs.size_)
     {}
 
-    size_holder & operator=(size_holder && rhs) BOOST_NOEXCEPT
+    size_holder & operator=(size_holder && rhs)
     {
         size_ = rhs.size_;
         rhs.size_ = 0;
         return *this;
     }
 
-    size_holder & operator=(size_holder const & rhs) BOOST_NOEXCEPT
+    size_holder & operator=(size_holder const & rhs)
     {
         size_ = rhs.size_;
         return *this;
     }
 #endif
 
-    SizeType get_size() const BOOST_NOEXCEPT
+    SizeType get_size() const
     {  return size_;  }
 
-    void set_size(SizeType size) BOOST_NOEXCEPT
+    void set_size(SizeType size)
     {  size_ = size; }
 
-    void decrement() BOOST_NOEXCEPT
+    void decrement()
     {  --size_; }
 
-    void increment() BOOST_NOEXCEPT
+    void increment()
     {  ++size_; }
 
-    void add(SizeType value) BOOST_NOEXCEPT
+    void add(SizeType value)
     {  size_ += value; }
 
-    void sub(SizeType value) BOOST_NOEXCEPT
+    void sub(SizeType value)
     {  size_ -= value; }
 
-    void swap(size_holder & rhs) BOOST_NOEXCEPT
+    void swap(size_holder & rhs)
     {  std::swap(size_, rhs.size_); }
 
     SizeType size_;
@@ -92,46 +89,46 @@ struct size_holder<false, SizeType>
     static const bool constant_time_size = false;
     typedef SizeType  size_type;
 
-    size_holder(void) BOOST_NOEXCEPT
+    size_holder(void)
     {}
 
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-    size_holder(size_holder && rhs) BOOST_NOEXCEPT
+    size_holder(size_holder && rhs)
     {}
 
-    size_holder(size_holder const & rhs) BOOST_NOEXCEPT
+    size_holder(size_holder const & rhs)
     {}
 
-    size_holder & operator=(size_holder && rhs) BOOST_NOEXCEPT
+    size_holder & operator=(size_holder && rhs)
     {
         return *this;
     }
 
-    size_holder & operator=(size_holder const & rhs) BOOST_NOEXCEPT
+    size_holder & operator=(size_holder const & rhs)
     {
         return *this;
     }
 #endif
 
-    size_type get_size() const BOOST_NOEXCEPT
+    size_type get_size() const
     {  return 0;  }
 
-    void set_size(size_type) BOOST_NOEXCEPT
+    void set_size(size_type)
     {}
 
-    void decrement() BOOST_NOEXCEPT
+    void decrement()
     {}
 
-    void increment() BOOST_NOEXCEPT
+    void increment()
     {}
 
-    void add(SizeType /*value*/) BOOST_NOEXCEPT
+    void add(SizeType value)
     {}
 
-    void sub(SizeType /*value*/) BOOST_NOEXCEPT
+    void sub(SizeType value)
     {}
 
-    void swap(size_holder & /*rhs*/) BOOST_NOEXCEPT
+    void swap(size_holder & rhs)
     {}
 };
 
@@ -170,7 +167,7 @@ struct heap_base:
     {}
 
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-    heap_base(heap_base && rhs) BOOST_NOEXCEPT_IF(boost::is_nothrow_move_constructible<Cmp>::value):
+    heap_base(heap_base && rhs):
 #ifndef BOOST_MSVC
         Cmp(std::move(static_cast<Cmp&>(rhs))),
 #else
@@ -188,7 +185,7 @@ struct heap_base:
         size_holder_type(static_cast<size_holder_type const &>(rhs))
     {}
 
-    heap_base & operator=(heap_base && rhs) BOOST_NOEXCEPT_IF(boost::is_nothrow_move_assignable<Cmp>::value)
+    heap_base & operator=(heap_base && rhs)
     {
         value_comp_ref().operator=(std::move(rhs.value_comp_ref()));
         size_holder_type::operator=(std::move(static_cast<size_holder_type&>(rhs)));
@@ -228,17 +225,17 @@ struct heap_base:
     }
 #endif
 
-    static T & get_value(internal_type & val) BOOST_NOEXCEPT
+    static T & get_value(internal_type & val)
     {
         return val;
     }
 
-    static T const & get_value(internal_type const & val) BOOST_NOEXCEPT
+    static T const & get_value(internal_type const & val)
     {
         return val;
     }
 
-    Cmp const & value_comp(void) const BOOST_NOEXCEPT
+    Cmp const & value_comp(void) const
     {
 #ifndef BOOST_MSVC
         return *this;
@@ -247,23 +244,23 @@ struct heap_base:
 #endif
     }
 
-    Cmp const & get_internal_cmp(void) const BOOST_NOEXCEPT
+    Cmp const & get_internal_cmp(void) const
     {
         return value_comp();
     }
 
-    void swap(heap_base & rhs) BOOST_NOEXCEPT_IF(boost::is_nothrow_move_constructible<Cmp>::value && boost::is_nothrow_move_assignable<Cmp>::value)
+    void swap(heap_base & rhs)
     {
         std::swap(value_comp_ref(), rhs.value_comp_ref());
         size_holder<constant_time_size, size_t>::swap(rhs);
     }
 
-    stability_counter_type get_stability_count(void) const BOOST_NOEXCEPT
+    stability_counter_type get_stability_count(void) const
     {
         return 0;
     }
 
-    void set_stability_count(stability_counter_type) BOOST_NOEXCEPT
+    void set_stability_count(stability_counter_type)
     {}
 
     template <typename Heap1, typename Heap2>
@@ -329,7 +326,7 @@ struct heap_base<T, Cmp, constant_time_size, StabilityCounterType, true>:
     {}
 
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
-    heap_base(heap_base && rhs) BOOST_NOEXCEPT_IF(boost::is_nothrow_move_constructible<Cmp>::value):
+    heap_base(heap_base && rhs):
 #ifndef BOOST_MSVC
         Cmp(std::move(static_cast<Cmp&>(rhs))),
 #else
@@ -349,7 +346,7 @@ struct heap_base<T, Cmp, constant_time_size, StabilityCounterType, true>:
         size_holder_type(static_cast<size_holder_type const &>(rhs)), counter_(rhs.counter_)
     {}
 
-    heap_base & operator=(heap_base && rhs) BOOST_NOEXCEPT_IF(boost::is_nothrow_move_assignable<Cmp>::value)
+    heap_base & operator=(heap_base && rhs)
     {
         value_comp_ref().operator=(std::move(rhs.value_comp_ref()));
         size_holder_type::operator=(std::move(static_cast<size_holder_type&>(rhs)));
@@ -398,17 +395,17 @@ struct heap_base<T, Cmp, constant_time_size, StabilityCounterType, true>:
     }
 #endif
 
-    static T & get_value(internal_type & val) BOOST_NOEXCEPT
+    static T & get_value(internal_type & val)
     {
         return val.first;
     }
 
-    static T const & get_value(internal_type const & val) BOOST_NOEXCEPT
+    static T const & get_value(internal_type const & val)
     {
         return val.first;
     }
 
-    Cmp const & value_comp(void) const BOOST_NOEXCEPT
+    Cmp const & value_comp(void) const
     {
 #ifndef BOOST_MSVC
         return *this;
@@ -441,7 +438,7 @@ struct heap_base<T, Cmp, constant_time_size, StabilityCounterType, true>:
         return internal_compare(value_comp());
     }
 
-    void swap(heap_base & rhs) BOOST_NOEXCEPT_IF(boost::is_nothrow_move_constructible<Cmp>::value && boost::is_nothrow_move_assignable<Cmp>::value)
+    void swap(heap_base & rhs)
     {
 #ifndef BOOST_MSVC
         std::swap(static_cast<Cmp&>(*this), static_cast<Cmp&>(rhs));
@@ -466,7 +463,7 @@ struct heap_base<T, Cmp, constant_time_size, StabilityCounterType, true>:
     friend struct heap_merge_emulate;
 
 private:
-    Cmp & value_comp_ref(void) BOOST_NOEXCEPT
+    Cmp & value_comp_ref(void)
     {
 #ifndef BOOST_MSVC
         return *this;

@@ -8,12 +8,6 @@
 #ifndef BOOST_MP_DETAIL_BITSCAN_HPP
 #define BOOST_MP_DETAIL_BITSCAN_HPP
 
-#include <boost/detail/endian.hpp>
-
-#if (defined(BOOST_MSVC) || (defined(__clang__) && defined(__c2__)) || (defined(BOOST_INTEL) && defined(_MSC_VER))) && (defined(_M_IX86) || defined(_M_X64))
-#include <intrin.h>
-#endif
-
 namespace boost{ namespace multiprecision{ namespace detail{
 
 template <class Unsigned>
@@ -40,10 +34,7 @@ inline unsigned find_msb(Unsigned mask, const mpl::int_<0>&)
    return --index;
 }
 
-#if (defined(BOOST_MSVC) || (defined(__clang__) && defined(__c2__)) || (defined(BOOST_INTEL) && defined(_MSC_VER))) && (defined(_M_IX86) || defined(_M_X64))
-
-#pragma intrinsic(_BitScanForward,_BitScanReverse)
-
+#if defined(BOOST_MSVC) && (defined(_M_IX86) || defined(_M_X64))
 BOOST_FORCEINLINE unsigned find_lsb(unsigned long mask, const mpl::int_<1>&)
 {
    unsigned long result;
@@ -58,9 +49,6 @@ BOOST_FORCEINLINE unsigned find_msb(unsigned long mask, const mpl::int_<1>&)
    return result;
 }
 #ifdef _M_X64
-
-#pragma intrinsic(_BitScanForward64,_BitScanReverse64)
-
 BOOST_FORCEINLINE unsigned find_lsb(unsigned __int64 mask, const mpl::int_<2>&)
 {
    unsigned long result;
@@ -126,7 +114,7 @@ BOOST_FORCEINLINE unsigned find_lsb(unsigned long mask, mpl::int_<2> const&)
 {
    return __builtin_ctzl(mask);
 }
-BOOST_FORCEINLINE unsigned find_lsb(boost::ulong_long_type mask, mpl::int_<3> const&)
+BOOST_FORCEINLINE unsigned find_lsb(unsigned long long mask, mpl::int_<3> const&)
 {
    return __builtin_ctzll(mask);
 }
@@ -138,40 +126,10 @@ BOOST_FORCEINLINE unsigned find_msb(unsigned long mask, mpl::int_<2> const&)
 {
    return sizeof(unsigned long) * CHAR_BIT - 1 - __builtin_clzl(mask);
 }
-BOOST_FORCEINLINE unsigned find_msb(boost::ulong_long_type mask, mpl::int_<3> const&)
+BOOST_FORCEINLINE unsigned find_msb(unsigned long long mask, mpl::int_<3> const&)
 {
-   return sizeof(boost::ulong_long_type) * CHAR_BIT - 1 - __builtin_clzll(mask);
+   return sizeof(unsigned long long) * CHAR_BIT - 1 - __builtin_clzll(mask);
 }
-#ifdef BOOST_HAS_INT128
-BOOST_FORCEINLINE unsigned find_msb(unsigned __int128 mask, mpl::int_<0> const&)
-{
-   union { unsigned __int128 v; boost::uint64_t sv[2]; } val;
-   val.v = mask;
-#ifdef BOOST_LITTLE_ENDIAN
-   if(val.sv[1])
-      return find_msb(val.sv[1], mpl::int_<3>()) + 64;
-   return find_msb(val.sv[0], mpl::int_<3>());
-#else
-   if(val.sv[0])
-      return find_msb(val.sv[0], mpl::int_<3>()) + 64;
-   return find_msb(val.sv[1], mpl::int_<3>());
-#endif
-}
-BOOST_FORCEINLINE unsigned find_lsb(unsigned __int128 mask, mpl::int_<0> const&)
-{
-   union { unsigned __int128 v; boost::uint64_t sv[2]; } val;
-   val.v = mask;
-#ifdef BOOST_LITTLE_ENDIAN
-   if(val.sv[0] == 0)
-      return find_lsb(val.sv[1], mpl::int_<3>()) + 64;
-   return find_lsb(val.sv[0], mpl::int_<3>());
-#else
-   if(val.sv[1] == 0)
-      return find_lsb(val.sv[0], mpl::int_<3>()) + 64;
-   return find_lsb(val.sv[1], mpl::int_<3>());
-#endif
-}
-#endif
 
 template <class Unsigned>
 BOOST_FORCEINLINE unsigned find_lsb(Unsigned mask)
@@ -184,7 +142,7 @@ BOOST_FORCEINLINE unsigned find_lsb(Unsigned mask)
          sizeof(Unsigned) <= sizeof(unsigned long),
          mpl::int_<2>,
          typename mpl::if_c<
-            sizeof(Unsigned) <= sizeof(boost::ulong_long_type),
+            sizeof(Unsigned) <= sizeof(unsigned long long),
             mpl::int_<3>,
             mpl::int_<0>
          >::type
@@ -203,7 +161,7 @@ BOOST_FORCEINLINE unsigned find_msb(Unsigned mask)
          sizeof(Unsigned) <= sizeof(unsigned long),
          mpl::int_<2>,
          typename mpl::if_c<
-            sizeof(Unsigned) <= sizeof(boost::ulong_long_type),
+            sizeof(Unsigned) <= sizeof(unsigned long long),
             mpl::int_<3>,
             mpl::int_<0>
          >::type

@@ -21,11 +21,7 @@ struct make_ptr_instance
     template <class Arg>
     static inline Holder* construct(void* storage, PyObject*, Arg& x)
     {
-#if __cplusplus < 201103L
-      return new (storage) Holder(x);
-#else
-      return new (storage) Holder(std::move(x));
-#endif
+        return new (storage) Holder(x);
     }
     
     template <class Ptr>

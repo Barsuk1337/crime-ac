@@ -5,13 +5,12 @@
  * Subject to the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date$
+ * $Date: 2012-09-22 15:33:33 -0700 (Sat, 22 Sep 2012) $
  */
 
 
 #include <string>
 #include <sstream>
-#include <boost/date_time/compiler_config.hpp>
 
 namespace boost {
 namespace date_time {
@@ -32,7 +31,7 @@ namespace date_time {
    * resource (hence the derivation from boost::counted_base.
    */
   template<typename time_type, typename CharT>
-  class BOOST_SYMBOL_VISIBLE time_zone_base  {
+  class time_zone_base  {
   public:
     typedef CharT char_type;
     typedef std::basic_string<CharT> string_type;
