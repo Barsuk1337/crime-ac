@@ -214,9 +214,6 @@ RPC_CALLBACK CRPCCallback::OnMacroDetected(RakNet::BitStream &bsData, int iExtra
 
 RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iExtra)
 {
-	Utility::Printf("connected %d", iExtra);
-
-
 	// Create a big variable to hold hardware ID.
 	CSelfUpdater::stVersion version;
 
@@ -232,10 +229,13 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 	// lower case
 	boost::algorithm::to_lower(digestChars);
 
+	Utility::Printf("connected %d %s", iExtra, (char*)&version);
+
 	// Read the hardware ID from the client.
 	if (bsData.Read((char*)&version, sizeof(CSelfUpdater::stVersion)))
 	{
 		Utility::Printf("bitstream read");
+
 		CAntiCheatHandler::Init(iExtra);
 		// Make sure AC pointer is valid
 		CAntiCheat *ac = CAntiCheatHandler::GetAntiCheat(iExtra);
