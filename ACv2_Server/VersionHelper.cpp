@@ -74,6 +74,6 @@ namespace VersionHelper
 		Utility::Printf("AC server plugin should have been updated to version v%d.%02d.%d!", updater.m_newVersion.major, updater.m_newVersion.minor, updater.m_newVersion.patch);
 		Utility::Printf("Server will now shut down. Please reopen the SA-MP server.");
 		
-		sampgdk::SendRconCommand("exit");
+		//sampgdk::SendRconCommand("exit");
 	}
 }

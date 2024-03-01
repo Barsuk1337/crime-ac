@@ -558,8 +558,18 @@ void CAntiCheat::UpdateCheatDatabase()
 	m_MD5s = Cmd5Info::GetGtaDirectoryFilesMd5();
 	m_ProcessMD5s = Cmd5Info::GetBadExecutableFiles();
 
-	if (m_FileNames.empty() || m_MD5s.empty() || m_ProcessMD5s.empty())
+	if (m_FileNames.empty())
 	{
-		Utility::Printf("Failed to retrieve data from website (2)");
+		Utility::Printf("GetGtaDirectoryFilesNames failed");
+	}
+
+	if (m_MD5s.empty())
+	{
+		Utility::Printf("GetGtaDirectoryFilesMd5 failed");
+	}
+
+	if (m_ProcessMD5s.empty())
+	{
+		Utility::Printf("GetBadExecutableFiles failed");
 	}
 }
