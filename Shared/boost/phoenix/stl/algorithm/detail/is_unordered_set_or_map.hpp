@@ -20,13 +20,8 @@
 #ifndef BOOST_PHOENIX_IS_STD_UNORDERED_SET_OR_MAP
 #define BOOST_PHOENIX_IS_STD_UNORDERED_SET_OR_MAP
 
-#include <boost/phoenix/config.hpp>
 #include <boost/mpl/bool.hpp>
-
-#ifdef BOOST_PHOENIX_HAS_UNORDERED_SET_AND_MAP
-#include BOOST_PHOENIX_UNORDERED_SET_HEADER
-#include BOOST_PHOENIX_UNORDERED_MAP_HEADER
-#endif
+#include "./std_unordered_set_or_map_fwd.hpp"
 
 namespace boost
 {

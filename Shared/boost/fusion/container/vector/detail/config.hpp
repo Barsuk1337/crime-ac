@@ -27,7 +27,8 @@
 # endif
 #endif
 
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1910)
+// Sometimes, MSVC 12 shows compile error with std::size_t of template parameter.
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1800))
 # if defined(BOOST_FUSION_HAS_VARIADIC_VECTOR)
 #   undef BOOST_FUSION_HAS_VARIADIC_VECTOR
 # endif

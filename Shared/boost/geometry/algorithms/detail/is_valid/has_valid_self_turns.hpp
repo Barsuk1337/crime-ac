@@ -86,7 +86,7 @@ public:
                 IsAcceptableTurn
             > interrupt_policy;
 
-        detail::self_get_turn_points::self_turns<false, turn_policy>(geometry,
+        geometry::self_turns<turn_policy>(geometry,
                                           strategy,
                                           robust_policy,
                                           turns,

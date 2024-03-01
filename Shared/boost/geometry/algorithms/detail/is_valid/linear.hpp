@@ -43,10 +43,9 @@ namespace detail { namespace is_valid
 template <typename Linestring>
 struct is_valid_linestring
 {
-    template <typename VisitPolicy, typename Strategy>
+    template <typename VisitPolicy>
     static inline bool apply(Linestring const& linestring,
-                             VisitPolicy& visitor,
-                             Strategy const& strategy)
+                             VisitPolicy& visitor)
     {
         if (has_invalid_coordinate<Linestring>::apply(linestring, visitor))
         {
@@ -76,12 +75,15 @@ struct is_valid_linestring
         {
             return visitor.template apply<no_failure>();
         }
+        return ! has_spikes<Linestring, closed>::apply(linestring, visitor);
+    }
 
-        return ! has_spikes
-                    <
-                        Linestring, closed
-                    >::apply(linestring, visitor,
-                             strategy.get_side_strategy());
+    template <typename VisitPolicy, typename Strategy>
+    static inline bool apply(Linestring const& linestring,
+                             VisitPolicy& visitor,
+                             Strategy const&)
+    {
+        return apply(linestring, visitor);
     }
 };
 
@@ -130,13 +132,10 @@ class is_valid
     >
 {
 private:
-    template <typename VisitPolicy, typename Strategy>
+    template <typename VisitPolicy>
     struct per_linestring
     {
-        per_linestring(VisitPolicy& policy, Strategy const& strategy)
-            : m_policy(policy)
-            , m_strategy(strategy)
-        {}
+        per_linestring(VisitPolicy& policy) : m_policy(policy) {}
 
         template <typename Linestring>
         inline bool apply(Linestring const& linestring) const
@@ -144,18 +143,17 @@ private:
             return detail::is_valid::is_valid_linestring
                 <
                     Linestring
-                >::apply(linestring, m_policy, m_strategy);
+                >::apply(linestring, m_policy);
         }
 
         VisitPolicy& m_policy;
-        Strategy const& m_strategy;
     };
 
 public:
     template <typename VisitPolicy, typename Strategy>
     static inline bool apply(MultiLinestring const& multilinestring,
                              VisitPolicy& visitor,
-                             Strategy const& strategy)
+                             Strategy const&)
     {
         if (BOOST_GEOMETRY_CONDITION(
                 AllowEmptyMultiGeometries && boost::empty(multilinestring)))
@@ -163,15 +161,13 @@ public:
             return visitor.template apply<no_failure>();
         }
 
-        typedef per_linestring<VisitPolicy, Strategy> per_ls;
-
         return detail::check_iterator_range
             <
-                per_ls,
+                per_linestring<VisitPolicy>,
                 false // do not check for empty multilinestring (done above)
             >::apply(boost::begin(multilinestring),
                      boost::end(multilinestring),
-                     per_ls(visitor, strategy));
+                     per_linestring<VisitPolicy>(visitor));
     }
 };
 

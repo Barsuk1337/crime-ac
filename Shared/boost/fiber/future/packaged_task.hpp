@@ -14,6 +14,7 @@
 
 #include <boost/config.hpp>
 
+#include <boost/fiber/detail/convert.hpp>
 #include <boost/fiber/detail/disable_overload.hpp>
 #include <boost/fiber/exceptions.hpp>
 #include <boost/fiber/future/detail/task_base.hpp>
@@ -56,22 +57,20 @@ public:
         typedef std::allocator_traits<
             typename object_type::allocator_type
         >                                       traits_type;
-        typedef pointer_traits< typename traits_type::pointer > ptrait_type;
 
         typename object_type::allocator_type a{ alloc };
         typename traits_type::pointer ptr{ traits_type::allocate( a, 1) };
-        typename ptrait_type::element_type* p = boost::to_address(ptr);
         try {
-            traits_type::construct( a, p, a, std::forward< Fn >( fn) );
+            traits_type::construct( a, ptr, a, std::forward< Fn >( fn) );
         } catch (...) {
             traits_type::deallocate( a, ptr, 1);
             throw;
         }
-        task_.reset(p);
+        task_.reset( convert( ptr) );
     }
 
     ~packaged_task() {
-        if ( task_ && obtained_) {
+        if ( task_) {
             task_->owner_destroyed();
         }
     }
@@ -86,7 +85,7 @@ public:
     }
 
     packaged_task & operator=( packaged_task && other) noexcept {
-        if ( BOOST_LIKELY( this != & other) ) {
+        if ( this != & other) {
             packaged_task tmp{ std::move( other) };
             swap( tmp);
         }
@@ -106,7 +105,7 @@ public:
         if ( obtained_) {
             throw future_already_retrieved{};
         }
-        if ( BOOST_UNLIKELY( ! valid() ) ) {
+        if ( ! valid() ) {
             throw packaged_task_uninitialized{};
         }
         obtained_ = true;
@@ -115,14 +114,14 @@ public:
     }
 
     void operator()( Args ... args) {
-        if ( BOOST_UNLIKELY( ! valid() ) ) {
+        if ( ! valid() ) {
             throw packaged_task_uninitialized{};
         }
         task_->run( std::forward< Args >( args) ... );
     }
 
     void reset() {
-        if ( BOOST_UNLIKELY( ! valid() ) ) {
+        if ( ! valid() ) {
             throw packaged_task_uninitialized{};
         }
         packaged_task tmp;

@@ -11,7 +11,6 @@
 #ifndef BOOST_COMPUTE_ALGORITHM_ACCUMULATE_HPP
 #define BOOST_COMPUTE_ALGORITHM_ACCUMULATE_HPP
 
-#include <boost/static_assert.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 
 #include <boost/compute/system.hpp>
@@ -21,14 +20,12 @@
 #include <boost/compute/algorithm/detail/serial_accumulate.hpp>
 #include <boost/compute/container/array.hpp>
 #include <boost/compute/container/vector.hpp>
-#include <boost/compute/type_traits/is_device_iterator.hpp>
 #include <boost/compute/detail/iterator_range_size.hpp>
 
 namespace boost {
 namespace compute {
 namespace detail {
 
-// Space complexity O(1)
 template<class InputIterator, class T, class BinaryFunction>
 inline T generic_accumulate(InputIterator first,
                             InputIterator last,
@@ -158,9 +155,6 @@ inline T dispatch_accumulate(InputIterator first,
 /// reduce(vec.begin(), vec.end(), &result, plus<float>()); // fast
 /// \endcode
 ///
-/// Space complexity: \Omega(1)<br>
-/// Space complexity when optimized to \c reduce(): \Omega(n)
-///
 /// \see reduce()
 template<class InputIterator, class T, class BinaryFunction>
 inline T accumulate(InputIterator first,
@@ -169,8 +163,6 @@ inline T accumulate(InputIterator first,
                     BinaryFunction function,
                     command_queue &queue = system::default_queue())
 {
-    BOOST_STATIC_ASSERT(is_device_iterator<InputIterator>::value);
-
     return detail::dispatch_accumulate(first, last, init, function, queue);
 }
 
@@ -181,7 +173,6 @@ inline T accumulate(InputIterator first,
                     T init,
                     command_queue &queue = system::default_queue())
 {
-    BOOST_STATIC_ASSERT(is_device_iterator<InputIterator>::value);
     typedef typename std::iterator_traits<InputIterator>::value_type IT;
 
     return detail::dispatch_accumulate(first, last, init, plus<IT>(), queue);

@@ -13,13 +13,10 @@
 
 #include <iterator>
 
-#include <boost/static_assert.hpp>
-
 #include <boost/compute/system.hpp>
 #include <boost/compute/command_queue.hpp>
 #include <boost/compute/algorithm/copy.hpp>
 #include <boost/compute/algorithm/reverse.hpp>
-#include <boost/compute/type_traits/is_device_iterator.hpp>
 
 namespace boost {
 namespace compute {
@@ -54,8 +51,6 @@ struct reverse_copy_kernel : public meta_kernel
 /// Copies the elements in the range [\p first, \p last) in reversed
 /// order to the range beginning at \p result.
 ///
-/// Space complexity: \Omega(1)
-///
 /// \see reverse()
 template<class InputIterator, class OutputIterator>
 inline OutputIterator
@@ -64,9 +59,6 @@ reverse_copy(InputIterator first,
              OutputIterator result,
              command_queue &queue = system::default_queue())
 {
-    BOOST_STATIC_ASSERT(is_device_iterator<InputIterator>::value);
-    BOOST_STATIC_ASSERT(is_device_iterator<OutputIterator>::value);
-
     typedef typename std::iterator_traits<OutputIterator>::difference_type difference_type;
 
     difference_type count = std::distance(first, last);

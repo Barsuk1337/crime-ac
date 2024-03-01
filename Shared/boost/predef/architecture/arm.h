@@ -27,14 +27,11 @@ http://www.boost.org/LICENSE_1_0.txt)
     [[`__TARGET_ARCH_ARM`] [__predef_detection__]]
     [[`__TARGET_ARCH_THUMB`] [__predef_detection__]]
     [[`_M_ARM`] [__predef_detection__]]
-    [[`_M_ARM64`] [__predef_detection__]]
 
     [[`__arm64`] [8.0.0]]
     [[`__TARGET_ARCH_ARM`] [V.0.0]]
     [[`__TARGET_ARCH_THUMB`] [V.0.0]]
-    [[`__ARM_ARCH`] [V.0.0]]
     [[`_M_ARM`] [V.0.0]]
-    [[`_M_ARM64`] [8.0.0]]
     ]
  */
 
@@ -42,8 +39,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 #if defined(__arm__) || defined(__arm64) || defined(__thumb__) || \
     defined(__TARGET_ARCH_ARM) || defined(__TARGET_ARCH_THUMB) || \
-    defined(__ARM_ARCH) || \
-    defined(_M_ARM) || defined(_M_ARM64)
+    defined(_M_ARM)
 #   undef BOOST_ARCH_ARM
 #   if !defined(BOOST_ARCH_ARM) && defined(__arm64)
 #       define BOOST_ARCH_ARM BOOST_VERSION_NUMBER(8,0,0)
@@ -53,12 +49,6 @@ http://www.boost.org/LICENSE_1_0.txt)
 #   endif
 #   if !defined(BOOST_ARCH_ARM) && defined(__TARGET_ARCH_THUMB)
 #       define BOOST_ARCH_ARM BOOST_VERSION_NUMBER(__TARGET_ARCH_THUMB,0,0)
-#   endif
-#   if !defined(BOOST_ARCH_ARM) && defined(__ARM_ARCH)
-#       define BOOST_ARCH_ARM BOOST_VERSION_NUMBER(__ARM_ARCH,0,0)
-#   endif
-#   if !defined(BOOST_ARCH_ARM) && defined(_M_ARM64)
-#       define BOOST_ARCH_ARM BOOST_VERSION_NUMBER(8,0,0)
 #   endif
 #   if !defined(BOOST_ARCH_ARM) && defined(_M_ARM)
 #       define BOOST_ARCH_ARM BOOST_VERSION_NUMBER(_M_ARM,0,0)

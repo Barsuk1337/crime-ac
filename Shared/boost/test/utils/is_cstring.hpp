@@ -23,7 +23,6 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/add_const.hpp>
 
-#include <boost/test/utils/basic_cstring/basic_cstring_fwd.hpp>
 #include <string>
 
 //____________________________________________________________________________//
@@ -52,36 +51,19 @@ struct is_cstring_impl<char*> : public mpl::true_ {};
 template<>
 struct is_cstring_impl<wchar_t*> : public mpl::true_ {};
 
-template <typename T, bool is_cstring = is_cstring_impl<typename boost::decay<T>::type>::value >
-struct deduce_cstring_impl;
-
-template <typename T, bool is_cstring >
-struct deduce_cstring_impl<T&, is_cstring> : public deduce_cstring_impl<T, is_cstring>{};
-
-template <typename T, bool is_cstring >
-struct deduce_cstring_impl<T const, is_cstring> : public deduce_cstring_impl<T, is_cstring>{};
-
 template <typename T>
-struct deduce_cstring_impl<T, true> {
+struct deduce_cstring_impl {
     typedef typename boost::add_const<
         typename boost::remove_pointer<
             typename boost::decay<T>::type
         >::type
-    >::type U;
-    typedef boost::unit_test::basic_cstring<U> type;
+    >::type type;
 };
 
 template <typename T>
-struct deduce_cstring_impl< T, false > {
-    typedef typename
-        boost::remove_const<
-            typename boost::remove_reference<T>::type
-        >::type type;
-};
-
-template <typename T>
-struct deduce_cstring_impl< std::basic_string<T, std::char_traits<T> >, false > {
-    typedef boost::unit_test::basic_cstring<typename boost::add_const<T>::type> type;
+struct deduce_cstring_impl< std::basic_string<T, std::char_traits<T> > > {
+  // const is required here
+  typedef typename boost::add_const<T>::type type;
 };
 
 } // namespace ut_detail
@@ -89,17 +71,8 @@ struct deduce_cstring_impl< std::basic_string<T, std::char_traits<T> >, false > 
 template<typename T>
 struct is_cstring : public ut_detail::is_cstring_impl<typename decay<T>::type> {};
 
-template<typename T, bool is_cstring = is_cstring<typename boost::decay<T>::type>::value >
-struct is_cstring_comparable: public mpl::false_ {};
-
 template<typename T>
-struct is_cstring_comparable< T, true > : public mpl::true_ {};
-
-template<typename T>
-struct is_cstring_comparable< std::basic_string<T, std::char_traits<T> >, false > : public mpl::true_ {};
-
-template<typename T>
-struct is_cstring_comparable< boost::unit_test::basic_cstring<T>, false > : public mpl::true_ {};
+struct is_cstring< std::basic_string<T, std::char_traits<T> > > : public mpl::true_ {};
 
 template <class T>
 struct deduce_cstring {
@@ -107,7 +80,7 @@ struct deduce_cstring {
         boost::remove_const<
             typename boost::remove_reference<T>::type
         >::type U;
-    typedef typename ut_detail::deduce_cstring_impl<typename boost::decay<U>::type>::type type;
+    typedef typename ut_detail::deduce_cstring_impl<U>::type type;
 };
 
 } // namespace unit_test

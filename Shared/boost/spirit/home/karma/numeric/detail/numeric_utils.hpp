@@ -68,11 +68,7 @@ namespace boost { namespace spirit { namespace traits
             typedef unsignedtype type;                                        \
             static type call(signedtype n)                                    \
             {                                                                 \
-                /* implementation is well-defined for one's complement, */    \
-                /* two's complement, and signed magnitude architectures */    \
-                /* by the C++ Standard. [conv.integral] [expr.unary.op] */    \
-                return (n >= 0) ?  static_cast<type>(n)                       \
-                                : -static_cast<type>(n);                      \
+                return (n >= 0) ? n : (unsignedtype)(-n);                     \
             }                                                                 \
         }                                                                     \
     /**/
@@ -88,11 +84,6 @@ namespace boost { namespace spirit { namespace traits
         }                                                                     \
     /**/
 
-#if defined(BOOST_MSVC)
-# pragma warning(push)
-// unary minus operator applied to unsigned type, result still unsigned
-# pragma warning(disable: 4146)
-#endif
     BOOST_SPIRIT_ABSOLUTE_VALUE(signed char, unsigned char);
     BOOST_SPIRIT_ABSOLUTE_VALUE(char, unsigned char);
     BOOST_SPIRIT_ABSOLUTE_VALUE(short, unsigned short);
@@ -105,9 +96,6 @@ namespace boost { namespace spirit { namespace traits
 #ifdef BOOST_HAS_LONG_LONG
     BOOST_SPIRIT_ABSOLUTE_VALUE(boost::long_long_type, boost::ulong_long_type);
     BOOST_SPIRIT_ABSOLUTE_VALUE_UNSIGNED(boost::ulong_long_type);
-#endif
-#if defined(BOOST_MSVC)
-# pragma warning(pop)
 #endif
 
 #undef BOOST_SPIRIT_ABSOLUTE_VALUE
@@ -297,7 +285,7 @@ namespace boost { namespace spirit { namespace traits
     {
         static bool call(T n)
         {
-            if (!std::numeric_limits<T>::has_infinity)
+            if (!std::numeric_limits<T>::has_infinity) 
                 return false;
             return (n == std::numeric_limits<T>::infinity()) ? true : false;
         }
@@ -783,3 +771,4 @@ namespace boost { namespace spirit { namespace karma
 }}}
 
 #endif
+

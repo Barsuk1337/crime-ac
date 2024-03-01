@@ -18,15 +18,14 @@
 namespace boost { namespace algorithm {
 
 /// \fn is_partitioned ( InputIterator first, InputIterator last, UnaryPredicate p )
-/// \brief Tests to see if a sequence is partitioned according to a predicate. 
-///	   In other words, all the items in the sequence that satisfy the predicate are at the beginning of the sequence.
+/// \brief Tests to see if a sequence is partitioned according to a predicate
 /// 
 /// \param first    The start of the input sequence
 /// \param last     One past the end of the input sequence
 /// \param p        The predicate to test the values with
 /// \note           This function is part of the C++2011 standard library.
 template <typename InputIterator, typename UnaryPredicate>
-BOOST_CXX14_CONSTEXPR bool is_partitioned ( InputIterator first, InputIterator last, UnaryPredicate p )
+bool is_partitioned ( InputIterator first, InputIterator last, UnaryPredicate p )
 {
 //  Run through the part that satisfy the predicate
     for ( ; first != last; ++first )
@@ -40,14 +39,13 @@ BOOST_CXX14_CONSTEXPR bool is_partitioned ( InputIterator first, InputIterator l
 }
 
 /// \fn is_partitioned ( const Range &r, UnaryPredicate p )
-/// \brief Tests to see if a sequence is partitioned according to a predicate. 
-///	   In other words, all the items in the sequence that satisfy the predicate are at the beginning of the sequence.
+/// \brief Generates an increasing sequence of values, and stores them in the input Range.
 /// 
 /// \param r        The input range
 /// \param p        The predicate to test the values with
 ///
 template <typename Range, typename UnaryPredicate>
-BOOST_CXX14_CONSTEXPR bool is_partitioned ( const Range &r, UnaryPredicate p )
+bool is_partitioned ( const Range &r, UnaryPredicate p )
 {
     return boost::algorithm::is_partitioned (boost::begin(r), boost::end(r), p);
 }

@@ -21,11 +21,14 @@ Distributed under the Boost Software License, Version 1.0.
 #include <boost/hana/fwd/core/make.hpp>
 #include <boost/hana/fwd/core/tag_of.hpp>
 #include <boost/hana/fwd/drop_front.hpp>
-#include <boost/hana/fwd/integral_constant.hpp>
 #include <boost/hana/fwd/is_empty.hpp>
-#include <boost/hana/fwd/length.hpp>
 #include <boost/hana/fwd/transform.hpp>
 #include <boost/hana/fwd/unpack.hpp>
+
+#if 0 //! @todo Until we strip down headers, this includes too much
+#include <boost/hana/fwd/integral_constant.hpp>
+#include <boost/hana/fwd/length.hpp>
+#endif
 
 #include <cstddef>
 #include <type_traits>
@@ -241,6 +244,7 @@ BOOST_HANA_NAMESPACE_BEGIN
         }
     };
 
+#if 0
     //////////////////////////////////////////////////////////////////////////
     // length
     //////////////////////////////////////////////////////////////////////////
@@ -248,9 +252,10 @@ BOOST_HANA_NAMESPACE_BEGIN
     struct length_impl<basic_tuple_tag> {
         template <typename ...Xn>
         static constexpr auto apply(basic_tuple<Xn...> const&) {
-            return hana::size_t<sizeof...(Xn)>{};
+            return hana::size_c<sizeof...(Xn)>;
         }
     };
+#endif
 BOOST_HANA_NAMESPACE_END
 
 #endif // !BOOST_HANA_BASIC_TUPLE_HPP

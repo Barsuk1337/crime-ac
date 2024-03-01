@@ -34,22 +34,20 @@
 #include <locale>
 #include <ctime>
 
-#if  ( defined BOOST_WINDOWS && ! defined(__CYGWIN__) )  \
+#define  BOOST_CHRONO_INTERNAL_TIMEGM \
+     ( defined BOOST_WINDOWS && ! defined(__CYGWIN__) )  \
   || (defined(sun) || defined(__sun)) \
   || (defined __IBMCPP__) \
   || defined __ANDROID__ \
   || defined __QNXNTO__ \
   || (defined(_AIX) && defined __GNUC__)
-#define  BOOST_CHRONO_INTERNAL_TIMEGM
-#endif
 
-#if (defined BOOST_WINDOWS && ! defined(__CYGWIN__)) \
+#define  BOOST_CHRONO_INTERNAL_GMTIME \
+     (defined BOOST_WINDOWS && ! defined(__CYGWIN__)) \
   || ( (defined(sun) || defined(__sun)) && defined __GNUC__) \
   || (defined __IBMCPP__) \
   || defined __ANDROID__ \
   || (defined(_AIX) && defined __GNUC__)
-#define  BOOST_CHRONO_INTERNAL_GMTIME
-#endif
 
 #define  BOOST_CHRONO_USES_INTERNAL_TIME_GET
 
@@ -748,7 +746,7 @@ namespace boost
     namespace detail
     {
 
-//#if defined BOOST_CHRONO_INTERNAL_TIMEGM
+//#if BOOST_CHRONO_INTERNAL_TIMEGM
 
     inline int32_t is_leap(int32_t year)
     {
@@ -940,22 +938,18 @@ namespace boost
           if (tz == timezone::local)
           {
 #if defined BOOST_WINDOWS && ! defined(__CYGWIN__)
-#if BOOST_MSVC < 1400  // localtime_s doesn't exist in vc7.1
             std::tm *tmp = 0;
             if ((tmp=localtime(&t)) == 0)
               failed = true;
             else
               tm =*tmp;
-# else
-            if (localtime_s(&tm, &t) != 0) failed = true;
-# endif
 #else
             if (localtime_r(&t, &tm) == 0) failed = true;
 #endif
           }
           else
           {
-#if defined BOOST_CHRONO_INTERNAL_GMTIME
+#if BOOST_CHRONO_INTERNAL_GMTIME
             if (detail::internal_gmtime(&t, &tm) == 0) failed = true;
 
 #elif defined BOOST_WINDOWS && ! defined(__CYGWIN__)
@@ -1163,7 +1157,7 @@ namespace boost
             if (err & std::ios_base::failbit) goto exit;
             time_t t;
 
-#if defined BOOST_CHRONO_INTERNAL_TIMEGM
+#if BOOST_CHRONO_INTERNAL_TIMEGM
             t = detail::internal_timegm(&tm);
 #else
             t = timegm(&tm);
@@ -1215,7 +1209,7 @@ namespace boost
             time_t t;
             if (tz == timezone::utc || fz != pe)
             {
-#if defined BOOST_CHRONO_INTERNAL_TIMEGM
+#if BOOST_CHRONO_INTERNAL_TIMEGM
               t = detail::internal_timegm(&tm);
 #else
               t = timegm(&tm);

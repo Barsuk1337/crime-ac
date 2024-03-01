@@ -152,18 +152,12 @@ public:
         return * this;
     }
 
-    class iterator
+    class iterator : public std::iterator< std::output_iterator_tag, void, void, void, void >
     {
     private:
        push_coroutine< Arg >    *   c_;
 
     public:
-        typedef std::output_iterator_tag iterator_category;
-        typedef void value_type;
-        typedef void difference_type;
-        typedef void pointer;
-        typedef void reference;
-
         iterator() :
            c_( 0)
         {}
@@ -297,18 +291,12 @@ public:
         return * this;
     }
 
-    class iterator
+    class iterator : public std::iterator< std::output_iterator_tag, void, void, void, void >
     {
     private:
        push_coroutine< Arg & >  *   c_;
 
     public:
-        typedef std::output_iterator_tag iterator_category;
-        typedef void value_type;
-        typedef void difference_type;
-        typedef void pointer;
-        typedef void reference;
-
         iterator() :
            c_( 0)
         {}
@@ -737,7 +725,7 @@ public:
         return impl_->get();
     }
 
-    class iterator
+    class iterator : public std::iterator< std::input_iterator_tag, typename remove_reference< R >::type >
     {
     private:
         pull_coroutine< R > *   c_;
@@ -766,14 +754,8 @@ public:
         }
 
     public:
-        typedef std::input_iterator_tag iterator_category;
-        typedef typename remove_reference< R >::type value_type;
-        typedef std::ptrdiff_t difference_type;
-        typedef value_type * pointer;
-        typedef value_type & reference;
-
-        typedef pointer   pointer_t;
-        typedef reference reference_t;
+        typedef typename iterator::pointer      pointer_t;
+        typedef typename iterator::reference    reference_t;
 
         iterator() :
             c_( 0), val_( 0)
@@ -826,7 +808,7 @@ public:
         }
     };
 
-    class const_iterator
+    class const_iterator : public std::iterator< std::input_iterator_tag, const typename remove_reference< R >::type >
     {
     private:
         pull_coroutine< R > *   c_;
@@ -855,14 +837,8 @@ public:
         }
 
     public:
-        typedef std::input_iterator_tag iterator_category;
-        typedef const typename remove_reference< R >::type value_type;
-        typedef std::ptrdiff_t difference_type;
-        typedef value_type * pointer;
-        typedef value_type & reference;
-
-        typedef pointer   pointer_t;
-        typedef reference reference_t;
+        typedef typename const_iterator::pointer      pointer_t;
+        typedef typename const_iterator::reference    reference_t;
 
         const_iterator() :
             c_( 0), val_( 0)
@@ -1205,7 +1181,7 @@ public:
     R & get() const
     { return impl_->get(); }
 
-    class iterator
+    class iterator : public std::iterator< std::input_iterator_tag, typename remove_reference< R >::type >
     {
     private:
         pull_coroutine< R & >   *   c_;
@@ -1234,14 +1210,8 @@ public:
         }
 
     public:
-        typedef std::input_iterator_tag iterator_category;
-        typedef typename remove_reference< R >::type value_type;
-        typedef std::ptrdiff_t difference_type;
-        typedef value_type * pointer;
-        typedef value_type & reference;
-
-        typedef pointer   pointer_t;
-        typedef reference reference_t;
+        typedef typename iterator::pointer      pointer_t;
+        typedef typename iterator::reference    reference_t;
 
         iterator() :
             c_( 0), val_( 0)
@@ -1294,7 +1264,7 @@ public:
         }
     };
 
-    class const_iterator
+    class const_iterator : public std::iterator< std::input_iterator_tag, const typename remove_reference< R >::type >
     {
     private:
         pull_coroutine< R & >   *   c_;
@@ -1323,14 +1293,8 @@ public:
         }
 
     public:
-        typedef std::input_iterator_tag iterator_category;
-        typedef const typename remove_reference< R >::type value_type;
-        typedef std::ptrdiff_t difference_type;
-        typedef value_type * pointer;
-        typedef value_type & reference;
-
-        typedef pointer   pointer_t;
-        typedef reference reference_t;
+        typedef typename const_iterator::pointer      pointer_t;
+        typedef typename const_iterator::reference    reference_t;
 
         const_iterator() :
             c_( 0), val_( 0)

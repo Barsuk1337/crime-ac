@@ -54,7 +54,7 @@ namespace boost
 namespace movelib
 {
 
-template< class T, class D > class unique_ptr;
+    template< class T, class D > class unique_ptr;
 
 } // namespace movelib
 
@@ -118,14 +118,7 @@ private:
 
 public:
 
-    BOOST_CONSTEXPR shared_count(): pi_(0) // nothrow
-#if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
-        , id_(shared_count_id)
-#endif
-    {
-    }
-
-    BOOST_CONSTEXPR explicit shared_count( sp_counted_base * pi ): pi_( pi ) // nothrow
+    shared_count(): pi_(0) // nothrow
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
         , id_(shared_count_id)
 #endif
@@ -503,11 +496,6 @@ public:
         return pi_? pi_->get_deleter( ti ): 0;
     }
 
-    void * get_local_deleter( sp_typeinfo const & ti ) const
-    {
-        return pi_? pi_->get_local_deleter( ti ): 0;
-    }
-
     void * get_untyped_deleter() const
     {
         return pi_? pi_->get_untyped_deleter(): 0;
@@ -529,7 +517,7 @@ private:
 
 public:
 
-    BOOST_CONSTEXPR weak_count(): pi_(0) // nothrow
+    weak_count(): pi_(0) // nothrow
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
         , id_(weak_count_id)
 #endif

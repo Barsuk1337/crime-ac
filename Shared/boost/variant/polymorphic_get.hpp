@@ -25,7 +25,6 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/is_base_of.hpp>
-#include <boost/type_traits/is_const.hpp>
 
 namespace boost {
 

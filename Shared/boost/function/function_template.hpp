@@ -590,21 +590,12 @@ namespace boost {
         assign_functor_a(FunctionObj f, function_buffer& functor, Allocator a, mpl::false_) const
         {
           typedef functor_wrapper<FunctionObj,Allocator> functor_wrapper_type;
-#if defined(BOOST_NO_CXX11_ALLOCATOR)
           typedef typename Allocator::template rebind<functor_wrapper_type>::other
             wrapper_allocator_type;
           typedef typename wrapper_allocator_type::pointer wrapper_allocator_pointer_type;
-#else
-          using wrapper_allocator_type = typename std::allocator_traits<Allocator>::template rebind_alloc<functor_wrapper_type>;
-          using wrapper_allocator_pointer_type = typename std::allocator_traits<wrapper_allocator_type>::pointer;
-#endif
           wrapper_allocator_type wrapper_allocator(a);
           wrapper_allocator_pointer_type copy = wrapper_allocator.allocate(1);
-#if defined(BOOST_NO_CXX11_ALLOCATOR)
           wrapper_allocator.construct(copy, functor_wrapper_type(f,a));
-#else
-          std::allocator_traits<wrapper_allocator_type>::construct(wrapper_allocator, copy, functor_wrapper_type(f,a));
-#endif
           functor_wrapper_type* new_f = static_cast<functor_wrapper_type*>(copy);
           functor.members.obj_ptr = new_f;
         }
@@ -904,9 +895,7 @@ namespace boost {
       if (!f.empty()) {
         this->vtable = f.vtable;
         if (this->has_trivial_copy_and_destroy())
-          // Don't operate on storage directly since union type doesn't relax
-          // strict aliasing rules, despite of having member char type.
-          std::memcpy(this->functor.data, f.functor.data, sizeof(boost::detail::function::function_buffer));
+          this->functor = f.functor;
         else
           get_vtable()->base.manager(f.functor, this->functor,
                                      boost::detail::function::clone_functor_tag);
@@ -994,9 +983,7 @@ namespace boost {
         if (!f.empty()) {
           this->vtable = f.vtable;
           if (this->has_trivial_copy_and_destroy())
-            // Don't operate on storage directly since union type doesn't relax
-            // strict aliasing rules, despite of having member char type.
-            std::memcpy(this->functor.data, f.functor.data, sizeof(this->functor.data));
+            this->functor = f.functor;
           else
             get_vtable()->base.manager(f.functor, this->functor,
                                      boost::detail::function::move_functor_tag);

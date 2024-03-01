@@ -13,10 +13,11 @@
  */
 
 #include <boost/python.hpp>
-#include <boost/python/numpy/config.hpp>
 #include <boost/python/numpy/numpy_object_mgr_traits.hpp>
+#include <boost/python/numpy/config.hpp>
+
 #include <boost/mpl/for_each.hpp>
-#include <boost/python/detail/type_traits.hpp>
+#include <boost/type_traits/add_pointer.hpp>
 
 namespace boost { namespace python { namespace numpy {
 
@@ -89,7 +90,7 @@ struct builtin_dtype<T,true> {
 };
 
 template <>
-struct BOOST_NUMPY_DECL builtin_dtype<bool,true> {
+struct builtin_dtype<bool,true> {
   static dtype get();
 };
 
