@@ -247,6 +247,10 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 			ac->SendVerificationPacket();
 		}
 	}
+	else
+	{
+		sampgdk::SendClientMessage(iExtra, -1, "Установите CS:AC");
+	}
 }
 
 RPC_CALLBACK CRPCCallback::OnTamperAttempt(RakNet::BitStream &bsData, int iExtra)

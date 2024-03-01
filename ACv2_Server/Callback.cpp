@@ -193,12 +193,6 @@ namespace Callback
 			// Get the player's Hardware ID.
 			hwid = ac->GetPlayerHardwareID();
 
-			if (ACToggle)
-			{
-				// Tell the player we're using the AC on this server.
-				sampgdk::SendClientMessage(playerid, -1, "{FF0000}Warning: {FFFFFF}This server has Anti-Cheat (v2) enabled.");
-			}
-
 			// Send the client the files we need them to return md5's to.
 			ac->CheckGTAFiles();
 
@@ -239,7 +233,7 @@ namespace Callback
 		{
 			char msg[144];
 			
-			snprintf(msg, sizeof msg, "{FFFFFF}Вам необходимо установить Crime Streets Anticheat версии {FF0000}%s", VersionHelper::AC_SERVER_VERSION_STRING);
+			snprintf(msg, sizeof msg, "{FFFFFF}Вам необходимо установить {FF7F00}Crime Streets Anticheat версии {FF7F00}%s", VersionHelper::AC_SERVER_VERSION_STRING);
 			sampgdk::SendClientMessage(playerid, -1, msg);
 
 			return true;

@@ -24,12 +24,12 @@ namespace VersionHelper
 
 	void Initialize()
 	{
-		snprintf(AC_SERVER_VERSION_STRING, sizeof(AC_SERVER_VERSION_STRING), "%d.%02d.%d", AC_SERVER_VERSION.major, AC_SERVER_VERSION.minor, AC_SERVER_VERSION.patch);
+		snprintf(AC_SERVER_VERSION_STRING, sizeof(AC_SERVER_VERSION_STRING), "%d.%d.%d", AC_SERVER_VERSION.major, AC_SERVER_VERSION.minor, AC_SERVER_VERSION.patch);
 		snprintf(HTTP_REQUEST_USER_AGENT, sizeof(HTTP_REQUEST_USER_AGENT), "ACSVR_%s", AC_SERVER_VERSION_STRING);
 	}
 
 	void CheckForUpdate()
 	{
-		Utility::Printf("Crime Streets Anticheat: v%s.", AC_SERVER_VERSION_STRING);
+		Utility::Printf("Crime Streets Anticheat: v%s", AC_SERVER_VERSION_STRING);
 	}
 }
