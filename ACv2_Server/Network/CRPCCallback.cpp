@@ -214,11 +214,7 @@ RPC_CALLBACK CRPCCallback::OnMacroDetected(RakNet::BitStream &bsData, int iExtra
 
 RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iExtra)
 {
-	char msg[144], name[MAX_PLAYER_NAME];
-
-	// Get the player's name
-	sampgdk::GetPlayerName(iExtra, name, sizeof(name));
-	Utility::Printf("connected %s", name);
+	Utility::Printf("connected %d %d", iExtra, CAntiCheat::GetID());
 
 
 	// Create a big variable to hold hardware ID.
@@ -239,6 +235,7 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 	// Read the hardware ID from the client.
 	if (bsData.Read((char*)&version, sizeof(CSelfUpdater::stVersion)))
 	{
+		Utility::Printf("bitstream read");
 		CAntiCheatHandler::Init(iExtra);
 		// Make sure AC pointer is valid
 		CAntiCheat *ac = CAntiCheatHandler::GetAntiCheat(iExtra);
@@ -253,6 +250,10 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 			// Check if client is authentic
 			ac->SendVerificationPacket();
 		}
+	}
+	else
+	{
+		Utility::Printf("bitstream not read");
 	}
 }
 
