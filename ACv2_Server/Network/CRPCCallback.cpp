@@ -245,7 +245,11 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 
 			// Check if client is authentic
 			ac->SendVerificationPacket();
+
+			sampgdk::SendClientMessage(iExtra, -1, "CS:AC установлен 1");
 		}
+
+		sampgdk::SendClientMessage(iExtra, -1, "CS:AC установлен 2");
 	}
 	else
 	{
