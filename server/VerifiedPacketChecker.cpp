@@ -5,7 +5,7 @@
 #include "CAntiCheat.h"
 #include "CAntiCheatHandler.h"
 #include "Network/Network.h"
-#include "../Shared/Network/CRPC.h"
+#include "Shared/Network/CRPC.h"
 #include "PacketPriority.h"
 #include <cstdio>
 #include <cstring>

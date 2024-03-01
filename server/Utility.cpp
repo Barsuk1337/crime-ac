@@ -1,5 +1,5 @@
 #include "Utility.h"
-#include "../Shared/MD5_Info/Cmd5Info.h"
+#include "Shared/MD5_Info/Cmd5Info.h"
 
 #include <ctime>
 #include <cstdarg>

@@ -1,6 +1,6 @@
 #include "CFileCheck.h"
-#include "../Shared/MD5_Info/md5.h"
-#include "../Shared/Network/CRPC.h"
+#include "Shared/MD5_Info/md5.h"
+#include "Shared/Network/CRPC.h"
 #include "Network\Network.h"
 #include "Network\CRakClientHandler.h"
 #include "Misc.h"

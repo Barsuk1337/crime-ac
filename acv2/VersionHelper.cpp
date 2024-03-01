@@ -1,5 +1,5 @@
 #include "VersionHelper.h"
-#include "../Shared/SelfUpdater/CSelfUpdater.h"
+#include "Shared/SelfUpdater/CSelfUpdater.h"
 #include "CLoader.h"
 
 namespace VersionHelper

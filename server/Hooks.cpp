@@ -4,8 +4,8 @@
 #include "Structs.h"
 #include "Network/CRPCCallback.h"
 
-#include "../Shared/Network/Network.h"
-#include "../Shared/Network/CRPC.h"
+#include "Shared/Network/Network.h"
+#include "Shared/Network/CRPC.h"
 
 #ifdef _WIN32
 	#include <Psapi.h>

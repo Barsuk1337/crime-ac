@@ -8,7 +8,7 @@
 #include "CMem.h"
 #include "Misc.h"
 #include "Network\Network.h"
-#include "../Shared/Network/CRPC.h"
+#include "Shared/Network/CRPC.h"
 #include "PatternScan.h"
 #include "DirectX Hooks\CMessageProxy.h"
 #include "s0beit\samp.h"

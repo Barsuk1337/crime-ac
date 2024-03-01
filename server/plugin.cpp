@@ -1,9 +1,9 @@
 #include "CThreadSync.h"
 #include "plugin.h"
 #include "Utility.h"
-#include "../Shared/Network/BitStream.h"
-#include "../Shared/MD5_Info/Cmd5Info.h"
-#include "../Shared/Network/CRPC.h"
+#include "Shared/Network/BitStream.h"
+#include "Shared/MD5_Info/Cmd5Info.h"
+#include "Shared/Network/CRPC.h"
 #include "GDK/sampgdk.h"
 #include "GDK/sampgdk.h"
 #include "Callback.h"
@@ -11,7 +11,7 @@
 #include "VersionHelper.h"
 #include "CAntiCheatHandler.h"
 #include "Hooks.h"
-#include "../Shared/curl/curl.h"
+#include "Shared/curl/curl.h"
 
 void **PluginData;
 CThreadSync *pMainThreadSync;

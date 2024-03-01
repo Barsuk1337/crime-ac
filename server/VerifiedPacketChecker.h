@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Shared/Network/ACVerifiedPacket.h"
-#include "../Shared/Network/BitStream.h"
+#include "Shared/Network/ACVerifiedPacket.h"
+#include "Shared/Network/BitStream.h"
 
 // Time needed to ask players to verify their AC clients again
 #define VERIFY_CLIENTS_INTERVAL 180000

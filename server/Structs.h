@@ -32,7 +32,7 @@
 
 #pragma once
 
-#include "../Shared/Network/BitStream.h"
+#include "Shared/Network/BitStream.h"
 #include "PacketPriority.h"
 #include "CVector.h"
 #include "Types.h"

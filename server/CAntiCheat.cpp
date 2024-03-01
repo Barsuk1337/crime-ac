@@ -4,15 +4,15 @@
 #include "GDK/sampgdk.h"
 #include "Network/Network.h"
 #include "Callback.h"
-#include "../Shared/MD5_Info/Cmd5Info.h"
-#include "../Shared/Network/CRPC.h"
+#include "Shared/MD5_Info/Cmd5Info.h"
+#include "Shared/Network/CRPC.h"
 #include "PacketPriority.h"
 #include "BanHandler.h"
 #include "VerifiedPacketChecker.h"
 #include <ctime>
 #include <cstring>
 #include <stdio.h>
-#include "../Shared/boost/thread.hpp"
+#include "Shared/boost/thread.hpp"
 
 std::vector<int> CAntiCheat::m_Admins;
 std::vector<std::string> CAntiCheat::m_FileNames;

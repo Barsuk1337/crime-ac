@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Shared/SelfUpdater/CSelfUpdater.h"
+#include "Shared/SelfUpdater/CSelfUpdater.h"
 
 namespace VersionHelper
 {

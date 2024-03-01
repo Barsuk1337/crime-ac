@@ -3,7 +3,7 @@
 #include "Utility.h"
 #include "GDK/sampgdk.h"
 #include "CAntiCheat.h"
-#include "../Shared/Network/CRPC.h"
+#include "Shared/Network/CRPC.h"
 #include "VersionHelper.h"
 #include "CAntiCheatHandler.h"
 #include "PacketPriority.h"
