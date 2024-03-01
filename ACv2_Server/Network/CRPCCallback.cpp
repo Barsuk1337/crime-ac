@@ -214,7 +214,7 @@ RPC_CALLBACK CRPCCallback::OnMacroDetected(RakNet::BitStream &bsData, int iExtra
 
 RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iExtra)
 {
-	Utility::Printf("connected %d %d", iExtra, CAntiCheat::GetID());
+	Utility::Printf("connected %d", iExtra);
 
 
 	// Create a big variable to hold hardware ID.
