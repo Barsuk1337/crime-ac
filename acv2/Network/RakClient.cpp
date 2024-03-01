@@ -7,7 +7,7 @@
 
 #include <Windows.h>
 
-#include "../../Shared/Network/BitStream.h"
+#include "../Shared/Network/BitStream.h"
 #include "CRakClientHandler.h"
 #include "../s0beit/stdtypes.h"
 #include "RakClient.h"

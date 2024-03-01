@@ -3,9 +3,9 @@
 #include <map>
 #include <list>
 
-#include "../../Shared/Network/Network.h"
+#include "../Shared/Network/Network.h"
 #include "../CAntiCheat.h"
-#include "../../Shared/Network/BitStream.h"
+#include "../Shared/Network/BitStream.h"
 
 namespace Network
 {

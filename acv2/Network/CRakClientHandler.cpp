@@ -1,4 +1,4 @@
-#include "../../Shared/Network/BitStream.h"
+#include "../Shared/Network/BitStream.h"
 #include <boost\thread.hpp>
 #include <Windows.h>
 
@@ -6,7 +6,7 @@
 #include "RakClient.h"
 #include "HookedRakClient.h"
 #include "../s0beit/samp.h"
-#include "../../Shared/Network/Network.h"
+#include "../Shared/Network/Network.h"
 #include "../CLoader.h"
 #include "../CLog.h"
 #include "../CPacketIntegrity.h"

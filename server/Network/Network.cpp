@@ -1,8 +1,8 @@
 #include "../Structs.h"
 #include "../CAntiCheat.h"
-#include "../../Shared/Network/Network.h"
+#include "../Shared/Network/Network.h"
 #include "../Utility.h"
-#include "../../Shared/Network/CRPC.h"
+#include "../Shared/Network/CRPC.h"
 #include "../Callback.h"
 #include "Network.h"
 
