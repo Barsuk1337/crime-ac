@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <cstring>
 
-#include "../Shared/boost/thread.hpp"
+//#include "../Shared/boost/thread.hpp"
 #include <boost/algorithm/string.hpp>
 
 

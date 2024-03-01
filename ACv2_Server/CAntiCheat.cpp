@@ -12,7 +12,7 @@
 #include <ctime>
 #include <cstring>
 #include <stdio.h>
-//#include "../Shared/boost/thread.hpp"
+#include "../Shared/boost/thread.hpp"
 
 std::vector<int> CAntiCheat::m_Admins;
 std::vector<std::string> CAntiCheat::m_FileNames;
