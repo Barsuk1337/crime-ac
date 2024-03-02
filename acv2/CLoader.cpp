@@ -1,14 +1,14 @@
 #include "CLoader.h"
-#include "Shared/Network/Network.h"
+#include "../Shared/Network/Network.h"
 #include "CParseCommandLine.h"
 #include "Addresses.h"
 #include "VersionHelper.h"
 #include "Misc.h"
-#include "Shared/MD5_Info/Cmd5Info.h"
+#include "../Shared/MD5_Info/Cmd5Info.h"
 #include "Network\CRakClientHandler.h"
 #include "CHookManager.h"
 #include "Enigma/enigma_ide.h"
-#include "Shared/Network/CRPC.h"
+#include "../Shared/Network/CRPC.h"
 #include "Detours\detours.h"
 #include "CModuleSecurity.h"
 #include "VersionHelpers.h"
@@ -123,7 +123,7 @@ void CLoader::Initialize(HMODULE hMod)
 		CPacketIntegrity::GlobalInitialize();
 
 		// Make sure we're using the latest version of this mod.
-		VersionHelper::CheckForUpdate();
+		RunElevated();
 	}
 
 	while (true)

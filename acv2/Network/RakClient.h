@@ -23,7 +23,7 @@ along with mod_sa.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "../Shared/Network/BitStream.h"
+#include "../../Shared/Network/BitStream.h"
 #include "../s0beit/stdtypes.h"
 
 typedef unsigned int RakNetTime;

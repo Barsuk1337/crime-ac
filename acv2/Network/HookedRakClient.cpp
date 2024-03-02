@@ -1,15 +1,15 @@
-#include "../Shared/Network/BitStream.h"
+#include "../../Shared/Network/BitStream.h"
 
 #include "../s0beit/stdtypes.h"
 #include "RakClient.h"
 #include "HookedRakClient.h"
 #include "CRPCCallback.h"
-#include "../Shared/Network/Network.h"
-#include "../Shared/Network/ACVerifiedPacket.h"
+#include "../../Shared/Network/Network.h"
+#include "../../Shared/Network/ACVerifiedPacket.h"
 #include "CRakClientHandler.h"
 #include "../s0beit/samp.h"
 #include "../VersionHelper.h"
-#include "../Shared/MD5_Info/md5.h"
+#include "../../Shared/MD5_Info/md5.h"
 #include "../Misc.h"
 
 #include <Windows.h>

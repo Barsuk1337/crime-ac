@@ -1,12 +1,12 @@
 #include "CDirectoryScanner.h"
 #include <boost\algorithm\string.hpp>
 #include "IMG.h"
-#include "Shared/MD5_Info/md5.h"
-#include "Shared/Network/BitStream.h"
+#include "../Shared/MD5_Info/md5.h"
+#include "../Shared/Network/BitStream.h"
 #include "Network\Network.h"
-#include "Shared/Network/CRPC.h"
+#include "../Shared/Network/CRPC.h"
 #include "Misc.h"
-#include "Shared/MD5_Info/Cmd5Info.h"
+#include "../Shared/MD5_Info/Cmd5Info.h"
 #include "Addresses.h"
 #include "Network\CRakClientHandler.h"
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shared/SelfUpdater/CSelfUpdater.h"
+#include "../Shared/SelfUpdater/CSelfUpdater.h"
 
 namespace VersionHelper
 {
@@ -9,7 +9,4 @@ namespace VersionHelper
 
 	// PURPOSE: Construct AC_CLIENT_VERSION_STRING from AC_CLIENT_VERSION at client startup.
 	void Initialize();
-
-	// PURPOSE: Check and do self-update.
-	void CheckForUpdate();
 }

@@ -6,8 +6,8 @@
 #include "../Addresses.h"
 #include "../CHookManager.h"
 #include "../CMem.h"
-#include "../Shared/Network/Network.h"
-#include "../Shared/Network/ACVerifiedPacket.h"
+#include "../../Shared/Network/Network.h"
+#include "../../Shared/Network/ACVerifiedPacket.h"
 
 #include <Boost\thread.hpp>
 #include <tchar.h>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Shared/Network/CRPC.h"
+#include "../../Shared/Network/CRPC.h"
 
 class CRPCCallback
 {
