@@ -51,6 +51,8 @@ void CLoader::Initialize(HMODULE hMod)
 	VersionHelper::Initialize();
 	CHookManager::Load();
 
+	Logger::LogToFile("CLoader initining...");
+
 	if (EP_CheckupIsEnigmaOk() || !EP_CheckupIsProtected())
 	{
 		/*
