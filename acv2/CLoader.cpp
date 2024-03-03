@@ -17,6 +17,7 @@
 #include "CPacketIntegrity.h"
 #include "CMemProtect.h"
 #include "Network\CPacketQueue.h"
+#include "util/Logger.h"
 
 #include <map>
 #include <Aclapi.h>
@@ -43,6 +44,9 @@ HMODULE CLoader::ThishMod = NULL;
 void CLoader::Initialize(HMODULE hMod)
 {
 	boost::this_thread::yield();
+
+	if (!Logger::Init("csac_log.txt"))
+        return;
 
 	VersionHelper::Initialize();
 	CHookManager::Load();

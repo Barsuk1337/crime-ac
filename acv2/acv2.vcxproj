@@ -154,6 +154,7 @@ del $(TargetFileName)</Command>
     <ClCompile Include="PatternScan.cpp" />
     <ClCompile Include="s0beit\samp.cpp" />
     <ClCompile Include="VersionHelper.cpp" />
+    <ClCompile Include="util\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\Boost\aligned_storage.hpp" />
@@ -398,6 +399,7 @@ del $(TargetFileName)</Command>
     <ClInclude Include="s0beit\stdtypes.h" />
     <ClInclude Include="VersionHelper.h" />
     <ClInclude Include="VersionHelpers.h" />
+    <ClCompile Include="util\Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DirectX\D3DX10math.inl" />
