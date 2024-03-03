@@ -37,7 +37,7 @@ public:
     template<class... ARGS>
     static bool LogToFile(const char* message, ARGS... args) noexcept
     {
-        const std::scoped_lock lock { Logger::logFileMutex };
+        const std::lock_guard<std::mutex> lockFile { Logger::logFileMutex };
 
         if (Logger::logFile == nullptr)
             return false;

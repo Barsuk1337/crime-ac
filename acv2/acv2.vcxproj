@@ -124,7 +124,6 @@ del $(TargetFileName)</Command>
     <ClCompile Include="CDirectX.cpp" />
     <ClCompile Include="CInjectedLibraries.cpp" />
     <ClCompile Include="CLoader.cpp" />
-    <ClCompile Include="CLog.cpp" />
     <ClCompile Include="CMem.cpp" />
     <ClCompile Include="CMemProtect.cpp" />
     <ClCompile Include="CModuleSecurity.cpp" />
@@ -295,7 +294,6 @@ del $(TargetFileName)</Command>
     <ClInclude Include="CDirectX.h" />
     <ClInclude Include="CInjectedLibraries.h" />
     <ClInclude Include="CLoader.h" />
-    <ClInclude Include="CLog.h" />
     <ClInclude Include="CMem.h" />
     <ClInclude Include="CMemProtect.h" />
     <ClInclude Include="CModuleSecurity.h" />

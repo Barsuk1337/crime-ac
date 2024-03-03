@@ -8,7 +8,6 @@
 #include "../s0beit/samp.h"
 #include "../../Shared/Network/Network.h"
 #include "../CLoader.h"
-#include "../CLog.h"
 #include "../CPacketIntegrity.h"
 
 #include "CRPCCallback.h"

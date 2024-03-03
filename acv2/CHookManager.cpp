@@ -14,9 +14,9 @@
 #include "s0beit\samp.h"
 #include "ManualInjection.h"
 #include "CPacketIntegrity.h"
-#include "CLog.h"
 #include "CMemProtect.h"
 #include "Detours\detours.h"
+#include "util/Logger.h"
 
 // Small children look away, this is gonna get ugly...
 // This is the most poorly documented file, and the most confusing in all of the project.
@@ -1114,7 +1114,7 @@ void CHookManager::CheckFireKeyState(const char *funcname)
 {
 	if (FireKeyState != FIRE_KEY && FireKeyState == 0)
 	{
-		CLog("trigger.log").Write("%s: expected: %d, found: %d", funcname, FireKeyState, (DWORD)FIRE_KEY);
+		Logger::LogToFile("%s: expected: %d, found: %d", funcname, FireKeyState, (DWORD)FIRE_KEY);
 	}
 }
 

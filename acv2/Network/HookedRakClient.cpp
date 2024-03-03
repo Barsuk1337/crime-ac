@@ -11,6 +11,7 @@
 #include "../VersionHelper.h"
 #include "../../Shared/MD5_Info/md5.h"
 #include "../Misc.h"
+#include "../util/Logger.h"
 
 #include <Windows.h>
 #include "../Enigma/enigma_ide.h"
@@ -114,8 +115,8 @@ bool HookedRakClientInterface::Send(RakNet::BitStream * bitStream, int priority,
 {
 	BYTE packetId;
 	bitStream->Read(packetId);
-	/*CLog log = CLog("packets_sent.txt");
-	log.Write("< [Packet Send] %d, len: %d", packetId, bitStream->GetNumberOfBytesUsed());*/
+
+	Logger::LogToFile("[Packet Send] %d, len: %d", packetId, bitStream->GetNumberOfBytesUsed());
 
 	if (packetId == ID_AUTH_KEY)
 	{

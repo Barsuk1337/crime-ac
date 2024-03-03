@@ -6,7 +6,6 @@
 #include "../Addresses.h"
 #include "../Misc.h"
 #include "../Network/CRakClientHandler.h"
-#include "../CLog.h"
 
 #include <Boost\thread.hpp>
 

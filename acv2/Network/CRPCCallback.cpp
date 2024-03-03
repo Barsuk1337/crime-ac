@@ -1,7 +1,6 @@
 #include "CRPCCallback.h"
 #include "CRakClientHandler.h"
 #include "../CLoader.h"
-#include "../CLog.h"
 #include "../Misc.h"
 #include "../Addresses.h"
 #include "../CHookManager.h"
