@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 		&hKey);
 
 	// Get value
-	DWORD dwRet = RegQueryValueEx(hKey, L"gta_sa_exe", NULL, NULL, (LPBYTE)&exeLocation, &buffer);
+	DWORD dwRet = RegQueryValueEx(hKey, L"gta_sa.exe", NULL, NULL, (LPBYTE)&exeLocation, &buffer);
 
 	// Make sure we got a good value for the gta_sa path
 	if (dwRet != ERROR_SUCCESS)

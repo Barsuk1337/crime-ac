@@ -136,6 +136,8 @@ Packet* HookedRakClientInterface::Receive(void)
 			return p;
 		}
 
+		Logger::LogToFile("Receive packet %d", p->data[0]);
+
 		switch (p->data[0])
 		{
 		case PACKET_RPC:

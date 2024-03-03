@@ -4,27 +4,32 @@
 #include "Addresses.h"
 #include "util/Logger.h"
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReasonForCall, LPVOID)
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
-	if (dwReasonForCall != DLL_PROCESS_ATTACH)
-        return TRUE;
-
-	Logger::Init("csac_log.txt");
-	Logger::LogToFile("CLoader initining..");
-
-	if (!CLoader::IsLoaded())
+	switch (ul_reason_for_call)
 	{
-		//CModuleSecurity::AddAllowedModules();
-
-		// Make sure we aren't loading this DLL at sometime other than init
-		if (ADDRESS_LOADED >= 6)
+		case DLL_PROCESS_ATTACH:
 		{
-			FreeLibraryAndExitThread(hModule, 0);
+			MessageBoxA(NULL, "Нажмите для продолжения", "Crime Streets Anticheat", NULL);
+
+			if (!CLoader::IsLoaded())
+			{
+				// Make sure we aren't loading this DLL at sometime other than init
+				if (ADDRESS_LOADED >= 6)
+				{
+					FreeLibraryAndExitThread(hModule, 0);
+				}
+
+				// Do the main loading procedure in a new thread.
+				boost::thread theThread(&CLoader::Initialize, hModule);
+			}
+
+			break;
 		}
-
-		// Do the main loading procedure in a new thread.
-		boost::thread theThread(&CLoader::Initialize, hModule);
+		case DLL_THREAD_ATTACH:
+		case DLL_THREAD_DETACH:
+		case DLL_PROCESS_DETACH:
+		break;
 	}
-
 	return TRUE;
 }

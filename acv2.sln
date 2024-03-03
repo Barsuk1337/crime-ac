@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.34601.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cs-ac", "acv2\acv2.vcxproj", "{08AD4F09-B5D6-4E3F-88A6-1653EAF01CDB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "samp_launcher", "samp_launcher\samp_launcher.vcxproj", "{AB33A363-64E8-4F3B-87CE-6DD16639E25D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Win32 = Release|Win32
@@ -14,6 +16,10 @@ Global
 		{08AD4F09-B5D6-4E3F-88A6-1653EAF01CDB}.Release|Win32.ActiveCfg = Release|Win32
 		{08AD4F09-B5D6-4E3F-88A6-1653EAF01CDB}.Release|Win32.Build.0 = Release|Win32
 		{08AD4F09-B5D6-4E3F-88A6-1653EAF01CDB}.Release|x64.ActiveCfg = Release|Win32
+		{AB33A363-64E8-4F3B-87CE-6DD16639E25D}.Release|Win32.ActiveCfg = Release|Win32
+		{AB33A363-64E8-4F3B-87CE-6DD16639E25D}.Release|Win32.Build.0 = Release|Win32
+		{AB33A363-64E8-4F3B-87CE-6DD16639E25D}.Release|x64.ActiveCfg = Release|x64
+		{AB33A363-64E8-4F3B-87CE-6DD16639E25D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
