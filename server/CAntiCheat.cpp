@@ -138,25 +138,6 @@ void CAntiCheat::OnFileCalculated(char* path, char* md5)
 
 			// Send the formatted message to the player.
 			sampgdk::SendClientMessage(ID, -1, msg);
-
-			// Now, we need to send a message to the whole server saying someone was kicked, and we need to include their name
-			// So create a variable that can hold their name.
-			char name[MAX_PLAYER_NAME];
-
-			// Find their name.
-			sampgdk::GetPlayerName(ID, name, sizeof(name));
-
-			// Format the string telling all the users this player has been kicked.
-			snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF} has been kicked from the server for having ({FF0000}%s{FFFFFF}) modified.", name, path);
-
-			// Send it to everyone
-			sampgdk::SendClientMessageToAll(-1, msg);
-
-			// Finally, print our a message to the console so we can log the result.
-			Utility::Printf("%s has been kicked for modifying %s", name, path);
-
-			// And kick the player.
-			sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)ID);
 		}
 	}
 	
@@ -176,20 +157,8 @@ void CAntiCheat::OnUnknownSendPacketCallerFound(unsigned int base, unsigned int 
 
 		if (Callback::Default_KickPacketTampering)
 		{
-			// Create a new variable holding a string that will be formatted to let the player know he's been kicked.
-			char msg[160];
-
 			// Send the formatted message to the player.
 			sampgdk::SendClientMessage(ID, -1, "{FF0000}Error: {FFFFFF}You've been kicked from this server for packet tampering.");
-
-			// Format the string telling all the users this player has been kicked.
-			snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF} has been kicked from the server for packet tampering.", name);
-
-			// Send it to everyone
-			sampgdk::SendClientMessageToAll(-1, msg);
-
-			// And kick the player.
-			sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)ID);
 		}
 	}
 
@@ -210,13 +179,10 @@ void CAntiCheat::OnImgFileModified(char* filename, char* md5)
 		sampgdk::GetPlayerName(ID, name, sizeof(name));
 
 		// Format the message to send to all players.
-		snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF} has been kicked from the server for having ({FF0000}%s{FFFFFF}) modified.", name, Utility::GetSafeFilePath(filename));
+		snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF} having ({FF0000}%s{FFFFFF}) modified.", name, Utility::GetSafeFilePath(filename));
 
 		// Send the message to all players connected to the server.
 		sampgdk::SendClientMessageToAll(-1, msg);
-
-		// Kick the player who has the modified file.
-		sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)ID);
 	}
 
 	// Execute the PAWN callback.
