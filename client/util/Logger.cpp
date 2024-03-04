@@ -16,7 +16,7 @@ bool Logger::Init(const char* const fileName) noexcept
     if (result != S_OK)
         return false;
 
-    constexpr char user_files[] = "\\GTA San Andreas User Files\\Crime Streets\\anticheat";
+    constexpr char user_files[] = "\\GTA San Andreas User Files\\Crime Streets\\anticheat\\";
 
     char path[MAX_PATH];
     wcstombs(path, my_documents, MAX_PATH - 1);

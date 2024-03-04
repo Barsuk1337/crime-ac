@@ -309,5 +309,5 @@ __pycache__/
 sampac.exp
 sampac.lib
 sampac-client.exe
-ACv2_Client.map
-acv2/ACv2_Client.map
+cs-ac.map
+client/cs-ac.map

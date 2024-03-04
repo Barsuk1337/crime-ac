@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{08AD4F09-B5D6-4E3F-88A6-1653EAF01CDB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>acv2</RootNamespace>
+    <RootNamespace>client</RootNamespace>
     <ProjectName>cs-ac</ProjectName>
     <WindowsTargetPlatformVersion>7.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -49,8 +49,8 @@
     <LinkIncremental>false</LinkIncremental>
     <TargetExt>.asi</TargetExt>
     <IncludePath>$(ProjectDir)DirectX;$(ProjectDir);$(SolutionDir)Shared;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)acv2\libs\;$(SolutionDir)Shared\Boost\libs\;$(LibraryPath)</LibraryPath>
-    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <LibraryPath>$(SolutionDir)client\libs\;$(SolutionDir)Shared\Boost\libs\;$(LibraryPath)</LibraryPath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,18 +92,16 @@
       <UACUIAccess>true</UACUIAccess>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <GenerateMapFile>true</GenerateMapFile>
-      <MapFileName>ACv2_Client.map</MapFileName>
+      <MapFileName>cs-ac.map</MapFileName>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <Version>2.3</Version>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)ACv2_Client.map" "$(SolutionDir)Release\ACv2_Client.map"
-copy /Y "$(SolutionDir)Release\ACv2_Client.asi" "$(SolutionDir)Release\ACv2_Client_unencrypted.asi"
+      <Command>copy /Y "$(ProjectDir)cs-ac.map" "$(SolutionDir)Release\cs-ac.map"
+copy /Y "$(SolutionDir)Release\cs-ac.asi" "$(SolutionDir)Release\cs-ac_unencrypted.asi"
 cd $(TargetDir)
-sendPdbs.exe /u whitetigerswt@gmail.com /p j#HRRfA1AjK2RG*u /a SAMP_AC_v2 /v 2.8 /f "ACv2_Client.pdb;ACv2_Client.asi"
-"$(MSBuildProgramFiles32)\The Enigma Protector\enigma32.exe" "$(SolutionDir)Release\ACv2_Client.enigma"
-"$(MSBuildProgramFiles32)\NSIS\makensis.exe" "$(TargetDir)sampac.nsi"</Command>
+"$(MSBuildProgramFiles32)\The Enigma Protector\enigma32.exe" "$(SolutionDir)Release\cs-ac.enigma"</Command>
       <Message>
       </Message>
     </PostBuildEvent>

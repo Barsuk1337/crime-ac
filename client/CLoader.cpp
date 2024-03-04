@@ -51,9 +51,9 @@ void CLoader::Initialize(HMODULE hMod)
 	Logger::LogToFile("CLoader initining...");
 
 	VersionHelper::Initialize();
-	//CHookManager::Load();
+	CHookManager::Load();
 
-	/*if (EP_CheckupIsEnigmaOk() || !EP_CheckupIsProtected())
+	if (EP_CheckupIsEnigmaOk() || !EP_CheckupIsProtected())
 	{
 		// Make sure other GTA:SA processes are not running. This prevents crashing while game is starting.
 		
@@ -119,64 +119,7 @@ void CLoader::Initialize(HMODULE hMod)
 		CModuleSecurity::AddAllowedModules();
 
 		CPacketIntegrity::GlobalInitialize();
-	}*/
-
-	TerminateOtherProcesses();
-
-#ifndef DISABLE_WINAPI_PROTECTIONS
-	// Check if Windows version is vista or greater...
-	if (IsWindowsVistaOrGreater())
-	{
-		CheckElevation();
-		return;
 	}
-#endif
-
-	// Make sure samp.dll is loaded BEFORE we go ANY further!!
-	HMODULE L;
-	do
-	{
-		L = LoadLibrary(TEXT("samp.dll"));
-		Sleep(5);
-	} while (L == NULL);
-
-	MODULEINFO mInfo = { 0 };
-
-	GetModuleInformation(GetCurrentProcess(), L, &mInfo, sizeof(MODULEINFO));
-
-	setSampBaseAddress((DWORD)mInfo.lpBaseOfDll);
-	setSampSize((DWORD)mInfo.SizeOfImage);
-
-#ifndef DISABLE_WINAPI_PROTECTIONS
-	// Hide samp.dll and this .asi from the loaded module list.
-	PELPEB peb = EL_GetPeb();
-	EL_HideModule(peb, TEXT("samp.dll"));
-	wchar_t path[MAX_PATH];
-	GetModuleFileName(hMod, path, sizeof(path));
-	EL_HideModule(peb, path);
-#endif
-
-	// Hook LoadLibrary function.
-	CModuleSecurity::HookLoadLibrary();
-
-	// Initialize cURL
-	curl_global_init(CURL_GLOBAL_ALL);
-
-	// Record that we're loaded
-	isLoaded = true;
-
-	// Keep track of the hModule.
-	ThishMod = hMod;
-
-	// Hook the D3D9Device functions.
-	CDirectX::HookD3DFunctions();
-
-	CModuleSecurity::AddAllowedModules();
-
-	CPacketIntegrity::GlobalInitialize();
-
-
-
 
 	while (true)
 	{

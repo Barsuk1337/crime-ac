@@ -16,14 +16,14 @@
     <EnableLogging>False</EnableLogging>
   </KeysGenerator>
   <Input>
-    <FileName>C:\Users\white\GitHub\SAMP_AC_v2\Release\ACv2_Client.asi</FileName>
+    <FileName>D:\Projects\crime-ac\Release\cs-ac.asi</FileName>
     <ProductName/>
     <VersionInfo/>
     <ProductInfoFromResources>True</ProductInfoFromResources>
   </Input>
   <Output>
     <SameAsInputFile>True</SameAsInputFile>
-    <FileName>C:\Users\white\GitHub\SAMP_AC_v2\Release\ACv2_Client.asi</FileName>
+    <FileName>D:\Projects\crime-ac\Release\cs-ac.asi</FileName>
     <DoNotBackup>True</DoNotBackup>
   </Output>
   <AdvanceInput>
@@ -352,7 +352,7 @@ Try to check it again or contact the software developers:</Text>
     </StartupPassword>
     <FileName>
       <Enabled>False</Enabled>
-      <OriginalFileName>ACv2_Client.asi</OriginalFileName>
+      <OriginalFileName>cs-ac.asi</OriginalFileName>
       <ShowMessageBeforeTermination>False</ShowMessageBeforeTermination>
       <Message>
         <Title>Invalid File Name</Title>
@@ -1011,7 +1011,7 @@ try again!</Text>
             <File>
               <Type>2</Type>
               <Name>crashrpt_lang.ini</Name>
-              <File>C:\Users\Whitetiger\Desktop\Coding projects\GitHub\SAMP_AC_v2\Release\crashrpt_lang.ini</File>
+              <File>D:\Projects\crime-ac\Release\crashrpt_lang.ini</File>
               <ActiveX>False</ActiveX>
               <ActiveXInstall>False</ActiveXInstall>
               <Action>0</Action>
@@ -1022,7 +1022,7 @@ try again!</Text>
             <File>
               <Type>2</Type>
               <Name>CrashRpt1402.dll</Name>
-              <File>C:\Users\Whitetiger\Desktop\Coding projects\GitHub\SAMP_AC_v2\Release\CrashRpt1402.dll</File>
+              <File>D:\Projects\crime-ac\Release\CrashRpt1402.dll</File>
               <ActiveX>False</ActiveX>
               <ActiveXInstall>False</ActiveXInstall>
               <Action>0</Action>
@@ -1033,7 +1033,7 @@ try again!</Text>
             <File>
               <Type>2</Type>
               <Name>CrashSender1402.exe</Name>
-              <File>C:\Users\Whitetiger\Desktop\Coding projects\GitHub\SAMP_AC_v2\Release\CrashSender1402.exe</File>
+              <File>D:\Projects\crime-ac\Release\CrashSender1402.exe</File>
               <ActiveX>False</ActiveX>
               <ActiveXInstall>False</ActiveXInstall>
               <Action>0</Action>
@@ -1044,7 +1044,7 @@ try again!</Text>
             <File>
               <Type>2</Type>
               <Name>dbghelp.dll</Name>
-              <File>C:\Users\Whitetiger\Desktop\Coding projects\GitHub\SAMP_AC_v2\Release\dbghelp.dll</File>
+              <File>D:\Projects\crime-ac\Release\dbghelp.dll</File>
               <ActiveX>False</ActiveX>
               <ActiveXInstall>False</ActiveXInstall>
               <Action>0</Action>
