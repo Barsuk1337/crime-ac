@@ -53,73 +53,70 @@ void CLoader::Initialize(HMODULE hMod)
 	VersionHelper::Initialize();
 	CHookManager::Load();
 
-	if (EP_CheckupIsEnigmaOk() || !EP_CheckupIsProtected())
+	// Make sure other GTA:SA processes are not running. This prevents crashing while game is starting.
+	
+	TerminateOtherProcesses();
+
+	// Force process elevation check. This will terminate the current process and run a new one if it's not elevated (if it's not running as admin).
+
+#ifndef DISABLE_WINAPI_PROTECTIONS
+	// Check if Windows version is vista or greater...
+	if (IsWindowsVistaOrGreater())
 	{
-		// Make sure other GTA:SA processes are not running. This prevents crashing while game is starting.
-		
-        TerminateOtherProcesses();
-
-		// Force process elevation check. This will terminate the current process and run a new one if it's not elevated (if it's not running as admin).
-
-#ifndef DISABLE_WINAPI_PROTECTIONS
-		// Check if Windows version is vista or greater...
-		if (IsWindowsVistaOrGreater())
+		// Check if process is not elevated (not running as admin)
+		if (!IsProcessElevated())
 		{
-			// Check if process is not elevated (not running as admin)
-			if (!IsProcessElevated())
-			{
-				CheckElevation();
-                ExitProcess(0);
-				return;
-			}
+			CheckElevation();
+			ExitProcess(0);
+			return;
 		}
+	}
 #endif
 
-		// Make sure samp.dll is loaded BEFORE we go ANY further!!
-		HMODULE L;
-		do
-		{
-			L = LoadLibrary(TEXT("samp.dll"));
-			Sleep(5);
-		} while (L == NULL);
+	// Make sure samp.dll is loaded BEFORE we go ANY further!!
+	HMODULE L;
+	do
+	{
+		L = LoadLibrary(TEXT("samp.dll"));
+		Sleep(5);
+	} while (L == NULL);
 
-		MODULEINFO mInfo = { 0 };
+	MODULEINFO mInfo = { 0 };
 
-		GetModuleInformation(GetCurrentProcess(), L, &mInfo, sizeof(MODULEINFO));
+	GetModuleInformation(GetCurrentProcess(), L, &mInfo, sizeof(MODULEINFO));
 
-		setSampBaseAddress((DWORD)mInfo.lpBaseOfDll);
-		setSampSize((DWORD)mInfo.SizeOfImage);
+	setSampBaseAddress((DWORD)mInfo.lpBaseOfDll);
+	setSampSize((DWORD)mInfo.SizeOfImage);
 
 #ifndef DISABLE_WINAPI_PROTECTIONS
-		// Hide samp.dll and this .asi from the loaded module list.
-		PELPEB peb = EL_GetPeb();
-		EL_HideModule(peb, TEXT("samp.dll"));
-		wchar_t path[MAX_PATH];
-		GetModuleFileName(hMod, path, sizeof(path));
-		EL_HideModule(peb, path);
+	// Hide samp.dll and this .asi from the loaded module list.
+	PELPEB peb = EL_GetPeb();
+	EL_HideModule(peb, TEXT("samp.dll"));
+	wchar_t path[MAX_PATH];
+	GetModuleFileName(hMod, path, sizeof(path));
+	EL_HideModule(peb, path);
 #endif
 
-		CHookManager::Load();
+	CHookManager::Load();
 
-		// Hook LoadLibrary function.
-		CModuleSecurity::HookLoadLibrary();
+	// Hook LoadLibrary function.
+	CModuleSecurity::HookLoadLibrary();
 
-		// Initialize cURL
-		curl_global_init(CURL_GLOBAL_ALL);
+	// Initialize cURL
+	curl_global_init(CURL_GLOBAL_ALL);
 
-		// Record that we're loaded
-		isLoaded = true;
+	// Record that we're loaded
+	isLoaded = true;
 
-		// Keep track of the hModule.
-		ThishMod = hMod;
+	// Keep track of the hModule.
+	ThishMod = hMod;
 
-		// Hook the D3D9Device functions.
-		CDirectX::HookD3DFunctions();
+	// Hook the D3D9Device functions.
+	CDirectX::HookD3DFunctions();
 
-		CModuleSecurity::AddAllowedModules();
+	CModuleSecurity::AddAllowedModules();
 
-		CPacketIntegrity::GlobalInitialize();
-	}
+	CPacketIntegrity::GlobalInitialize();
 
 	while (true)
 	{

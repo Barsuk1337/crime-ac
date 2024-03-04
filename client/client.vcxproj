@@ -50,7 +50,7 @@
     <TargetExt>.asi</TargetExt>
     <IncludePath>$(ProjectDir)DirectX;$(ProjectDir);$(SolutionDir)Shared;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)client\libs\;$(SolutionDir)Shared\Boost\libs\;$(LibraryPath)</LibraryPath>
-    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

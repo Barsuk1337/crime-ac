@@ -14,7 +14,7 @@
 #include "../util/Logger.h"
 
 #include <Windows.h>
-#include "../Enigma/enigma_ide.h"
+#include <winbase.h>
 
 bool hasSentInitInfo = false;
 
@@ -90,9 +90,11 @@ void HookedRakClientInterface::SendInitialInfo()
 	}*/
 
 	std::wstring hwid = TEXT("");
-	if (EP_CheckupIsProtected())
+	HW_PROFILE_INFO hwProfileInfo;
+
+	if (GetCurrentHwProfile(&hwProfileInfo))
 	{
-		hwid = EP_RegHardwareID();
+		hwid = hwProfileInfo.szHwProfileGuid;
 	}
 
 	MD5 md5 = MD5();
