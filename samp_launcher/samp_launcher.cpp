@@ -84,12 +84,12 @@ int main(int argc, char* argv[])
 		&hKey);
 
 	// Get value
-	DWORD dwRet = RegQueryValueEx(hKey, L"gta_sa.exe", NULL, NULL, (LPBYTE)&exeLocation, &buffer);
+	DWORD dwRet = RegQueryValueEx(hKey, L"gta_sa_exe", NULL, NULL, (LPBYTE)&exeLocation, &buffer);
 
 	// Make sure we got a good value for the gta_sa path
 	if (dwRet != ERROR_SUCCESS)
 	{
-		MessageBox(NULL, L"Could not get the location of your GTA:SA installation. Is SA-MP installed correctly?", L"SA:MP Launcher", MB_ICONERROR);
+		MessageBox(NULL, L"Файл gta_sa.exe не найден в выбранной папке", L"Crime Streets Anticheat", MB_ICONERROR);
 		return 0;
 	}
 
@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
 			addr = (void*)GetProcAddress(hMod, "LoadLibraryW");
 		else
 		{
-			MessageBox(NULL, L"Could not find kernel32.dll", L"SA:MP Launcher", MB_ICONERROR);
+			MessageBox(NULL, L"Не найден файл kernel32.dll", L"Crime Streets Anticheat", MB_ICONERROR);
 			return 0;
 		}
 
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
 		{
 			// arg is null, and we can't continue then.
 			// Let the user know there was a problem and exit.
-			MessageBox(NULL, L"Memory could not be allocated to inject samp.dll", L"SA:MP Launcher", MB_ICONERROR);
+			MessageBox(NULL, L"Не удалось выделить память для проверки samp.dll", L"Crime Streets Anticheat", MB_ICONERROR);
 			return 0;
 		}
 
@@ -148,7 +148,7 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			MessageBox(NULL, L"Could not find the address of LoadLibraryA", L"SA:MP Launcher", MB_ICONERROR);
+			MessageBox(NULL, L"Не удалось найти адрес LoadLibraryA", L"Crime Streets Anticheat", MB_ICONERROR);
 			return 0;
 		}
 
@@ -158,14 +158,14 @@ int main(int argc, char* argv[])
 			// Resume the remote thread.
 			ResumeThread(id);
 
-			std::cout << "...patience..." << std::endl;
+			//std::cout << "...patience..." << std::endl;
 
 			// Wait for the remote thread to finish executing.
 			WaitForSingleObject(id, INFINITE);
 		}
 		else
 		{
-			MessageBox(NULL, L"the ID returned from CreateRemoteThread was invalid.", L"SA:MP Launcher", MB_ICONERROR);
+			MessageBox(NULL, L"Не удалось создать удаленный поток", L"Crime Streets Anticheat", MB_ICONERROR);
 			return 0;
 		}
 
