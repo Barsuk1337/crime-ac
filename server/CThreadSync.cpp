@@ -52,16 +52,6 @@ void CThreadSync::Process()
 	}
 }
 
-void CThreadSync::OnCheaterCheckResponse(void *param)
-{
-	OnCheaterCheckResponse__parameters *p = reinterpret_cast<OnCheaterCheckResponse__parameters*>(param);
-	CAntiCheat* ac = CAntiCheatHandler::GetAntiCheat(p->playerid);
-	if(ac)
-	{ 
-		ac->OnBanChecked(p->ischeater);
-	}
-}
-
 void CThreadSync::OnCheatsUpdate(void *param)
 {
 	OnCheatsUpdate__parameters *p = reinterpret_cast<OnCheatsUpdate__parameters*>(param);

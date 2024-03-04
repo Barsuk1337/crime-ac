@@ -7,7 +7,6 @@
 #include "VersionHelper.h"
 #include "CAntiCheatHandler.h"
 #include "PacketPriority.h"
-#include "BanHandler.h"
 #include "VerifiedPacketChecker.h"
 
 #include <stdio.h>
@@ -187,8 +186,6 @@ namespace Callback
 		if (ac != NULL)
 		{
 			std::string hwid = "";
-			// Request player's ban status
-			BanHandler::CheckCheater(playerid);
 
 			// Get the player's Hardware ID.
 			hwid = ac->GetPlayerHardwareID();
@@ -293,9 +290,6 @@ namespace Callback
 
 		// Request client verification in a repeated timer
 		VerifiedPacketChecker::StartVerifiedPacketChecker();
-
-		// Run a timer that keeps trying to re-apply failed bans
-		BanHandler::StartQueuedBansChecker();
 
 		// Seed for rand()
 		srand((unsigned int)time(NULL));

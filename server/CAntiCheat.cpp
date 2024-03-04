@@ -7,7 +7,6 @@
 #include "Shared/MD5_Info/Cmd5Info.h"
 #include "Shared/Network/CRPC.h"
 #include "PacketPriority.h"
-#include "BanHandler.h"
 #include "VerifiedPacketChecker.h"
 #include <ctime>
 #include <cstring>
@@ -35,7 +34,6 @@ CAntiCheat::CAntiCheat(unsigned int playerid) : ID(playerid)
 	m_SprintOnAllSurfaces = false;
 	m_VehicleBlips = true;
 	m_SprintLimit = 0.0f;
-	m_BanStatus = -1;
 	m_CreationTick = Utility::getTickCount();
 	m_CheckGTAFilesTimerId = 0;
 }
@@ -69,7 +67,7 @@ void CAntiCheat::OnFileExecuted(char* processpath, char* md5)
 		if(found)
 		{
 			// Add cheater to AC global ban list
-			BanHandler::AddCheater(ID, std::string(processpath), std::string(md5));
+			//BanHandler::AddCheater(ID, std::string(processpath), std::string(md5));
 		}
 	}
 
@@ -306,38 +304,6 @@ void CAntiCheat::OnTamperAttempt()
 
 	// Kick the player.
 	sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)ID);
-}
-
-void CAntiCheat::OnBanChecked(bool status)
-{
-	// Set our instance variable to the player's ban status so we can store it for later use.
-	m_BanStatus = status;
-
-	// Notify scripts about player's ban status
-	Callback::Execute("AC_OnBanStatusRetrieved", "ii", status, ID);
-
-	if (m_BanStatus)
-	{
-		// This player is a cheater and has been banned before. 
-		if (Callback::GetACEnabled())
-		{
-			// AC is enabled. Kick the banned player.
-			char msg[144];
-
-			// Tell the player
-			snprintf(msg, sizeof msg, "{FF0000}Anti-Cheat (v2): {FFFFFF}You're banned. Know more: %s", AC_WEBSITE);
-			sampgdk::SendClientMessage(this->GetID(), -1, msg);
-			char name[MAX_PLAYER_NAME];
-			sampgdk::GetPlayerName(this->GetID(), name, sizeof name);
-
-			// Tell other players connected
-			snprintf(msg, sizeof msg, "{FFFFFF}%s {FF0000}has been kicked for being banned from AC servers.", name);
-			sampgdk::SendClientMessageToAll(-1, msg);
-
-			// Kick the player from the server
-			sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)this->GetID());
-		}
-	}
 }
 
 void CAntiCheat::CheckVersionCompatible(CSelfUpdater::stVersion version)

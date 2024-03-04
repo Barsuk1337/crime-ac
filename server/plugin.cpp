@@ -371,34 +371,6 @@ cell AMX_NATIVE_CALL GetPlayerVehicleBlipsProc(AMX* pAmx, cell* pParams)
 	return ac->GetVehicleBlips();
 }
 
-cell AMX_NATIVE_CALL AC_IsPlayerBannedProc(AMX* pAmx, cell* pParams)
-{
-	// Make sure the parameter count is correct.
-	CHECK_PARAMS(1, "AC_IsPlayerBanned");
-
-	// Get CAntiCheat pointer
-	CAntiCheat* ac = CAntiCheatHandler::GetAntiCheat(pParams[1]);
-
-	// Make sure the player is connected 
-	if (!sampgdk::IsPlayerConnected(pParams[1]) || ac == NULL) return 0;
-
-	return ac->AC_IsBanned();
-}
-
-cell AMX_NATIVE_CALL AC_GetPlayerBanStatusProc(AMX* pAmx, cell* pParams)
-{
-	// Make sure the parameter count is correct.
-	CHECK_PARAMS(1, "AC_GetPlayerBanStatus");
-
-	// Get CAntiCheat pointer
-	CAntiCheat* ac = CAntiCheatHandler::GetAntiCheat(pParams[1]);
-
-	// Make sure the player is connected 
-	if (!sampgdk::IsPlayerConnected(pParams[1]) || ac == NULL) return 0;
-
-	return ac->AC_GetBanStatus();
-}
-
 PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()
 {
 	return sampgdk::Supports() | SUPPORTS_VERSION | SUPPORTS_AMX_NATIVES | SUPPORTS_PROCESS_TICK;
@@ -486,8 +458,6 @@ AMX_NATIVE_INFO PluginNatives[] =
 	{ "TogglePlayerVehicleBlips", TogglePlayerVehicleBlipsProc },
 	{ "GetPlayerVehicleBlips", GetPlayerVehicleBlipsProc },
 	{ "IsACEnabled", IsACEnabledProc },
-	{ "AC_IsPlayerBanned", AC_IsPlayerBannedProc },
-	{ "AC_GetPlayerBanStatus", AC_GetPlayerBanStatusProc },
 	{ 0, 0 }
 };
 
