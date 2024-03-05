@@ -66,12 +66,12 @@ void CAntiCheat::OnFileExecuted(bool in_directory, char* processpath, char* md5)
 		// Loop through the list of bad processes to see if we can find a match to the one just sent to us by the client.
 		if(found)
 		{
-			Utility::Printf("ID %i, найден вредоносный файл %s", ID, std::string(processpath));
+			Utility::Printf("ID %d, найден вредоносный файл %s", ID, processpath);
 		}
 
 		if(in_directory)
 		{
-			Utility::Printf("ID %i, в папке GTA запущено %s", ID, std::string(processpath));
+			Utility::Printf("ID %d, в папке GTA запущено %s", ID, processpath);
 		}
 	}
 
