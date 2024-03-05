@@ -129,15 +129,15 @@ void CFileCheck::OnFileExecuted(const wchar_t* file, BYTE* md5)
 		// Convert it to an std::string.
 		std::wstring szFile(file);
 
+		std::wstring gtadir = Misc::GetGTADirectory();
+		int dir_i = szFile.find(gtadir);
+		Logger::LogToFile("AddFile %s | %d", Misc::utf8_encode(szFile).c_str(), dir_i);
+
 		// Find the last instance of a \, cause we only want the file name and not the complete path.
 		int i = szFile.rfind(TEXT("\\"));
 
 		// Change the string to only the files name and not it's complete path.
 		szFile = szFile.substr(i + 1);
-
-		std::wstring gtadir = Misc::GetGTADirectory();
-		int dir_i = szFile.find(gtadir);
-		Logger::LogToFile("AddFile %s | %d", Misc::utf8_encode(szFile).c_str(), dir_i);
 
 		// Prepare to send the info to the server.
 		RakNet::BitStream bitStream;
