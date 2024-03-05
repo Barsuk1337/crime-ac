@@ -1,7 +1,5 @@
 #pragma once
 
-#define AC_WEBSITE "https://whitetigerswt.github.io/SAMP_AC_v2"
-
 #define MAX_CHEAT_PATH	20
 
 #define SAFE_FREE(ptr) if(ptr) delete ptr;

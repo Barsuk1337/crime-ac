@@ -32,10 +32,6 @@ namespace Callback
 	// REQUIRES: The disconnection type.
 	void OnACClosed(unsigned int playerid, int type);
 
-	// PURPOSE: Callback to kick a player on a delay (So they will see the SendClientMessage's before they get kicked)
-	// REQUIRES: Nothing.
-	void KickPlayer(int timerid, void* params);
-
 	static bool Default_InfSprint = false;
 	static bool Default_SprintOnAllSurfaces = false;
 	static bool Default_MacroLimits = false;

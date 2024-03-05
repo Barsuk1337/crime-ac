@@ -105,16 +105,6 @@ namespace Callback
 		return iReturnValue;
 	}
 
-	void SAMPGDK_CALL KickPlayer(int timerid, void *params)
-	{
-		// Make sure the player is connected.
-		if (sampgdk::IsPlayerConnected((int)params))
-		{
-			// Kick the player from the server.
-			sampgdk::Kick((int)params);
-		}
-	}
-
 	void SAMPGDK_CALL CheckAC(int timerid, void *params)
 	{
 		// Convert the params into a playerid.
@@ -218,9 +208,6 @@ namespace Callback
 
 					// Send the message to the server
 					sampgdk::SendClientMessageToAll(-1, msg);
-
-					// Kick the player from the server.
-					sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)playerid);
 				}
 
 			}

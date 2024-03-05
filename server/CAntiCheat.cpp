@@ -97,9 +97,6 @@ void CAntiCheat::OnMD5Calculated(int address, int size, char* md5)
 
 				// Send the result to everyone on the server.
 				sampgdk::SendClientMessageToAll(-1, msg);
-
-				// And kick the player.
-				sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)ID);
 			}
 		}
 	}
@@ -132,7 +129,7 @@ void CAntiCheat::OnFileCalculated(char* path, char* md5)
 		{
 			// Create a new variable holding a string that will be formatted to let the player know he's been kicked.
 			char msg[160];
-			snprintf(msg, sizeof(msg), "{FF0000}Error: {FFFFFF}You've been kicked from this server for having ({FF0000}%s{FFFFFF}) modified.", Utility::GetSafeFilePath(path));
+			snprintf(msg, sizeof(msg), "{FF0000}Error: {FFFFFF}You've been kicked from this server for having ({FF0000}%s | %s | %s{FFFFFF}) modified.", Utility::GetSafeFilePath(path), path, md5);
 
 			// Send the formatted message to the player.
 			sampgdk::SendClientMessage(ID, -1, msg);
@@ -301,9 +298,6 @@ void CAntiCheat::OnTamperAttempt()
 
 	// Print the message to the console as well
 	Utility::Printf(msg);
-
-	// Kick the player.
-	sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)ID);
 }
 
 void CAntiCheat::CheckVersionCompatible(CSelfUpdater::stVersion version)

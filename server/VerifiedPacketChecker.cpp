@@ -36,9 +36,6 @@ namespace VerifiedPacketChecker
 				snprintf(msg, sizeof msg, "%s has been kicked for not verifying anti-cheat client in time.", name);
 				sampgdk::SendClientMessageToAll(0xFF0000FF, msg);
 				Utility::Printf(msg);
-
-				// Kick the player from the server
-				sampgdk::SetTimer(1000, 0, Callback::KickPlayer, (void*)playerid);
 			}
 			ClientVerification[playerid].UnverifiedClientWarnings = 0;
 		}
