@@ -7,7 +7,6 @@
 #include "../Shared/MD5_Info/Cmd5Info.h"
 #include "Network\CRakClientHandler.h"
 #include "CHookManager.h"
-#include "Enigma/enigma_ide.h"
 #include "../Shared/Network/CRPC.h"
 #include "Detours\detours.h"
 #include "CModuleSecurity.h"
