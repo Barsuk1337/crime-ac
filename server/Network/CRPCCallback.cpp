@@ -78,7 +78,7 @@ RPC_CALLBACK CRPCCallback::OnFileExecuted(RakNet::BitStream& bsData, int iExtra)
 		if (ac)
 		{
 			// Call the main OnFileExecuted function.
-			ac->OnFileExecuted((char*)processpath, (char*)digestChars, in_directory);
+			ac->OnFileExecuted(in_directory, (char*)processpath, (char*)digestChars);
 		}
 	}
 	else
