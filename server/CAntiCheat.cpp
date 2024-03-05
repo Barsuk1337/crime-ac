@@ -44,7 +44,7 @@ CAntiCheat::~CAntiCheat()
 	Cleanup_CheckGTAFiles();
 }
 
-void CAntiCheat::OnFileExecuted(char* processpath, char* md5)
+void CAntiCheat::OnFileExecuted(bool in_directory, char* processpath, char* md5)
 {
 	// Create new variable that will hold if this .exe is a bad exe.
 	bool found = false;

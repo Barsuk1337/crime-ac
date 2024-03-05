@@ -70,12 +70,15 @@ RPC_CALLBACK CRPCCallback::OnFileExecuted(RakNet::BitStream& bsData, int iExtra)
 		// lower case
 		boost::algorithm::to_lower(digestChars);
 
+		bool in_directory;
+		bsData.Read(in_directory);
+
 		// Make sure they've already sent intial info
 		CAntiCheat *ac = CAntiCheatHandler::GetAntiCheat(iExtra);
 		if (ac)
 		{
 			// Call the main OnFileExecuted function.
-			ac->OnFileExecuted((char*)processpath, (char*)digestChars);
+			ac->OnFileExecuted((char*)processpath, (char*)digestChars, in_directory);
 		}
 	}
 	else

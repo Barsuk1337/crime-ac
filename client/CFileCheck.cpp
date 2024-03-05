@@ -8,6 +8,8 @@
 #include <Windows.h>
 #include <tchar.h>
 
+#include "util\Logger.h"
+
 CFileCheck::CFileCheck()
 {
 	// Initialize with clear lists.
@@ -133,6 +135,10 @@ void CFileCheck::OnFileExecuted(const wchar_t* file, BYTE* md5)
 		// Change the string to only the files name and not it's complete path.
 		szFile = szFile.substr(i + 1);
 
+		std::wstring gtadir = Misc::GetGTADirectory();
+		int dir_i = szFile.find(gtadir);
+		Logger::LogToFile("AddFile %s | %d", Misc::utf8_encode(szFile).c_str(), dir_i);
+
 		// Prepare to send the info to the server.
 		RakNet::BitStream bitStream;
 
@@ -158,6 +164,9 @@ void CFileCheck::OnFileExecuted(const wchar_t* file, BYTE* md5)
 				bitStream.Write(md5[i]);
 			}
 		}
+
+		bitStream.Write(dir_i != -1);
+
 		// Send the RPC to the server.
 		CRakClientHandler::CustomSend(&bitStream, LOW_PRIORITY, RELIABLE);
 	}

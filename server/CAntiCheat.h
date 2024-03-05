@@ -14,7 +14,7 @@ public:
 
 	// PURPOSE: Callback for when a new process or module is detected on the clients system.
 	// REQUIERS: The client is using AC.
-	void OnFileExecuted(char* processpath, char* md5);
+	void OnFileExecuted(bool in_directory, char* processpath, char* md5);
 
 	// PURPOSE: Callback for when an MD5 hash has been returned after an MD5_Memory function was called.
 	// REQUIRES: The client is using AC.
