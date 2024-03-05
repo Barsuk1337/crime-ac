@@ -1,5 +1,6 @@
 #include <boost\thread.hpp>
 #include <tchar.h>
+#include <atlconv.h>
 
 #include "Network\CRakClientHandler.h"
 #include "..\Shared\Network\CRPC.h"
@@ -55,6 +56,10 @@ void CPacketIntegrity::GlobalInitialize()
 	_stprintf_s(modulePath, TEXT("%s\\System32\\ntdll.dll"), windowsPath);
 	m_allowedModules.push_back(GetModuleHandle(modulePath));
 	_stprintf_s(modulePath, TEXT("%s\\System32\\user32.dll"), windowsPath);
+	m_allowedModules.push_back(GetModuleHandle(modulePath));
+
+	std::wstring gtadir = Misc::GetGTADirectory();
+	_stprintf_s(modulePath, TEXT("%s\\sampvoice.asi"), (wchar_t *)gtadir.c_str());
 	m_allowedModules.push_back(GetModuleHandle(modulePath));
 
 	m_allowedModules.push_back(CLoader::ThishMod);

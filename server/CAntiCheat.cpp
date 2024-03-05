@@ -313,9 +313,8 @@ void CAntiCheat::CheckVersionCompatible(CSelfUpdater::stVersion version)
 		// Inform the player there version of AC is not compatible with the server.
 		char msg[144];
 
-		sampgdk::SendClientMessage(ID, 0xFF0000FF, "Fatal Error:{FFFFFF} The server's anti-cheat plugin is not compatible with your version.");
-		snprintf(msg, sizeof(msg), "Fatal Error:{FFFFFF} Server version: v%d.%02d, your client version: v%d.%02d. You must update your anti-cheat at https://whitetigerswt.github.io/SAMP_AC_v2", VersionHelper::AC_SERVER_VERSION.major, VersionHelper::AC_SERVER_VERSION.minor, version.major, version.minor);
-		sampgdk::SendClientMessage(ID, 0xFF0000FF, msg);
+		snprintf(msg, sizeof(msg), "CS-AC: {FFFFFF}Ваш античит устарел, обновите его до v%d.%d.%d. Вы можете скачать его на нашем сайте {96EB02}cs-rpg.ru", VersionHelper::AC_SERVER_VERSION.major, VersionHelper::AC_SERVER_VERSION.minor, VersionHelper::AC_SERVER_VERSION.patch);
+		sampgdk::SendClientMessage(ID, 0x96EB02FF, msg);
 	}
 }
 

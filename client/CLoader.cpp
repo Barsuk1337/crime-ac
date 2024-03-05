@@ -44,9 +44,7 @@ void CLoader::Initialize(HMODULE hMod)
 {
 	boost::this_thread::yield();
 
-	if (!Logger::Init("csac_log.txt"))
-        return;
-
+	Logger::Init("csac_log.txt");
 	Logger::LogToFile("CLoader initining...");
 
 	VersionHelper::Initialize();
