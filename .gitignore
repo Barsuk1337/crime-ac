@@ -18,6 +18,8 @@
 *.enigmadb
 *.enigmamail
 *.amx
+*.iobj
+*.ipdb
 
 # Fortran module files
 *.mod
@@ -49,7 +51,7 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]eleases/
+[Rr]elease/
 x64/
 x86/
 bld/
