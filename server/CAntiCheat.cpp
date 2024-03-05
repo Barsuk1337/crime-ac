@@ -137,6 +137,7 @@ void CAntiCheat::OnFileCalculated(char* path, char* md5)
 
 			// Send the formatted message to the player.
 			sampgdk::SendClientMessage(ID, -1, msg);
+			sampgdk::SendClientMessage(ID, -1, md5);
 		}
 	}
 	
