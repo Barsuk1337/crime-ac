@@ -66,8 +66,12 @@ void CAntiCheat::OnFileExecuted(bool in_directory, char* processpath, char* md5)
 		// Loop through the list of bad processes to see if we can find a match to the one just sent to us by the client.
 		if(found)
 		{
-			// Add cheater to AC global ban list
-			//BanHandler::AddCheater(ID, std::string(processpath), std::string(md5));
+			Utility::Printf("ID %i, найден вредоносный файл %s", ID, std::string(processpath));
+		}
+
+		if(in_directory)
+		{
+			Utility::Printf("ID %i, в папке GTA запущено %s", ID, std::string(processpath));
 		}
 	}
 
@@ -129,13 +133,10 @@ void CAntiCheat::OnFileCalculated(char* path, char* md5)
 		{
 			// Create a new variable holding a string that will be formatted to let the player know he's been kicked.
 			char msg[160];
-			snprintf(msg, sizeof(msg), "{FF0000}Error: {FFFFFF}You've been kicked from this server for having ({FF0000}%s{FFFFFF}) modified.", Utility::GetSafeFilePath(path));
+			snprintf(msg, sizeof(msg), "{FF0000}Error: {FFFFFF}Найден модифицированный файл {FF0000}%s", Utility::GetSafeFilePath(path));
 
 			// Send the formatted message to the player.
 			sampgdk::SendClientMessage(ID, -1, msg);
-
-			sampgdk::SendClientMessage(ID, -1, path);
-			sampgdk::SendClientMessage(ID, -1, md5);
 		}
 	}
 	
