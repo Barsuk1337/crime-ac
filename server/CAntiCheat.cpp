@@ -459,6 +459,14 @@ void CAntiCheat::ToggleVehicleBlips(bool toggle)
 
 void CAntiCheat::TogglePause(int iType, bool bPause)
 {
+	if(bPause == true)
+	{
+		sampgdk::SendClientMessage(ID, 0x96EB02FF, "pause start");
+	}
+	else
+	{
+		sampgdk::SendClientMessage(ID, 0x96EB02FF, "pause stop");
+	}
 	// Let PAWN scripts know.
 	Callback::Execute("AC_OnPlayerPause", "iii", bPause, iType, ID);
 }
