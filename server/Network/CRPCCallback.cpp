@@ -27,7 +27,15 @@ void CRPCCallback::Initialize()
 	CRPC::Add(ON_TAMPER_ATTEMPT, OnTamperAttempt);
 	CRPC::Add(TOGGLE_PAUSE, OnPauseToggled);
 	CRPC::Add(TAKE_SCREENSHOT, OnTakeScreenshot);
+	CRPC::Add(VERSION_INCOMPAT2, VersionIncompat);
 	CRPC::Add(ON_UNKNOWN_SENDPACKET_CALLER_FOUND, OnUnknownSendPacketCallerFound);
+}
+
+// This RPC is for old AC builds.
+RPC_CALLBACK CRPCCallback::VersionIncompat(RakNet::BitStream &bsData, int iExtra)
+{
+	// Inform the player there version of AC is not compatible with the server.
+	sampgdk::SendClientMessage(iExtra, 0xFF0000FF, "Fatal Error:{FFFFFF} The server's anti-cheat plugin is not compatible with your version. You must update your anti-cheat at https://whitetigerswt.github.io/SAMP_AC_v2");
 }
 
 RPC_CALLBACK CRPCCallback::OnClientVerified(RakNet::BitStream &bsData, int iExtra)
