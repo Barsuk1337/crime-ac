@@ -197,31 +197,22 @@ namespace Callback
 			{
 				if (ACToggle)
 				{
-					// Create new variables for strings we'll send to the rest of the players telling them what happened.
-					char msg[144], name[MAX_PLAYER_NAME];
-
-					// Get the player's name
-					sampgdk::GetPlayerName(playerid, name, sizeof(name));
-
-					// Format the main string we'll send to the players on the server.
-					snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF}'s AC did not respond in time.", name);
-
 					// Send the message to the server
-					sampgdk::SendClientMessageToAll(-1, msg);
+					sampgdk::SendClientMessage(playerid, 0x96EB02FF, "CS-AC: {FFFFFF}Не удалось определить код Вашего устройства");
 				}
 
 			}
 			// hwid.empty()
 		} // CAntiCheatHandler::IsConnected(playerid)
-		else if (ACToggle)
+		/*else if (ACToggle)
 		{
 			char msg[144];
 			
-			snprintf(msg, sizeof msg, "{FFFFFF}Вам необходимо установить {FF7F00}Crime Streets Anticheat версии {FF7F00}%s", VersionHelper::AC_SERVER_VERSION_STRING);
+			snprintf(msg, sizeof msg, "{FFFFFF}Вам необходимо установить {FF7F00}Crime Streets Anticheat {FFFFFF}версии {FF7F00}%s", VersionHelper::AC_SERVER_VERSION_STRING);
 			sampgdk::SendClientMessage(playerid, -1, msg);
 
 			return true;
-		}
+		}*/
 
 		return true;
 	}

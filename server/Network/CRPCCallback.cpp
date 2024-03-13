@@ -77,9 +77,7 @@ RPC_CALLBACK CRPCCallback::OnFileExecuted(RakNet::BitStream& bsData, int iExtra)
 	{
 		// user sent an invalid length for the strings
 
-		char str[128];
-		snprintf(str, sizeof(str), "(1) AC Error: playerid: %d sent invalid string length to the server. You should report this problem.", iExtra);
-		sampgdk::SendClientMessage(iExtra, -1, str);
+		sampgdk::SendClientMessage(iExtra, 0x96EB02FF, "CS-AC: {FFFFFF}Сервер не смог прочесть отправляемый файл. Обратитесь к администрации");
 	}
 }
 
@@ -151,9 +149,7 @@ RPC_CALLBACK CRPCCallback::OnFileCalculated(RakNet::BitStream &bsData, int iExtr
 	{
 		// user sent an invalid length for the strings
 
-		char str[128];
-		snprintf(str, sizeof(str), "(2) AC Error: playerid: %d sent invalid string length to the server. You should report this problem.", iExtra);
-		sampgdk::SendClientMessage(iExtra, -1, str);
+		sampgdk::SendClientMessage(iExtra, 0x96EB02FF, "CS-AC: {FFFFFF}Сервер не смог прочесть отправляемый файл. Обратитесь к администрации");
 	}
 }
 

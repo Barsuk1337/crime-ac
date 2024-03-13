@@ -133,11 +133,11 @@ void CAntiCheat::OnFileCalculated(char* path, char* md5)
 		{
 			// Create a new variable holding a string that will be formatted to let the player know he's been kicked.
 			char msg[160];
-			snprintf(msg, sizeof(msg), "{FF0000}Error: {FFFFFF}Найден модифицированный файл {FF0000}%s", Utility::GetSafeFilePath(path));
+			snprintf(msg, sizeof(msg), "CS-AC: {FFFFFF}Найден модифицированный файл {96EB02}%s", Utility::GetSafeFilePath(path));
 
 			// Send the formatted message to the player.
-			sampgdk::SendClientMessage(ID, -1, msg);
-			sampgdk::SendClientMessage(ID, -1, md5);
+			sampgdk::SendClientMessage(ID, 0x96EB02FF, msg);
+			//sampgdk::SendClientMessage(ID, -1, md5);
 		}
 	}
 	
@@ -158,7 +158,7 @@ void CAntiCheat::OnUnknownSendPacketCallerFound(unsigned int base, unsigned int 
 		if (Callback::Default_KickPacketTampering)
 		{
 			// Send the formatted message to the player.
-			sampgdk::SendClientMessage(ID, -1, "{FF0000}Error: {FFFFFF}You've been kicked from this server for packet tampering.");
+			sampgdk::SendClientMessage(ID, 0x96EB02FF, "CS-AC: {FFFFFF}Пресечена попытка подмены пакетов");
 		}
 	}
 
@@ -168,7 +168,7 @@ void CAntiCheat::OnUnknownSendPacketCallerFound(unsigned int base, unsigned int 
 
 void CAntiCheat::OnImgFileModified(char* filename, char* md5)
 {
-	// If AC Main checks are enabled
+	/*// If AC Main checks are enabled
 	if (Callback::GetACEnabled() == true)
 	{
 		// We already know the file is modified, so we don't need to check for that.
@@ -183,7 +183,7 @@ void CAntiCheat::OnImgFileModified(char* filename, char* md5)
 
 		// Send the message to all players connected to the server.
 		sampgdk::SendClientMessageToAll(-1, msg);
-	}
+	}*/
 
 	// Execute the PAWN callback.
 	Callback::Execute("AC_OnImgFileModifed", "ssi", md5, filename, ID);
@@ -264,16 +264,13 @@ void CAntiCheat::Cleanup_CheckGTAFiles()
 void CAntiCheat::OnMacroDetected(int vKey)
 {
 	// Create 2 variables, one to hold the player name and one to hold a string formatted to send all players on the server.
-	char name[MAX_PLAYER_NAME], msg[144];
-
-	// Get the player name and store it in the name variable
-	sampgdk::GetPlayerName(ID, name, sizeof(name));
+	char msg[144];
 
 	// Format the string telling all the users what happened.
-	snprintf(msg, sizeof(msg), "[TEST] %s is using a macro? (vKey=0x%x)", name, vKey);
+	snprintf(msg, sizeof(msg), "CS:AC: {FFFFFF}Замечено использование macro (vKey=0x%x)", vKey);
 
 	// Send the message to all connected players
-	sampgdk::SendClientMessageToAll(-1, msg);
+	sampgdk::SendClientMessage(ID, 0x96EB02FF, msg);
 }
 
 void CAntiCheat::OnHardwareCalculated(char* hwid)
@@ -289,17 +286,8 @@ void CAntiCheat::OnHardwareCalculated(char* hwid)
 
 void CAntiCheat::OnTamperAttempt()
 {
-	// Create 2 new variables, one to hold the players name and one to send a formatted message to the rest of the players on the server.
-	char name[MAX_PLAYER_NAME], msg[144];
-
-	// Get the player name and store it in the name variable.
-	sampgdk::GetPlayerName(ID, name, sizeof(name));
-
-	// Format the message that will be sent to everyone on the server.
-	snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF} is trying to tamper with the AC mod.", name);
-
 	// Send the message to everyone on the server.
-	sampgdk::SendClientMessageToAll(-1, msg);
+	sampgdk::SendClientMessage(ID, 0x96EB02FF, "CS:AC: {FFFFFF}Подозрение в попытке взлома античита");
 
 	// Print the message to the console as well
 	Utility::Printf(msg);
