@@ -13,6 +13,8 @@
 #include <stdio.h>
 #include "Shared/boost/thread.hpp"
 
+#include <cstddef>
+
 std::vector<int> CAntiCheat::m_Admins;
 std::vector<std::string> CAntiCheat::m_FileNames;
 std::vector<std::string> CAntiCheat::m_MD5s;
@@ -496,7 +498,8 @@ void CAntiCheat::UpdateCheatDatabase()
 		for (std::vector<std::string>::iterator it = m_FileNames.begin(); it != m_FileNames.end(); ++it)
 		{
 			std::string expectsString(*it);
-			Utility::Printf("GetGtaDirectoryFilesNames - %s | %s %s", expectsString.c_str(), expectsString[expectsString.size() - 1].c_str(), expectsString[expectsString.length() - 1].c_str());
+			const std::size_t i = expectsString.size() - 1;
+			Utility::Printf("GetGtaDirectoryFilesNames - %s | %s", expectsString.c_str(), expectsString[i].c_str());
 		}
 	}
 
