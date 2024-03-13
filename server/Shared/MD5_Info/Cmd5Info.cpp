@@ -119,13 +119,23 @@ std::vector<std::string> Cmd5Info::GetGtaDirectoryFilesNames()
 	// one string becomes "filename" (including extension or sub files)
 	boost::split(split_html, html, boost::is_any_of("\n"));
 
+	std::size_t i = 0;
+
 	// Loop through every instance of "filename"
 	for (std::vector<std::string>::iterator it = split_html.begin(); it != split_html.end(); ++it)
 	{
 		// insert it into our std::vector the results.
 		if (!it->empty())
 		{
-			dirNameInfo.push_back((*it));
+			std::string filename(*it);
+			i = filename.size() - 1;
+
+			if(!std::isalpha((unsigned char)filename[i]))
+			{
+				filename.erase(i, 1);
+			}
+
+			dirNameInfo.push_back(filename);
 		}
 	}
 
