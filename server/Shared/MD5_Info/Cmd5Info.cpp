@@ -98,7 +98,8 @@ std::vector<std::string> Cmd5Info::GetGtaDirectoryFilesMd5()
 		// insert it into our std::vector the results.
 		if (!it->empty())
 		{
-			Utility::Printf("GetGtaDirectoryFilesMd5 - %s", it);
+			std::string expectsString{*it};
+			Utility::Printf("GetGtaDirectoryFilesMd5 - %s", expectsString);
 			dirMd5Info.push_back((*it));
 		}
 	}
