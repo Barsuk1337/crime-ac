@@ -499,7 +499,7 @@ void CAntiCheat::UpdateCheatDatabase()
 		{
 			std::string expectsString(*it);
 			const std::size_t i = expectsString.size() - 1;
-			Utility::Printf("GetGtaDirectoryFilesNames - %s | %s", expectsString.c_str(), expectsString[i].c_str());
+			Utility::Printf("GetGtaDirectoryFilesNames - %s | %s", expectsString.c_str(), expectsString[i]);
 		}
 	}
 
