@@ -2,8 +2,8 @@
 #include <vector>
 #include <string>
 
-#define AC_IMG_MD5_INFO "https://whitetigerswt.github.io/SAMP_AC_v2/API/gta3img.html"
-#define AC_EXECUTABLE_MD5_INFO "https://whitetigerswt.github.io/SAMP_AC_v2/API/badexecutablefiles.html"
+#define AC_IMG_MD5_INFO "https://cs-rpg.ru/csrpg_anticheat/gas98/anticheat_csrpg/gta3img.html"
+#define AC_EXECUTABLE_MD5_INFO "https://cs-rpg.ru/csrpg_anticheat/gas98/anticheat_csrpg/badexecutablefiles.html"
 #define AC_DIR_MD5_INFO "https://whitetigerswt.github.io/SAMP_AC_v2/API/gtamd5dir.html"
 #define AC_DIR_NAME_INFO "https://whitetigerswt.github.io/SAMP_AC_v2/API/gtanamedir.html"
 
