@@ -487,24 +487,42 @@ void CAntiCheat::UpdateCheatDatabase()
 	m_MD5s = Cmd5Info::GetGtaDirectoryFilesMd5();
 	m_ProcessMD5s = Cmd5Info::GetBadExecutableFiles();
 
-	for (std::vector<std::string>::iterator it = m_ProcessMD5s.begin(); it != m_ProcessMD5s.end(); ++it)
-	{
-		std::string expectsString(*it);
-		Utility::Printf("GetGtaDirectoryFilesMd5 - %s", expectsString.c_str());
-	}
-
 	if (m_FileNames.empty())
 	{
 		Utility::Printf("GetGtaDirectoryFilesNames failed");
+	}
+	else
+	{
+		for (std::vector<std::string>::iterator it = m_FileNames.begin(); it != m_FileNames.end(); ++it)
+		{
+			std::string expectsString(*it);
+			Utility::Printf("GetGtaDirectoryFilesNames - %s", expectsString.c_str());
+		}
 	}
 
 	if (m_MD5s.empty())
 	{
 		Utility::Printf("GetGtaDirectoryFilesMd5 failed");
 	}
+	else
+	{
+		for (std::vector<std::string>::iterator it = m_MD5s.begin(); it != m_MD5s.end(); ++it)
+		{
+			std::string expectsString(*it);
+			Utility::Printf("GetGtaDirectoryFilesMd5 - %s", expectsString.c_str());
+		}
+	}
 
 	if (m_ProcessMD5s.empty())
 	{
 		Utility::Printf("GetBadExecutableFiles failed");
+	}
+	else
+	{
+		for (std::vector<std::string>::iterator it = m_ProcessMD5s.begin(); it != m_ProcessMD5s.end(); ++it)
+		{
+			std::string expectsString(*it);
+			Utility::Printf("GetBadExecutableFiles - %s", expectsString.c_str());
+		}
 	}
 }
