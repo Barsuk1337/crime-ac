@@ -8,6 +8,8 @@
 #include <ostream>
 #include <boost/algorithm/string.hpp>
 
+#include "../../Utility.h"
+
 #ifndef WIN32
 #define MAX_PATH 260
 #endif
@@ -96,6 +98,7 @@ std::vector<std::string> Cmd5Info::GetGtaDirectoryFilesMd5()
 		// insert it into our std::vector the results.
 		if (!it->empty())
 		{
+			Utility::Printf("GetGtaDirectoryFilesMd5 - %s", it);
 			dirMd5Info.push_back((*it));
 		}
 	}
