@@ -496,7 +496,7 @@ void CAntiCheat::UpdateCheatDatabase()
 		for (std::vector<std::string>::iterator it = m_FileNames.begin(); it != m_FileNames.end(); ++it)
 		{
 			std::string expectsString(*it);
-			Utility::Printf("GetGtaDirectoryFilesNames - %s", expectsString.c_str());
+			Utility::Printf("GetGtaDirectoryFilesNames - %s |", expectsString.c_str());
 		}
 	}
 
@@ -504,14 +504,14 @@ void CAntiCheat::UpdateCheatDatabase()
 	{
 		Utility::Printf("GetGtaDirectoryFilesMd5 failed");
 	}
-	/*else
+	else
 	{
 		for (std::vector<std::string>::iterator it = m_MD5s.begin(); it != m_MD5s.end(); ++it)
 		{
 			std::string expectsString(*it);
-			Utility::Printf("GetGtaDirectoryFilesMd5 - %s", expectsString.c_str());
+			Utility::Printf("GetGtaDirectoryFilesMd5 - %s |", expectsString.c_str());
 		}
-	}*/
+	}
 
 	if (m_ProcessMD5s.empty())
 	{

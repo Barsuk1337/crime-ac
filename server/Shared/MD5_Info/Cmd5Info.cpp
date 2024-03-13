@@ -132,7 +132,7 @@ std::vector<std::string> Cmd5Info::GetGtaDirectoryFilesNames()
 
 			if(!std::isalpha((unsigned char)filename[i]))
 			{
-				filename.erase(i, 1);
+				filename.pop_back();
 			}
 
 			dirNameInfo.push_back(filename);
