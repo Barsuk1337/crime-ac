@@ -72,9 +72,6 @@ enum eRPC : unsigned short
 	// Called when a file's md5 has been calculated, most likely in the GTA directory.
 	ON_FILE_CALCULATED,
 
-	// Called with an old version of SAMP_AC. Should never be called normally.
-	VERSION_INCOMPAT2,
-
 	// Called when a file inside gta3.img's md5 has been calculated.
 	ON_IMG_FILE_MODIFIED,
 
