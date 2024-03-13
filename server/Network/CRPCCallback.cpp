@@ -144,7 +144,7 @@ RPC_CALLBACK CRPCCallback::OnFileCalculated(RakNet::BitStream &bsData, int iExtr
 		CAntiCheat *ac = CAntiCheatHandler::GetAntiCheat(iExtra);
 		if (ac)
 		{
-			ac->OnFileCalculated((char*)path, digestChars);
+			//ac->OnFileCalculated((char*)path, digestChars);
 		}
 	}
 	else

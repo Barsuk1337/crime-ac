@@ -252,7 +252,7 @@ void CAntiCheat::CheckGTAFiles()
 	Cleanup_CheckGTAFiles();
 
 	SetCheckGTAFilesCurrentFileId(0);
-	//m_CheckGTAFilesTimerId = sampgdk::SetTimer(150, true, Timer_CheckGTAFiles, (void*)ID);
+	m_CheckGTAFilesTimerId = sampgdk::SetTimer(150, true, Timer_CheckGTAFiles, (void*)ID);
 }
 
 void CAntiCheat::Cleanup_CheckGTAFiles()
