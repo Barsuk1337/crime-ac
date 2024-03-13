@@ -90,13 +90,23 @@ std::vector<std::string> Cmd5Info::GetGtaDirectoryFilesMd5()
 	// one string becomes "md5"
 	boost::split(split_html, html, boost::is_any_of("\n"));
 
+	std::size_t i = 0;
+
 	// Loop through every instance of "md5"
 	for (std::vector<std::string>::iterator it = split_html.begin(); it != split_html.end(); ++it)
 	{
 		// insert it into our std::vector the results.
 		if (!it->empty())
 		{
-			dirMd5Info.push_back((*it));
+			std::string filename(*it);
+			i = filename.size() - 1;
+
+			if(!std::isalpha((unsigned char)filename[i]))
+			{
+				filename.erase(i);
+			}
+
+			dirMd5Info.push_back(filename);
 		}
 	}
 
