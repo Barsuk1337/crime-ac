@@ -487,6 +487,12 @@ void CAntiCheat::UpdateCheatDatabase()
 	m_MD5s = Cmd5Info::GetGtaDirectoryFilesMd5();
 	m_ProcessMD5s = Cmd5Info::GetBadExecutableFiles();
 
+	for (std::vector<std::string>::iterator it = m_ProcessMD5s.begin(); it != m_ProcessMD5s.end(); ++it)
+	{
+		std::string expectsString(*it);
+		Utility::Printf("GetGtaDirectoryFilesMd5 - %s", expectsString.c_str());
+	}
+
 	if (m_FileNames.empty())
 	{
 		Utility::Printf("GetGtaDirectoryFilesNames failed");
