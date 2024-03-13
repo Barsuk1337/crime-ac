@@ -311,10 +311,10 @@ void CAntiCheat::CheckVersionCompatible(CSelfUpdater::stVersion version)
 	if (!VersionHelper::IsClientCompatible(version))
 	{
 		// Inform the player there version of AC is not compatible with the server.
-		char msg[144];
+		/*char msg[144];
 
 		snprintf(msg, sizeof(msg), "CS-AC: {FFFFFF}Ваш античит устарел, обновите его до v%d.%d.%d. Вы можете скачать его на нашем сайте {96EB02}cs-rpg.ru", VersionHelper::AC_SERVER_VERSION.major, VersionHelper::AC_SERVER_VERSION.minor, VersionHelper::AC_SERVER_VERSION.patch);
-		sampgdk::SendClientMessage(ID, 0x96EB02FF, msg);
+		sampgdk::SendClientMessage(ID, 0x96EB02FF, msg);*/
 	}
 }
 
