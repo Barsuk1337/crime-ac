@@ -29,14 +29,6 @@ namespace VerifiedPacketChecker
 		{
 			Callback::Execute("AC_OnVerificationFail", "i", playerid);
 
-			if (Callback::GetACEnabled() == true)
-			{
-				char msg[144], name[MAX_PLAYER_NAME];
-				sampgdk::GetPlayerName(playerid, name, sizeof name);
-				snprintf(msg, sizeof msg, "%s has been kicked for not verifying anti-cheat client in time.", name);
-				sampgdk::SendClientMessageToAll(0xFF0000FF, msg);
-				Utility::Printf(msg);
-			}
 			ClientVerification[playerid].UnverifiedClientWarnings = 0;
 		}
 	}

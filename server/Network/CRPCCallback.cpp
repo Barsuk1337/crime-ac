@@ -216,7 +216,7 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 	// lower case
 	boost::algorithm::to_lower(digestChars);
 
-	Utility::Printf("connected %d %s", iExtra, (char*)&version);
+	Utility::Printf("connected %d", iExtra);
 
 	// Read the hardware ID from the client.
 	if (bsData.Read((char*)&version, sizeof(CSelfUpdater::stVersion)))

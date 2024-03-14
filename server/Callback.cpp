@@ -208,7 +208,7 @@ namespace Callback
 		{
 			char msg[144];
 			
-			snprintf(msg, sizeof msg, "{FFFFFF}Вам необходимо установить {FF7F00}Crime Streets Anticheat {FFFFFF}версии {FF7F00}%s", VersionHelper::AC_SERVER_VERSION_STRING);
+			snprintf(msg, sizeof msg, "{FFFFFF}Вам необходимо установить {96EB02}Crime Streets Anticheat {FFFFFF}версии {96EB02}%s", VersionHelper::AC_SERVER_VERSION_STRING);
 			sampgdk::SendClientMessage(playerid, -1, msg);
 
 			return true;

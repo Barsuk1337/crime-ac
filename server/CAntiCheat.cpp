@@ -76,7 +76,7 @@ void CAntiCheat::OnFileExecuted(bool in_directory, char* processpath, char* md5)
 	}
 
 	// Execute the PAWN callback.
-	Callback::Execute("AC_OnFileExecuted", "ssi", md5, processpath, ID);
+	Callback::Execute("AC_OnFileExecuted", "iisi", in_directory, found, processpath, ID);
 }
 
 void CAntiCheat::OnMD5Calculated(int address, int size, char* md5)
@@ -131,18 +131,13 @@ void CAntiCheat::OnFileCalculated(char* path, char* md5)
 		// See if we have not found a match for this file in our trusted list of files. This means it's a bad file.
 		if (isModified)
 		{
-			// Create a new variable holding a string that will be formatted to let the player know he's been kicked.
-			char msg[160];
-			snprintf(msg, sizeof(msg), "CS-AC: {FFFFFF}Найден модифицированный файл {96EB02}%s", Utility::GetSafeFilePath(path));
-
-			// Send the formatted message to the player.
-			sampgdk::SendClientMessage(ID, 0x96EB02FF, msg);
-			//sampgdk::SendClientMessage(ID, -1, md5);
+			Utility::Printf("ID %d, %s modified", ID, Utility::GetSafeFilePath(path));
+			Utility::Printf("ID %d, %s", ID, md5);
 		}
 	}
 	
 	// Execute PAWN callback.
-	Callback::Execute("AC_OnFileCalculated", "issi", isModified, md5, path, ID);
+	Callback::Execute("AC_OnFileCalculated", "isi", isModified, path, ID);
 }
 
 void CAntiCheat::OnUnknownSendPacketCallerFound(unsigned int base, unsigned int addr, unsigned char frame, char* path, char* md5)
@@ -154,12 +149,6 @@ void CAntiCheat::OnUnknownSendPacketCallerFound(unsigned int base, unsigned int 
 		sampgdk::GetPlayerName(ID, name, sizeof(name));
 
 		Utility::Printf("%s - packet tampering, frame: %d, base: %x, addr: %x, path: %s, md5: %s.", name, frame, base, addr, path, md5);
-
-		if (Callback::Default_KickPacketTampering)
-		{
-			// Send the formatted message to the player.
-			sampgdk::SendClientMessage(ID, 0x96EB02FF, "CS-AC: {FFFFFF}Пресечена попытка подмены пакетов");
-		}
 	}
 
 	// Execute PAWN callback.
@@ -168,25 +157,15 @@ void CAntiCheat::OnUnknownSendPacketCallerFound(unsigned int base, unsigned int 
 
 void CAntiCheat::OnImgFileModified(char* filename, char* md5)
 {
-	/*// If AC Main checks are enabled
+	// If AC Main checks are enabled
 	if (Callback::GetACEnabled() == true)
 	{
-		// We already know the file is modified, so we don't need to check for that.
-		// Create 2 variables, one to hold the player name and one to send a formatted message to the whole server telling them what happened.
-		char name[MAX_PLAYER_NAME], msg[144];
-
-		// Get the player name and store it in the variable we just created.
-		sampgdk::GetPlayerName(ID, name, sizeof(name));
-
-		// Format the message to send to all players.
-		snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF} having ({FF0000}%s{FFFFFF}) modified.", name, Utility::GetSafeFilePath(filename));
-
-		// Send the message to all players connected to the server.
-		sampgdk::SendClientMessageToAll(-1, msg);
-	}*/
+		Utility::Printf("ID %d, %s modified", ID, Utility::GetSafeFilePath(filename));
+		Utility::Printf("ID %d, %s", ID, md5);
+	}
 
 	// Execute the PAWN callback.
-	Callback::Execute("AC_OnImgFileModifed", "ssi", md5, filename, ID);
+	Callback::Execute("AC_OnImgFileModifed", "si", filename, ID);
 }
 
 void CAntiCheat::ToggleCanEnableAC(int playerid, bool toggle)
@@ -279,9 +258,6 @@ void CAntiCheat::OnHardwareCalculated(char* hwid)
 	m_HardwareID = hwid;
 
 	if (Callback::Default_FrameLimit != 9999) SetFPSLimit(Callback::Default_FrameLimit);
-
-	// Execute a PAWN callback telling the server we've just calculated the user's Hardware ID.
-	Callback::Execute("AC_OnHardwareIDCalculated", "isi", m_HardwareID.length(), hwid, ID);
 }
 
 void CAntiCheat::OnTamperAttempt()
@@ -505,12 +481,12 @@ void CAntiCheat::UpdateCheatDatabase()
 	{
 		Utility::Printf("GetBadExecutableFiles failed");
 	}
-	/*else
+	else
 	{
 		for (std::vector<std::string>::iterator it = m_ProcessMD5s.begin(); it != m_ProcessMD5s.end(); ++it)
 		{
 			std::string expectsString(*it);
-			Utility::Printf("GetBadExecutableFiles - %s", expectsString.c_str());
+			Utility::Printf("GetBadExecutableFiles - %s |", expectsString.c_str());
 		}
-	}*/
+	}
 }

@@ -4445,7 +4445,7 @@ inline bool SetObjectsDefaultCameraCol(bool disable) {
 
 #define MAX_PLAYER_NAME (24)
 #define MAX_CLIENT_MESSAGE (144)
-#define MAX_PLAYERS (1000)
+#define MAX_PLAYERS (100)
 #define MAX_VEHICLES (2000)
 #define MAX_ACTORS (1000)
 #define INVALID_PLAYER_ID (0xFFFF)

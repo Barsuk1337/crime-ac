@@ -277,7 +277,7 @@ forward AC_OnMD5Calculated(playerid, address, size, md5[]);
 // md5[]        	- The file's MD5
 //
 // Returns: irrelevant
-forward AC_OnFileExecuted(playerid, module[], md5[]);
+forward AC_OnFileExecuted(playerid, module[], bool:found, bool:in_directory);
 
 // PURPOSE: Callback for when a client is trying to do packet tampering.
 // REQUIRES: The player is using AC.
@@ -299,7 +299,7 @@ forward AC_OnPacketTampering(playerid);
 // md5[]        	- The file inside gta3.img's md5.
 //
 // Returns: irrelevant
-forward AC_OnImgFileModifed(playerid, filename[], md5[]);
+forward AC_OnImgFileModifed(playerid, filename[]);
 
 // PURPOSE: Callback for when a file (usually) inside the players GTA directory md5 checksum has been calculated.
 // REQUIRES: The player is using AC.
@@ -312,7 +312,7 @@ forward AC_OnImgFileModifed(playerid, filename[], md5[]);
 // bool:isModified  - true if the file IS NOT on the AC whitelist
 //
 // Returns: irrelevant
-forward AC_OnFileCalculated(playerid, filename[], md5[], bool:isModified);
+forward AC_OnFileCalculated(playerid, filename[], bool:isModified);
 
 // PURPOSE: Callback for when a player pauses, unpauses, or alt tabs from the game
 // REQUIRES: The player is using AC.
@@ -337,30 +337,6 @@ forward AC_OnPlayerPause(playerid, type, bool:pause);
 //
 // Returns: irrelevant
 forward AC_OnScreenshotTaken(playerid);
-
-// PURPOSE: Callback for when a player's hardware ID has been initially calculated.
-// REQUIRES: The player is using AC.
-// NOTES: THIS CALLBACK IS CALLED BEFORE ONPLAYERCONNECT!!! - VERY IMPORTANT!
-//
-// Params:
-// playerid         - Player who just had their hardware id calculated.
-// hwid[]			- The hardware ID
-// len				- The length of the hardware ID.
-//
-// Returns: irrelevant
-forward AC_OnHardwareIDCalculated(playerid, hwid[], len);
-
-// PURPOSE: Callback for when a player's ban status is retrieved.
-// REQUIRES: The player is using AC.
-// NOTES: This callback might never get called.
-// NOTES: If `main_ac_checks` is enabled and `status` is banned, server will auto-kick the player and send a global message.
-//
-// Params:
-// playerid         - Player who just had their ban status retrieved.
-// status           - (-1) = unknown ban status, 0 = not banned, 1 = banned 
-//
-// Returns: irrelevant
-forward AC_OnBanStatusRetrieved(playerid, status);
 
 // PURPOSE: Callback for when server can't verify client authenticity in time.
 // REQUIRES: The player is using AC.
