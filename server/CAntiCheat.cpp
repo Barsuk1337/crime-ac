@@ -290,7 +290,7 @@ void CAntiCheat::OnTamperAttempt()
 	sampgdk::SendClientMessage(ID, 0x96EB02FF, "CS:AC: {FFFFFF}Подозрение в попытке взлома античита");
 
 	// Print the message to the console as well
-	Utility::Printf(msg);
+	//Utility::Printf(msg);
 }
 
 void CAntiCheat::CheckVersionCompatible(CSelfUpdater::stVersion version)
