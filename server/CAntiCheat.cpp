@@ -97,10 +97,10 @@ void CAntiCheat::OnMD5Calculated(int address, int size, char* md5)
 				sampgdk::GetPlayerName(ID, name, sizeof(name));
 
 				// Format a new message that tells what happened.
-				snprintf(msg, sizeof(msg), "{FF0000}%s{FFFFFF} has modified weapon.dat info", name);
+				snprintf(msg, sizeof(msg), "CS:AC {FFFFFF}У игрока %s модифицирован файл weapon.dat info", name);
 
 				// Send the result to everyone on the server.
-				sampgdk::SendClientMessageToAll(-1, msg);
+				sampgdk::SendClientMessageToAll(0x96EB02FF, msg);
 			}
 		}
 	}
@@ -455,38 +455,38 @@ void CAntiCheat::UpdateCheatDatabase()
 	{
 		Utility::Printf("GetGtaDirectoryFilesNames failed");
 	}
-	else
+	/*else
 	{
 		for (std::vector<std::string>::iterator it = m_FileNames.begin(); it != m_FileNames.end(); ++it)
 		{
 			std::string expectsString(*it);
 			Utility::Printf("GetGtaDirectoryFilesNames - %s |", expectsString.c_str());
 		}
-	}
+	}*/
 
 	if (m_MD5s.empty())
 	{
 		Utility::Printf("GetGtaDirectoryFilesMd5 failed");
 	}
-	else
+	/*else
 	{
 		for (std::vector<std::string>::iterator it = m_MD5s.begin(); it != m_MD5s.end(); ++it)
 		{
 			std::string expectsString(*it);
 			Utility::Printf("GetGtaDirectoryFilesMd5 - %s |", expectsString.c_str());
 		}
-	}
+	}*/
 
 	if (m_ProcessMD5s.empty())
 	{
 		Utility::Printf("GetBadExecutableFiles failed");
 	}
-	else
+	/*else
 	{
 		for (std::vector<std::string>::iterator it = m_ProcessMD5s.begin(); it != m_ProcessMD5s.end(); ++it)
 		{
 			std::string expectsString(*it);
 			Utility::Printf("GetBadExecutableFiles - %s |", expectsString.c_str());
 		}
-	}
+	}*/
 }

@@ -264,7 +264,7 @@ namespace Callback
 			return true;
 
 		// Check memory pretty frequently in a new timer.
-		sampgdk::SetTimer(60000, true, CheckPlayersMemory, NULL);
+		sampgdk::SetTimer(120000, true, CheckPlayersMemory, NULL);
 
 		// Request client verification in a repeated timer
 		VerifiedPacketChecker::StartVerifiedPacketChecker();
