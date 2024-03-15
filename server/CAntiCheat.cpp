@@ -97,7 +97,7 @@ void CAntiCheat::OnMD5Calculated(int address, int size, char* md5)
 				sampgdk::GetPlayerName(ID, name, sizeof(name));
 
 				// Format a new message that tells what happened.
-				snprintf(msg, sizeof(msg), "CS:AC {FFFFFF}У игрока %s модифицирован файл weapon.dat info", name);
+				snprintf(msg, sizeof(msg), "CS-AC: {FFFFFF}У игрока %s модифицирован файл weapon.dat info", name);
 
 				// Send the result to everyone on the server.
 				sampgdk::SendClientMessageToAll(0x96EB02FF, msg);
@@ -246,7 +246,7 @@ void CAntiCheat::OnMacroDetected(int vKey)
 	char msg[144];
 
 	// Format the string telling all the users what happened.
-	snprintf(msg, sizeof(msg), "CS:AC: {FFFFFF}Замечено использование macro (vKey=0x%x)", vKey);
+	snprintf(msg, sizeof(msg), "CS-AC: {FFFFFF}Замечено использование macro (vKey=0x%x)", vKey);
 
 	// Send the message to all connected players
 	sampgdk::SendClientMessage(ID, 0x96EB02FF, msg);
@@ -263,7 +263,7 @@ void CAntiCheat::OnHardwareCalculated(char* hwid)
 void CAntiCheat::OnTamperAttempt()
 {
 	// Send the message to everyone on the server.
-	sampgdk::SendClientMessage(ID, 0x96EB02FF, "CS:AC: {FFFFFF}Подозрение в попытке взлома античита");
+	sampgdk::SendClientMessage(ID, 0x96EB02FF, "CS-AC: {FFFFFF}Подозрение в попытке взлома античита");
 
 	// Print the message to the console as well
 	//Utility::Printf(msg);

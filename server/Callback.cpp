@@ -204,15 +204,15 @@ namespace Callback
 			}
 			// hwid.empty()
 		} // CAntiCheatHandler::IsConnected(playerid)
-		else if (ACToggle)
+		/*else if (ACToggle)
 		{
 			char msg[144];
 			
-			snprintf(msg, sizeof msg, "CS:AC: {FFFFFF}Для полноценной игры рекомендуем установить античит версии {96EB02}%s", VersionHelper::AC_SERVER_VERSION_STRING);
+			snprintf(msg, sizeof msg, "CS-AC: {FFFFFF}Для полноценной игры рекомендуем установить античит версии {96EB02}%s", VersionHelper::AC_SERVER_VERSION_STRING);
 			sampgdk::SendClientMessage(playerid, 0x96EB02FF, msg);
 
 			return true;
-		}
+		}*/
 
 		return true;
 	}
