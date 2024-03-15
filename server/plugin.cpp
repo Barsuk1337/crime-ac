@@ -16,10 +16,10 @@
 void **PluginData;
 CThreadSync *pMainThreadSync;
 
-cell AMX_NATIVE_CALL IsPlayerUsingSAMPACProc(AMX* pAmx, cell* pParams)
+cell AMX_NATIVE_CALL IsPlayerInstallACProc(AMX* pAmx, cell* pParams)
 {
 	// Make sure the parameter count is correct.
-	CHECK_PARAMS(1, "IsPlayerUsingSampAC");
+	CHECK_PARAMS(1, "IsPlayerInstallAC");
 
 	// Make sure the player is connected
 	if (!sampgdk::IsPlayerConnected(pParams[1])) return 0;
@@ -179,19 +179,6 @@ cell AMX_NATIVE_CALL SetPlayerCrouchBugProc(AMX* pAmx, cell* pParams)
 
 	return 1;
 }
-
-cell AMX_NATIVE_CALL TogglePlayerLiteFootProc(AMX* pAmx, cell* pParams)
-{
-	Utility::Printf("Error: TogglePlayerLiteFoot has been deprecated and may be removed in future versions.");
-	return 0;
-}
-
-cell AMX_NATIVE_CALL GetPlayerLiteFootProc(AMX* pAmx, cell* pParams)
-{
-	Utility::Printf("Error: GetPlayerLiteFoot has been deprecated and may be removed in future versions.");
-	return 0;
-}
-
 
 cell AMX_NATIVE_CALL GetPlayerCrouchBugProc(AMX* pAmx, cell* pParams)
 {
@@ -434,7 +421,7 @@ PLUGIN_EXPORT void PLUGIN_CALL Unload()
 
 AMX_NATIVE_INFO PluginNatives[] =
 {
-	{ "IsPlayerUsingSampAC", IsPlayerUsingSAMPACProc },
+	{ "IsPlayerInstallAC", IsPlayerInstallACProc },
 	{ "CanPlayerEnableAC", CanPlayerEnableACProc },
 	{ "SetPlayerCanEnableAC", SetPlayerCanEnableACProc },
 	{ "MD5_Memory", MD5_MemoryProc },
@@ -443,8 +430,6 @@ AMX_NATIVE_INFO PluginNatives[] =
 	{ "SetPlayerFPSLimit", SetPlayerFPSLimitProc },
 	{ "GetPlayerFPSLimit", GetPlayerFPSLimitProc },
 	{ "SetPlayerCrouchBug", SetPlayerCrouchBugProc },
-	{ "TogglePlayerLiteFoot", TogglePlayerLiteFootProc },
-	{ "GetPlayerLiteFoot", GetPlayerLiteFootProc },
 	{ "GetPlayerCrouchBug", GetPlayerCrouchBugProc },
 	{ "GetPlayerSwitchReload", GetPlayerSwitchReloadProc },
 	{ "TogglePlayerUnlimitedSprint", TogglePlayerUnlimitedSprintProc },

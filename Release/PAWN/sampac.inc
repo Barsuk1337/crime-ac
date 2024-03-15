@@ -11,11 +11,6 @@ native ac_gateway_param4(func[], param1, param2, param3, param4) = GetGravity;
 // For GetPlayerHardwareID
 native ac_gateway_param3_str(func[], param1, param2[], param3) = GetGravity;
 
-// Used by: AC_OnBanStatusRetrieved and AC_GetPlayerBanStatus
-#define AC_BANSTATUS_UNKNOWN          (-1)
-#define AC_BANSTATUS_NOTBANNED        (0)
-#define AC_BANSTATUS_BANNED           (1)
-
 // PURPOSE: Check if the player is using samp AC and return the result
 // REQUIRES: NULL
 // NOTES: This function might return incorrect values when called at OnPlayerConnect in filterscripts. 
@@ -25,7 +20,7 @@ native ac_gateway_param3_str(func[], param1, param2[], param3) = GetGravity;
 // playerid - Player to check
 //
 // Returns: int - 1 if player is using AC, else false.
-#define IsPlayerUsingSampAC(%0) ac_gateway_param1("IsPlayerUsingSampAC", %0)
+#define IsPlayerInstallAC(%0) ac_gateway_param1("IsPlayerInstallAC", %0)
 
 // PURPOSE: MD5's a region of memory in the player's address space and then calls OnMD5Calculated
 // REQUIRES: The player is using AC.
@@ -223,24 +218,6 @@ native ac_gateway_param3_str(func[], param1, param2[], param3) = GetGravity;
 //
 // Returns: bool - True if vehicle blips are enabled.
 #define GetPlayerVehicleBlips(%0) ac_gateway_param1("GetPlayerVehicleBlips", %0)
-
-// PURPOSE: Check if the player is banned on Anti-Cheat or not.
-// REQUIRES: The player is using AC.
-//
-// Params:
-// playerid         - Player to check
-//
-// Returns: bool - True if player is banned.
-#define AC_IsPlayerBanned(%0) ac_gateway_param1("AC_IsPlayerBanned", %0)
-
-// PURPOSE: Get player's ban status on Anti-Cheat.
-// REQUIRES: The player is using AC.
-//
-// Params:
-// playerid         - Player to check
-//
-// Returns: AC_BANSTATUS_* (see beginning of the file for ban status definitions)
-#define AC_GetPlayerBanStatus(%0) ac_gateway_param1("AC_GetPlayerBanStatus", %0)
 
 // PURPOSE: Check if the AC is enabled via /actoggle
 // REQUIRES: Nothing
