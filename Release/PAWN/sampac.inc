@@ -231,7 +231,7 @@ native ac_gateway_param3_str(func[], param1, param2[], param3) = GetGravity;
 // REQUIRES: Nothing.
 //
 // Returns: bool - true if the plugin is loaded, else false
-#define IsACPluginLoaded() ((_:GetGravity()) != (IsPlayerUsingSampAC(9999)))
+#define IsACPluginLoaded() ((_:GetGravity()) != (IsPlayerInstallAC(9999)))
 
 // PURPOSE: Callback for MD5_Memory
 // REQUIRES: MD5_Memorys return value will be sent to this function sometime after MD5_Memory is called.
