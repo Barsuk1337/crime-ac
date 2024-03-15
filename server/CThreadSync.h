@@ -11,7 +11,7 @@ typedef std::pair<ThreadSyncFunc_t, void*> ThreadSyncFuncCall_t;
 class CThreadSync
 {
 public:
-	CThreadSync(unsigned int waitTimeForLock = 15, unsigned int waitTimeTotal = 30);
+	CThreadSync(unsigned int waitTimeForLock = 30, unsigned int waitTimeTotal = 40);
 	~CThreadSync();
 
 	// NOTE: param must be a pointer to a single element allocated on heap, or NULL (not array!!!)
