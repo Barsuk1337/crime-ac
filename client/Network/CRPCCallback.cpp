@@ -126,6 +126,13 @@ void CRPCCallback::MD5_File(RakNet::BitStream &bsData, int iExtra)
 		// MD5 that file and store the result.
 		std::string result = CLoader::GtaDirectory.MD5_Specific_File(Misc::utf8_decode((char*)file));
 
+		if(result.size() < 2)
+		{
+			MessageBox(NULL, L"Один из файлов для запуска игры не был найден", L"Crime Streets Anticheat", MB_ICONERROR);
+			ExitProcess(0);
+			return;
+		}
+
 		// Convert the file into a std::string, so we can remove any macros that were sent in the file name.
 		std::string szFile(reinterpret_cast<char*>(file));
 
