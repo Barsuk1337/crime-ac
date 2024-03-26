@@ -63,6 +63,8 @@ bool HookedRakClientInterface::Send(const char *data, const int length, int prio
 
 void HookedRakClientInterface::SendInitialInfo()
 {
+	Logger::LogToFile("SendInitialInfo");
+
 	if (hasSentInitInfo)
 		return;
 

@@ -31,6 +31,8 @@
 #include <string.h>
 #include <tchar.h>
 
+#define DISABLE_WINAPI_PROTECTIONS
+
 CInjectedLibraries CLoader::Modules = CInjectedLibraries();
 CProcessList CLoader::Processes = CProcessList();
 CDirectoryScanner CLoader::GtaDirectory = CDirectoryScanner();
@@ -109,7 +111,7 @@ void CLoader::Initialize(HMODULE hMod)
 	ThishMod = hMod;
 
 	// Hook the D3D9Device functions.
-	CDirectX::HookD3DFunctions();
+	//CDirectX::HookD3DFunctions();
 
 	CModuleSecurity::AddAllowedModules();
 
@@ -438,7 +440,7 @@ void CLoader::RunElevated()
 	// Set our info to run gta_sa.exe with admin permissions
 	SHELLEXECUTEINFO sei = { sizeof(sei) };
 	sei.lpVerb = TEXT("runas");
-	sei.lpFile = TEXT("samp_launcher.exe");
+	sei.lpFile = TEXT("cs-ac.exe");
 	sei.nShow = SW_NORMAL;
 	sei.lpParameters = GetCommandLine();
 

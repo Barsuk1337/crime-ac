@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AB33A363-64E8-4F3B-87CE-6DD16639E25D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>samp_launcher</RootNamespace>
+    <RootNamespace>cs-ac</RootNamespace>
     <WindowsTargetPlatformVersion>7.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -149,7 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="samp_launcher.cpp" />
+    <ClCompile Include="cs-ac.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,8 +8,6 @@
 #include <Windows.h>
 #include <tchar.h>
 
-#include "util\Logger.h"
-
 CFileCheck::CFileCheck()
 {
 	// Initialize with clear lists.
@@ -131,7 +129,6 @@ void CFileCheck::OnFileExecuted(const wchar_t* file, BYTE* md5)
 
 		std::wstring gtadir = Misc::GetGTADirectory();
 		int dir_i = szFile.find(gtadir);
-		Logger::LogToFile("AddFile %s | %d", Misc::utf8_encode(szFile).c_str(), dir_i);
 
 		// Find the last instance of a \, cause we only want the file name and not the complete path.
 		int i = szFile.rfind(TEXT("\\"));
