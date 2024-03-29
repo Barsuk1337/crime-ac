@@ -8,6 +8,8 @@
 #include <Windows.h>
 #include <tchar.h>
 
+#include "util/Logger.h"
+
 CFileCheck::CFileCheck()
 {
 	// Initialize with clear lists.
@@ -87,8 +89,27 @@ void CFileCheck::AddFile(std::wstring file)
 
 void CFileCheck::AddFile(std::wstring file, std::string md5)
 {
-	/*if (!file.empty() && !md5.empty())
+	if (!file.empty() && !md5.empty())
 	{
+		std::wstring gtadir = Misc::GetGTADirectory();
+
+		if(file.find(gtadir) == -1)
+		{
+			return;
+		}
+
+		/*if(file.find(TEXT("modloader")) != -1)
+		{
+			return;
+		}*/
+
+		int symb_i = file.find(TEXT("`"));
+
+		if(symb_i != -1)
+		{
+			file.erase(symb_i, 1);
+		}
+
 		// Add the file to our list of executed files.
 		m_FilePaths.push_back(file);
 
@@ -96,6 +117,7 @@ void CFileCheck::AddFile(std::wstring file, std::string md5)
 		m_MD5List.push_back(md5);
 
 		// Convert wstring to byte array.
+		Logger::LogToFile("AddFile %s | %s |", Misc::utf8_encode(file).c_str(), md5.c_str());
 		
 		BYTE digest[16];
 		if (strcmp(md5.c_str(), "NULL"))
@@ -116,7 +138,7 @@ void CFileCheck::AddFile(std::wstring file, std::string md5)
 
 		// Send the info to the server.
 		OnFileExecuted(file.c_str(), digest);
-	}*/
+	}
 }
 
 void CFileCheck::OnFileExecuted(const wchar_t* file, BYTE* md5)

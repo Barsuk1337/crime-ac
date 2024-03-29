@@ -105,7 +105,7 @@ void CProcessList::Scan()
 
 						if (!DoesFileExist(path))
 						{
-							Logger::LogToFile("add process %s", Misc::utf8_encode(path).c_str());
+							//Logger::LogToFile("add process %s", Misc::utf8_encode(path).c_str());
 							// Add process to the process list.
 							AddFile(path);
 						}

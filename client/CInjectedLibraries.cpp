@@ -38,7 +38,7 @@ void CInjectedLibraries::Scan()
 
 				// Convert the path to an std::string
 				std::wstring file(szModName);
-				Logger::LogToFile("add module %s", Misc::utf8_encode(file).c_str());
+				//Logger::LogToFile("add module %s", Misc::utf8_encode(file).c_str());
 
 				// Make sure the module isn't already on the file list.
 				if (!DoesFileExist(file))
