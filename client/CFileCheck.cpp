@@ -87,7 +87,7 @@ void CFileCheck::AddFile(std::wstring file)
 
 void CFileCheck::AddFile(std::wstring file, std::string md5)
 {
-	if (!file.empty() && !md5.empty())
+	/*if (!file.empty() && !md5.empty())
 	{
 		// Add the file to our list of executed files.
 		m_FilePaths.push_back(file);
@@ -116,7 +116,7 @@ void CFileCheck::AddFile(std::wstring file, std::string md5)
 
 		// Send the info to the server.
 		OnFileExecuted(file.c_str(), digest);
-	}
+	}*/
 }
 
 void CFileCheck::OnFileExecuted(const wchar_t* file, BYTE* md5)

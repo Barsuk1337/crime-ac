@@ -63,8 +63,6 @@ bool HookedRakClientInterface::Send(const char *data, const int length, int prio
 
 void HookedRakClientInterface::SendInitialInfo()
 {
-	Logger::LogToFile("SendInitialInfo");
-
 	if (hasSentInitInfo)
 		return;
 
@@ -120,7 +118,7 @@ bool HookedRakClientInterface::Send(RakNet::BitStream * bitStream, int priority,
 	BYTE packetId;
 	bitStream->Read(packetId);
 
-	Logger::LogToFile("[Packet Send] %d, len: %d", packetId, bitStream->GetNumberOfBytesUsed());
+	//Logger::LogToFile("[Packet Send] %d, len: %d", packetId, bitStream->GetNumberOfBytesUsed());
 
 	if (packetId == ID_AUTH_KEY)
 	{
@@ -140,7 +138,7 @@ Packet* HookedRakClientInterface::Receive(void)
 			return p;
 		}
 
-		Logger::LogToFile("Receive packet %d", p->data[0]);
+		//Logger::LogToFile("Receive packet %d", p->data[0]);
 
 		switch (p->data[0])
 		{

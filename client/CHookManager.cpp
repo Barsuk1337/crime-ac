@@ -199,10 +199,10 @@ void CHookManager::Load()
 				hooks_install_once = true;
 			}
 
-			samp = samp_base_addr + FUNC_OFFSET_RAKPEER__SENDBUFFERED;
+			/*samp = samp_base_addr + FUNC_OFFSET_RAKPEER__SENDBUFFERED;
 		    m_pfnRakPeer__SendBuffered = (RakPeer__SendBuffered_t)DetourFunction((PBYTE)samp, (PBYTE)CHookManager::RakPeer__SendBufferedHook);
 
-			FindProtectedMemoryAddresses();
+			FindProtectedMemoryAddresses();*/
 		}
 	}
 
@@ -409,14 +409,14 @@ void CHookManager::Load()
 
 	CMem::Cpy(dest, (void*)FUNC_CRunningScript_AddScriptToList, 5);
 
-	BYTE CleoDefault[] = { 0xE9, 0x8B, 0xCD, 0x0F, 0x01 };
+	/*BYTE CleoDefault[] = { 0xE9, 0x8B, 0xCD, 0x0F, 0x01 };
 	for (int i = 0; i < sizeof(CleoDefault); ++i)
 	{
 		if (dest[i] != CleoDefault[i])
 		{
 			CMem::Cpy((void*)FUNC_CRunningScript_AddScriptToList, "\x90\x90\x90\x90\x90", 5);
 		}
-	}
+	}*/
 
 	// Check data file integrity.
 	VerifyFilePaths();

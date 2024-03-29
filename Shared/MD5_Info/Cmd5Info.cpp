@@ -30,12 +30,20 @@ std::map<std::string, std::string> Cmd5Info::GetIMGMD5s()
 	// Loop through every instance of "filename,md5"
 	for (std::vector<std::string>::iterator it = split_html.begin(); it != split_html.end(); ++it)
 	{
+		std::string filename(*it);
+		std::size_t last_i = filename.size() - 1;
+
+		if(!std::isalpha((unsigned char)filename[last_i]))
+		{
+			filename.erase(last_i);
+		}
+
 		// Find the comma, so we can seperate the filename, and m5.
-		std::size_t i = it->find(",");
+		std::size_t i = filename.find(",");
 
 		// Seperate the filename and md5 string.
-		std::string fname = it->substr(0, i);
-		std::string md5 = it->substr(i + 1);
+		std::string fname = filename.substr(0, i);
+		std::string md5 = filename.substr(i + 1);
 
 		// insert it into our std::map the results.
 		if (strlen(fname.c_str()) > 0)

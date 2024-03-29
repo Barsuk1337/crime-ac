@@ -4,6 +4,9 @@
 #include <TlHelp32.h>
 #include <Psapi.h>
 
+#include "util/Logger.h"
+#include "Misc.h"
+
 typedef void (WINAPI *QFPIN)(HANDLE hProcess, DWORD dwFlags, LPWSTR lpExeName, PDWORD lpdwSize);
 
 
@@ -102,6 +105,7 @@ void CProcessList::Scan()
 
 						if (!DoesFileExist(path))
 						{
+							Logger::LogToFile("add process %s", Misc::utf8_encode(path).c_str());
 							// Add process to the process list.
 							AddFile(path);
 						}

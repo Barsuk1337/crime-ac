@@ -50,7 +50,7 @@ void CLoader::Initialize(HMODULE hMod)
 	Logger::LogToFile("CLoader initining...");
 
 	VersionHelper::Initialize();
-	CHookManager::Load();
+	//CHookManager::Load();
 
 	// Make sure other GTA:SA processes are not running. This prevents crashing while game is starting.
 	
@@ -117,7 +117,7 @@ void CLoader::Initialize(HMODULE hMod)
 
 	CPacketIntegrity::GlobalInitialize();
 
-	while (true)
+	/*while (true)
 	{
 		// http://ugbase.eu/Thread-Checking-is-game-fully-loaded-or-not
 		if (!isGameLoaded && *(bool*)0xA444A0)
@@ -138,8 +138,22 @@ void CLoader::Initialize(HMODULE hMod)
 		CPacketQueue::Process();
 
 		// Sleep
-		Sleep(1000);
-	}
+		Sleep(5000);
+	}*/
+
+	Sleep(2000);
+
+	// Scan for new processes
+	Processes.Scan();
+
+	// Scan for new injected modules.
+	Modules.Scan();
+
+	// Scan for changes in memory.
+	CMemProtect::Process();
+
+	// Process queued packets.
+	CPacketQueue::Process();
 }
 
 BOOL CLoader::IsGameLoaded()
