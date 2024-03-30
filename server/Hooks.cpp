@@ -110,17 +110,17 @@ static BYTE HOOK_GetPacketID(Packet *p)
 		return 0xFF;
 	}
 
-	Utility::Printf("receive packet %d %d", p->data[0], Utility::getTickCount());
-
 	// If packetId is our custom RPC sending function
 	if (packetId == PACKET_RPC)
 	{
-		if(LastACTicks[p->playerIndex] > Utility::getTickCount())
+		unsigned int tick_count = Utility::getTickCount();
+
+		if(LastACTicks[p->playerIndex] > tick_count)
 		{
 			return 0xFF;
 		}
 
-		LastACTicks[p->playerIndex] = Utility::getTickCount() + 2;
+		LastACTicks[p->playerIndex] = tick_count + 2;
 
 		// Read the data sent
 		RakNet::BitStream bsData(&p->data[1], p->length - 1, false);
@@ -152,15 +152,16 @@ static BYTE HOOK_GetPacketID(Packet *p)
 			return packetId;
 		}
 
+		unsigned int tick_count = Utility::getTickCount();
 
 		// Fix, yet another, slide issue (punch, switch to any bullet weapon). might be temporary,
 		// though it's sooo much easier to just leave this here than look for an asm hook
 		if (pSyncData->wKeys & KEY_FIRE && pSyncData->byteWeapon < 15)
 		{
-			LastTicks[p->playerIndex] = Utility::getTickCount() + 350;
+			LastTicks[p->playerIndex] = tick_count + 350;
 		}
 
-		if (LastTicks[p->playerIndex] > Utility::getTickCount() && pSyncData->byteWeapon > 15)
+		if (LastTicks[p->playerIndex] > tick_count && pSyncData->byteWeapon > 15)
 		{
 			pSyncData->byteWeapon = 0;
 		}

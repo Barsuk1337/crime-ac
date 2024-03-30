@@ -68,11 +68,6 @@ void CAntiCheat::OnFileExecuted(bool in_directory, char* processpath, char* md5)
 		{
 			Utility::Printf("ID %d, найден вредоносный файл %s", ID, processpath);
 		}
-
-		if(in_directory)
-		{
-			Utility::Printf("ID %d, в папке GTA запущено %s", ID, processpath);
-		}
 	}
 
 	// Execute the PAWN callback.
@@ -423,8 +418,6 @@ void CAntiCheat::ToggleVehicleBlips(bool toggle)
 
 void CAntiCheat::TogglePause(int iType, bool bPause)
 {
-	Utility::Printf("ID %d, pause: %d, type: %d", ID, bPause, iType);
-
 	// Let PAWN scripts know.
 	Callback::Execute("AC_OnPlayerPause", "iii", bPause, iType, ID);
 }

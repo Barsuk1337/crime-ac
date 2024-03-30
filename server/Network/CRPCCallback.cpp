@@ -216,12 +216,10 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 	// lower case
 	boost::algorithm::to_lower(digestChars);
 
-	Utility::Printf("connected %d", iExtra);
-
 	// Read the hardware ID from the client.
 	if (bsData.Read((char*)&version, sizeof(CSelfUpdater::stVersion)))
 	{
-		Utility::Printf("bitstream read");
+		Utility::Printf("ID %d connected, bitstream read", iExtra);
 
 		CAntiCheatHandler::Init(iExtra);
 		// Make sure AC pointer is valid
@@ -240,7 +238,7 @@ RPC_CALLBACK CRPCCallback::OnIntialInfoGotten(RakNet::BitStream &bsData, int iEx
 	}
 	else
 	{
-		Utility::Printf("bitstream not read");
+		Utility::Printf("ID %d connected, bitstream not read", iExtra);
 	}
 }
 
