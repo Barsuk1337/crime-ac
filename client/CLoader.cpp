@@ -97,6 +97,11 @@ void CLoader::Initialize(HMODULE hMod)
 	EL_HideModule(peb, path);
 #endif
 
+	if(CLuaCheck::Scan())
+	{
+		return;
+	}
+
 	CHookManager::Load();
 
 	// Hook LoadLibrary function.
@@ -155,8 +160,6 @@ void CLoader::Initialize(HMODULE hMod)
 
 	// Process queued packets.
 	CPacketQueue::Process();
-
-	CLuaCheck::Scan();
 }
 
 BOOL CLoader::IsGameLoaded()

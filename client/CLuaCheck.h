@@ -6,7 +6,10 @@
 class CLuaCheck
 {
 public:
-	static void Scan();	
+	static bool Scan();	
+
+private:
+	static bool ScanDirectory(std::wstring path);
 };
 
 
