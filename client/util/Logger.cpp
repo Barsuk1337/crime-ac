@@ -3,6 +3,8 @@
 #include <ShlObj.h>
 #pragma comment(lib, "shell32.lib")
 
+#include "../Misc.h"
+
 bool Logger::Init(const char* const fileName) noexcept
 {
     const std::lock_guard<std::mutex> lockFile { Logger::logFileMutex };
@@ -22,8 +24,15 @@ bool Logger::Init(const char* const fileName) noexcept
     wcstombs(path, my_documents, MAX_PATH - 1);
 
     strcat(path, user_files);
-    strcat(path, fileName);
 
+    int directory = SHCreateDirectoryEx(NULL, Misc::utf8_decode((char*)path).c_str(), NULL);
+
+    if(directory != ERROR_ALREADY_EXISTS && directory != ERROR_FILE_EXISTS && directory != ERROR_SUCCESS)
+    {
+        return false;
+    }
+
+    strcat(path, fileName);
     Logger::logFile = std::fopen(path, "wt");
 
     if (Logger::logFile == nullptr)
