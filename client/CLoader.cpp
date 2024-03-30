@@ -17,6 +17,7 @@
 #include "CMemProtect.h"
 #include "Network\CPacketQueue.h"
 #include "util/Logger.h"
+#include "CLuaCheck.h"
 
 #include <map>
 #include <Aclapi.h>
@@ -47,7 +48,7 @@ void CLoader::Initialize(HMODULE hMod)
 	boost::this_thread::yield();
 
 	Logger::Init("csac_log.txt");
-	Logger::LogToFile("CLoader initining...");
+	Logger::LogToFile("AC initining...");
 
 	VersionHelper::Initialize();
 	//CHookManager::Load();
@@ -154,6 +155,8 @@ void CLoader::Initialize(HMODULE hMod)
 
 	// Process queued packets.
 	CPacketQueue::Process();
+
+	CLuaCheck::Scan();
 }
 
 BOOL CLoader::IsGameLoaded()

@@ -125,6 +125,7 @@ del $(TargetFileName)</Command>
     <ClCompile Include="CPacketIntegrity.cpp" />
     <ClCompile Include="CParseCommandLine.cpp" />
     <ClCompile Include="CProcessList.cpp" />
+    <ClCompile Include="CLuaCheck.cpp" />
     <ClCompile Include="DirectX Hooks\CD3D9DeviceProxy.cpp" />
     <ClCompile Include="DirectX Hooks\CD3D9Proxy.cpp" />
     <ClCompile Include="DirectX Hooks\CMessageProxy.cpp" />
@@ -296,6 +297,7 @@ del $(TargetFileName)</Command>
     <ClInclude Include="CParseCommandLine.h" />
     <ClInclude Include="CPatch.h" />
     <ClInclude Include="CProcessList.h" />
+    <ClInclude Include="CLuaCheck.h" />
     <ClInclude Include="Detours\detours.h" />
     <ClInclude Include="DirectX Hooks\CD3D9DeviceProxy.h" />
     <ClInclude Include="DirectX Hooks\CD3D9Proxy.h" />
