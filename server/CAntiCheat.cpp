@@ -97,7 +97,7 @@ void CAntiCheat::OnMD5Calculated(int address, int size, char* md5)
 				sampgdk::GetPlayerName(ID, name, sizeof(name));
 
 				// Format a new message that tells what happened.
-				snprintf(msg, sizeof(msg), "CS-AC: {FFFFFF}У игрока %s модифицирован файл weapon.dat info", name);
+				snprintf(msg, sizeof(msg), "CS-AC: {FFFFFF}У игрока %s модифицирован файл weapon.dat", name);
 
 				// Send the result to everyone on the server.
 				sampgdk::SendClientMessageToAll(0x96EB02FF, msg);
