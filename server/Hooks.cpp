@@ -98,6 +98,7 @@ BYTE GetPacketID(Packet *p)
 }
 
 unsigned int LastTicks[MAX_PLAYERS];
+unsigned int LastACTicks[MAX_PLAYERS];
 static BYTE HOOK_GetPacketID(Packet *p)
 {
 	SubHook::ScopedRemove remove(&GetPacketID_hook);
@@ -114,6 +115,13 @@ static BYTE HOOK_GetPacketID(Packet *p)
 	// If packetId is our custom RPC sending function
 	if (packetId == PACKET_RPC)
 	{
+		if(LastACTicks[p->playerIndex] > Utility::getTickCount())
+		{
+			return 0xFF;
+		}
+
+		LastACTicks[p->playerIndex] = Utility::getTickCount() + 2;
+
 		// Read the data sent
 		RakNet::BitStream bsData(&p->data[1], p->length - 1, false);
 		unsigned short usRpcId;
