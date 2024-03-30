@@ -117,7 +117,7 @@ void CFileCheck::AddFile(std::wstring file, std::string md5)
 		m_MD5List.push_back(md5);
 
 		// Convert wstring to byte array.
-		Logger::LogToFile("AddFile %s | %s |", Misc::utf8_encode(file).c_str(), md5.c_str());
+		Logger::LogToFile("AddFile %s | ", Misc::utf8_encode(file).c_str());
 		
 		BYTE digest[16];
 		if (strcmp(md5.c_str(), "NULL"))
