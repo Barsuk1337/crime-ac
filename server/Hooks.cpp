@@ -109,7 +109,7 @@ static BYTE HOOK_GetPacketID(Packet *p)
 		return 0xFF;
 	}
 
-	Utility::Printf("receive packet %d %d", p->data[0], p->data[1]);
+	Utility::Printf("receive packet %d %d", p->data[0], Utility::getTickCount());
 
 	// If packetId is our custom RPC sending function
 	if (packetId == PACKET_RPC)
