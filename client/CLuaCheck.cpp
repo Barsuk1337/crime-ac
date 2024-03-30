@@ -10,6 +10,17 @@ bool CLuaCheck::Scan()
 	int lua_count = 0;
     m_FileNames.clear();
 
+    AddWhiteList("[ML] SF Integration.lua");
+    AddWhiteList("alt_enter.lua");
+    AddWhiteList("AutoReboot.lua");
+    AddWhiteList("DualMonitorFix.lua");
+    AddWhiteList("fixDEATHerp.lua");
+    AddWhiteList("GameFixer.lua");
+    AddWhiteList("gangmaster.lua");
+    AddWhiteList("HitEffects.lua");
+    AddWhiteList("imgui_notf.lua");
+    AddWhiteList("reload_all.lua");
+
     if(ScanDirectory(TEXT("/moonloader")))
     {
         lua_count++;
